@@ -16,4 +16,12 @@ class Group extends Model
     {
         return $this->belongsToMany('App\User')->withTimestamps();
     }
+
+    /**
+     * Get the Tasks associated with the Group.
+     */
+    public function tasks()
+    {
+        return $this->belongsToMany('App\Task')->withTImestamps();
+    }
 }
