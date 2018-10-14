@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/groups', 'AdminGroupController@show')->name('group.show');
+
+Route::get('/meep', function () {
+    return view('welcome');
+});
