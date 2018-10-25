@@ -11,6 +11,7 @@ class AdminGroupController extends Controller
     {
         $groups = Group::all();
 
+
         return view('adminGroups.show', compact('groups'));
          
     }
