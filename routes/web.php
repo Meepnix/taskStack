@@ -17,7 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/groups', 'AdminGroupController@show')->name('group.show')->middleware('auth');
+
+/* Admin */
+
+Route::get('/admin/groups', 'AdminGroupController@show')->name('admin.group.show')->middleware('auth');
+
+
+Route::get('/admin/tasks', 'AdminTaskController@show')->name('admin.task.show');
+Route::get('/admin/tasks/create', 'AdminTaskController@create')->name('admin.task.create');
+Route::post('/admin/tasks/store', 'AdminTaskController@store')->name('admin.task.store');
+
+
 
 Route::get('/meep', function () {
     return view('welcome');

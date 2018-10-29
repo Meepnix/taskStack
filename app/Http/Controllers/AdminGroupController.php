@@ -7,7 +7,7 @@ use App\Group;
 
 class AdminGroupController extends Controller
 {
-    function show()
+    public function show()
     {
         $groups = Group::all();
 

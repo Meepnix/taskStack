@@ -8,6 +8,11 @@ use App\Schedules;
 
 class Task extends Model
 {
+    protected $fillable = [
+        'title',
+        'message',
+    ];
+
     /**
      * Get the Groups associated with the Task.
      *
