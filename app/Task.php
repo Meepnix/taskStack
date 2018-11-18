@@ -14,7 +14,7 @@ class Task extends Model
     ];
 
     /**
-     * Get the Groups associated with the Task.
+     * Retrieve Groups associated with the Task.
      *
      */
     public function groups()
@@ -22,8 +22,17 @@ class Task extends Model
         return $this->belongsToMany('App\Group')->withTimestamps();
     }
 
+      /**
+     * Retrieve add new Task.
+     *
+     */
+    public function addTask(Request $request)
+    {
+        return $this->create($request->all());
+    }
+
     /**
-     * Get the Schedules associated with the Task.
+     * Retrieve Schedules associated with the Task.
      *
      */
     public function schedules()

@@ -11,31 +11,39 @@ class AdminTaskController extends Controller
     /** 
      * Show task list
      * 
-     * @param  \Illuminate\Http\Request  $request
+     * @param  void
      * @return \Illuminate\Http\Response
     */
     public function show()
     {
         $tasks = Task::all();
-        
-
         return view('adminTasks.show', compact('tasks'));
     }
 
+    /** 
+     * Show task create page
+     * 
+     * @param  void
+     * @return \Illuminate\Http\Response
+    */
     public function create()
     {
         $groups = Group::all()->pluck('name', 'id');
         return view('adminTasks.create', compact('groups'));
     }
 
+     /** 
+     * Store new task
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+    */
     public function store(Request $request)
     {
-        $task = new Task;
+        $new = new Task;
         
-        $task->create($request->all());
-
-        $task->groups()->attach($request->input('groups'));
-
+        $task = $new->addTask($request);
+        $task->groups()->attach($request->input('groupsSet'));
         return redirect()->route('admin.task.show')->with('flash_message', 'Task Created');
 
     }

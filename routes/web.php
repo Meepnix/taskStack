@@ -33,6 +33,11 @@ Route::get('/meep', function () {
     return view('welcome');
 });
 
+Route::get('/task', function () {
+    return view('Tasks.index');
+
+});
+
 Route::get('/logtest', '\App\Http\Controllers\Auth\LoginController@login');
 
 

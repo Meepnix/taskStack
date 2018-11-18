@@ -25,7 +25,7 @@
                                 <textarea name="message" class="summernote">{{ old('message') }}</textarea>
                             </div>
                             <div class="form-group">
-                                {!! Form::label('groups', 'Groups') !!}
+                                {!! Form::label('groupsSet', 'Groups') !!}
                                 {!! Form::select('groupsSet[]', $groups, null, ['class' => 'form-control', 'multiple']) !!}
                             </div>
 
