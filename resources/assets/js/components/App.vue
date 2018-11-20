@@ -27,7 +27,7 @@
 
         methods: {
             read() {
-                window.axios.get('/api/cruds').then(({ data }) => {
+                window.axios.get('/task/index').then(({ data }) => {
                     data.forEach(task => {
                         this.tasks.push(new Task(task));
                     });

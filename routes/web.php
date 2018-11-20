@@ -38,6 +38,9 @@ Route::get('/task', function () {
 
 });
 
+Route::get('/task/index', 'TaskController@index')->name('task.index');
+
+
 Route::get('/logtest', '\App\Http\Controllers\Auth\LoginController@login');
 
 

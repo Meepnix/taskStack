@@ -1,3 +1,4 @@
+window.Vue = require('vue');
 
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
