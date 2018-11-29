@@ -1,38 +1,39 @@
 <template>
     <div id="app">
         <h1>Task</h1>
-        <task-component>
-        </task-component>
+        <div class="accordion" id="accordion">
+            <task-component
+                v-for="task in tasks"
+                v-bind:task="task"
+                :key="task.id"
+            ></task-component>
+        </div>
     </div>
 
 </template>
 
 <script>
-    function Task({id, name, message}) {
-
-        this.id = id;
-        this.name = name;
-        this.message = message;
-
-    }
 
     import TaskComponent from './Task.vue';
 
     export default {
         data() {
             return {
-                tasks: []
+                tasks: [],
+                errors: []
             }
         },
 
         methods: {
             read() {
-                window.axios.get('/task/index').then(({ data }) => {
-                    data.forEach(task => {
-                        this.tasks.push(new Task(task));
-                    });
-                });
+                window.axios.get('/task/index').then( response => {
+                    this.tasks = response.data;
+                })
+                .catch(e => {
+                    this.error.push(e);
+                })
             }
+            
         },
         
         components: {

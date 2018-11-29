@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Group;
-use App\Schedules;
+use App\Schedule;
+use App\Label;
 
 class Task extends Model
 {
@@ -38,6 +39,15 @@ class Task extends Model
     public function schedules()
     {
         return $this->belongsToMany('App\Schedule')->withTimestamps();
+    }
+
+    /**
+     * Retrieve Labels associated with the Task.
+     * 
+     */
+    public function labels()
+    {
+        return $this->belongsToMany('App\Label')->withTimestamps();
     }
 
 }

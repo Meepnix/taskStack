@@ -13,7 +13,7 @@
       padding: 0;,
       height: 100%;
       width: 100%;
-      background-color: #d1d1d1
+      
     }
   </style>
 </head>
