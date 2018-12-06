@@ -43,7 +43,6 @@ class AdminTaskController extends Controller
         $new = new Task;
         
         $task = $new->addTask($request);
-        $task->groups()->attach($request->input('groupsSet'));
         return redirect()->route('admin.task.show')->with('flash_message', 'Task Created');
 
     }

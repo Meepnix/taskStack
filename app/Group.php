@@ -4,9 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Slot;
 
 class Group extends Model
 {
+    protected $fillable = [
+        'name',
+    ];
 
     /**
      * Get the Users associated with the Group.
@@ -18,10 +22,10 @@ class Group extends Model
     }
 
     /**
-     * Get the Tasks associated with the Group.
+     * Get the Slots associated with the Group.
      */
-    public function tasks()
+    public function slots()
     {
-        return $this->belongsToMany('App\Task')->withTImestamps();
+        return $this->hasMany('App\Slot');
     }
 }

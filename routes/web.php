@@ -20,8 +20,14 @@ Route::get('/', function () {
 
 /* Admin */
 
-Route::get('/admin/groups', 'AdminGroupController@show')->name('admin.group.show')->middleware('auth');
+//Groups
 
+Route::get('/admin/groups', 'AdminGroupController@show')->name('admin.group.show');
+Route::get('/admin/groups/create', 'AdminGroupController@create')->name('admin.group.create');
+Route::post('/admin/groups/store', 'AdminGroupController@store')->name('admin.group.store');
+Route::delete('/admin/groups/{group}', 'AdminGroupController@destroy')->name('admin.group.delete');
+
+//Tasks
 
 Route::get('/admin/tasks', 'AdminTaskController@show')->name('admin.task.show');
 Route::get('/admin/tasks/create', 'AdminTaskController@create')->name('admin.task.create');
@@ -38,6 +44,9 @@ Route::get('/task', function () {
 
 });
 
+
+
+//json
 Route::get('/task/index', 'TaskController@index')->name('task.index');
 
 
