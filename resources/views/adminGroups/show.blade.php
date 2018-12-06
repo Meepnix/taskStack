@@ -29,16 +29,47 @@
                                 </div>
                                 <div class="card-body">
 
-                                    @foreach ($group->users as $user)
+                                    @foreach ($group->users as $key => $user)
 
                                     <p>{{ $user->name }}</p>
+                                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUser{{ $key }}">
+                                            <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
+                                    </a>
+
+                                    <!-- Delete User Modal -->
+                                    <div class="modal fade" id="deleteUser{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you wish to continue and delete {{ $user->name }} ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{{ route('admin.user.delete', [$user->id]) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No
+                                                        </button>
+                                                        <button type="submit" class="btn btn-danger">Yes
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     @endforeach
 
                                 </div>
                             </div>
 
-                            <!-- Modal -->
+                            <!-- Delete Group Modal -->
                             <div class="modal fade" id="deleteGroup{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
