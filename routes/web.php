@@ -29,6 +29,8 @@ Route::delete('/admin/groups/{group}', 'AdminGroupController@destroy')->name('ad
 
 //Users
 Route::delete('/admin/users/{user}', 'AdminUserController@destroy')->name('admin.user.delete');
+Route::get('/admin/users/group/{group}/create', 'AdminUserController@create')->name('admin.user.create');
+Route::post('/admin/users/group/{group}/store', 'AdminUserController@store')->name('admin.user.store');
 
 //Tasks
 

@@ -18,13 +18,34 @@
                         @csrf
                         
                             <div class="form-group">
-                                <label for="name1">Name</label>
-                                 <input type="text" class="form-control" id="name1" name="name" value="{{ old('name') }}"><br>
+                                <label for="name">Name</label>
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+
+                                @if ($errors->has('name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
-                                <label for="password1">Name</label>
-                                 <input type="text" class="form-control" id="password1" name="password" value="{{ old('password') }}"><br>
+                                <label for="password">Password</label>
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                                @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                                
                             </div>
+
+                            <div class="form-group">
+                                <label for="password-confirm">Confirm Password</label>
+
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            
+                            </div>
+
 
                             <button type="submit">Save</button>
 

@@ -10,8 +10,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><h2>Admin Groups</h2></div>
                 <a style="margin-bottom: 1.5em;" href="{{ route('admin.group.create') }}" class="btn btn-primary">
-                        <i class="fa fa-btn fa-plus-square"></i>Create Filter
-                    </a>
+                        <i class="fa fa-btn fa-plus-square"></i>Create Group
+                </a>
                 <div class="panel-body">
                     <div class="panel-body">
 
@@ -21,20 +21,38 @@
                             <div class="card">
                                 <div class="card-header" role="tab" id="heading{{ $key }}">
                                     <h5 class="mb-0">
-                                        <h4>{{ $group->name }}</h4>
-                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteGroup{{ $key }}">
-                                            <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
-                                        </a>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class= "col-10">
+                                                    <h4>{{ $group->name }}</h4>
+                                                </div>
+                                                <div class="col-2">
+                                                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteGroup{{ $loop->index }}">
+                                                        <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
+                                                    </a>
+                                                </div>
+                                        </div>
                                     </h5>
                                 </div>
                                 <div class="card-body">
+                                    <a style="margin-bottom: 1.5em;" href="{{ route('admin.user.create', [$group->id]) }}" class="btn btn-primary">
+                                        <i class="fa fa-btn fa-plus-square"></i>Create User
+                                    </a>
 
                                     @foreach ($group->users as $key => $user)
 
-                                    <p>{{ $user->name }}</p>
-                                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUser{{ $key }}">
-                                            <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
-                                    </a>
+                                    <div class="container border">
+                                        <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
+                                            <div class="col-10">
+                                                <p>{{ $user->name }}</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUser{{ $key }}">
+                                                    <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <!-- Delete User Modal -->
                                     <div class="modal fade" id="deleteUser{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -70,7 +88,7 @@
                             </div>
 
                             <!-- Delete Group Modal -->
-                            <div class="modal fade" id="deleteGroup{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="deleteGroup{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">

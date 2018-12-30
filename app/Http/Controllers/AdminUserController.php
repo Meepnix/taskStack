@@ -12,7 +12,7 @@ class AdminUserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route(admin.group.show)->with(flash_message, 'User ' . $user->name . ' Deleted');
+        return redirect()->route(admin.group.show)->with('flash_message', 'User ' . $user->name . ' Deleted');
     }
 
     public function store(Request $request, Group $group)
@@ -27,11 +27,13 @@ class AdminUserController extends Controller
         $new->password = bcrypt($request->password);
         $new->save();
         $group->users()->attach($new);
+
+        return redirect()->route('admin.group.show')->with('flash_message', 'User ' . $new->name . ' Created');
     }
 
     public function create(Group $group)
     {
-        return view('');
+        return view('adminUsers.create', compact('group'));
     }
 
 }
