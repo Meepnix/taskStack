@@ -9,6 +9,9 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading"><h2>Admin Task</h2></div>
+                <a style="margin-bottom: 1.5em;" href="{{ route('admin.task.create') }}" class="btn btn-primary">
+                        <i class="fa fa-btn fa-plus-square"></i>Create Task
+                </a>
                 <div class="panel-body">
                     <div class="panel-body">
 

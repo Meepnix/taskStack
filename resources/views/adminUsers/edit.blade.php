@@ -8,27 +8,38 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading"><h2>Admin Task</h2></div>
+                <div class="panel-heading"><h2>Admin</h2></div>
                 <div class="panel-body">
                     <div class="panel-body">
 
-                        <h3>Create Task</h3>
+                        <h3>Edit User</h3>
 
-                        <form method="POST" action="{{ route('admin.task.store') }}">
+                        <form method="POST" action="{{ route('admin.user.update', [$user->id]) }}">
                         @csrf
+                        @method('PATCH')
                         
                             <div class="form-group">
-                                <label for="title1">Title</label>
-                                 <input type="text" class="form-control" id="title1" name="title" value="{{ old('title') }}"><br>
+                                <label for="name">Name</label>
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $user->name }}" required autofocus>
+
+                                @if ($errors->has('name'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
                             </div>
+
                             <div class="form-group">
-                                <textarea name="message" class="summernote">{{ old('message') }}</textarea>
+                            {!! Form::label('groups', 'Groups:') !!}
+                            {!! Form::select('groups[]', $curGroups, $setGroups, ['class' => 'form-control', 'multiple']) !!}
                             </div>
+                            
+
 
                             <button type="submit">Save</button>
 
                         </form>
-                        <a href="{{ route('admin.task.show') }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('admin.group.show') }}" class="btn btn-default">Back</a>
 
                     </div>
 

@@ -13,6 +13,8 @@
 
 Auth::routes();
 
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,6 +33,9 @@ Route::delete('/admin/groups/{group}', 'AdminGroupController@destroy')->name('ad
 Route::delete('/admin/users/{user}', 'AdminUserController@destroy')->name('admin.user.delete');
 Route::get('/admin/users/group/{group}/create', 'AdminUserController@create')->name('admin.user.create');
 Route::post('/admin/users/group/{group}/store', 'AdminUserController@store')->name('admin.user.store');
+Route::get('/admin/users/edit/{user}', 'AdminUserController@edit')->name('admin.user.edit');
+Route::patch('/admin/users/update/{user}', 'AdminUserController@update')->name('admin.user.update');
+
 
 //Tasks
 
@@ -55,9 +60,11 @@ Route::get('/task', function () {
 Route::get('/task/index', 'TaskController@index')->name('task.index');
 
 
-Route::get('/logtest', '\App\Http\Controllers\Auth\LoginController@login');
+//Route::get('/logtest', '\App\Http\Controllers\Auth\LoginController@login');
+
+
 
 
 //http://localhost:8001/logtest?name=batman&password=batman
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

@@ -43,13 +43,18 @@
 
                                     <div class="container border">
                                         <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
-                                            <div class="col-10">
+                                            <div class="col-8">
                                                 <p>{{ $user->name }}</p>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-4">
+                                            
                                                 <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUser{{ $key }}">
                                                     <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
                                                 </a>
+                                                <a href="{{ route('admin.user.edit', [$user->id]) }}" class="btn btn-secondary">
+                                                    <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Edit
+                                                </a>
+                                            
                                             </div>
                                         </div>
                                     </div>

@@ -43,7 +43,7 @@ class AdminTaskController extends Controller
         $new = new Task;
         
         $task = $new->addTask($request);
-        return redirect()->route('admin.task.show')->with('flash_message', 'Task Created');
+        return redirect()->route('admin.task.show')->with('flash_message', 'Task ' . $task->title . ' Created');
 
     }
 

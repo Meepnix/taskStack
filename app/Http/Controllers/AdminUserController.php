@@ -36,4 +36,20 @@ class AdminUserController extends Controller
         return view('adminUsers.create', compact('group'));
     }
 
+    public function edit(User $user)
+    {
+        $curGroups = Group::all()->pluck('name', 'id');
+        $setGroups = $user->groups->pluck('id');
+
+        return view('adminUsers.edit', compact('user', 'setGroups', 'curGroups'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $user->update($request->all());
+        $user->groups()->sync($request->input('groups'));
+
+        return redirect()->route('admin.group.show')->with('flash_message', 'User ' . $user->name . ' Updated');
+    }
+
 }

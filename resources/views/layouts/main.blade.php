@@ -43,10 +43,10 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"></li>
                 <li>
-                    <a href="#">Groups</a>
+                    <a href="{{ route('admin.group.show') }}">Groups</a>
                 </li>
                 <li>
-                    <a href="#">Users</a>
+                    <a href="{{ route('admin.task.show') }}">Tasks</a>
                 </li>
             </ul>
         </div>

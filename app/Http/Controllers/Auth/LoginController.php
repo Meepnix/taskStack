@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin/groups';
 
     /**
      * Create a new controller instance.
@@ -49,8 +49,11 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
     */
+
+    /*
     public function authenticateQuery(Request $request)
     {
 
     }
+    */
 }
