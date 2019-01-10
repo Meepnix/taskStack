@@ -8,6 +8,19 @@ use App\Task;
 
 class Slot extends Model
 {
+
+    protected $fillable = [
+        'time_period',
+        'mon',
+        'tue',
+        'wed',
+        'thu',
+        'fri',
+        'sat',
+        'sun',
+        'all',
+    ];
+
     /**
      * Get the Group associated with the slot.
      *

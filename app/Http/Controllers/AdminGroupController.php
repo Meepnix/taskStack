@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Group;
+use App\Slot;
 
 class AdminGroupController extends Controller
 {
     public function show()
     {
         $groups = Group::all();
-
-
+        
         return view('adminGroups.show', compact('groups'));
          
     }
@@ -25,8 +25,10 @@ class AdminGroupController extends Controller
     {
         $new = new Group;
 
-        $new->create($request->all());
+        $group = $new->create($request->all());
+
         return redirect()->route('admin.group.show')->with('flash_message', $request->name . ' Group Created');
+
 
     }
 

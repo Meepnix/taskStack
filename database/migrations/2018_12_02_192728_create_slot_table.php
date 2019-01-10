@@ -16,13 +16,11 @@ class CreateSlotTable extends Migration
         Schema::create('slots', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('group_id')->unsigned()->index();
-            $table->integer('task_id')->unsigned()->index();
+            $table->integer('task_id')->nullable()->unsigned()->index();
             $table->timestamp('start_date');
             $table->timestamp('end_date')->nullable();
             $table->string('time_period');
-            $table->integer('day');
             $table->string('occurrence')->nullable();
-            $table->integer('slot');
             $table->timestamps();
 
             $table->foreign('group_id')

@@ -48,6 +48,9 @@
                 <li>
                     <a href="{{ route('admin.task.show') }}">Tasks</a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.slot.showGroups') }}">Slots</a>
+                </li>
             </ul>
         </div>
 

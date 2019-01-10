@@ -9,12 +9,35 @@ use App\Group;
 
 class AdminSlotController extends Controller
 {
-    public function showMorning(Group $group)
+    public function show(Group $group)
     {
-        $slots = $group->slots->where('time_period', 'morning')->orderBy('slot', 'asc');
+        $mornings = $group->slots->where('time_period', 'morning')->sortBy('id');
+        $afternoons = $group->slots->where('time_period', 'afternoon')->sortBy('id');
+        $evenings = $group->slots->where('time_period', 'evening')->sortBy('id');
 
-        return view('adminSlots.show', compact('slots'));
+
+        return view('adminSlots.show', compact('mornings', 'afternoons', 'evenings'));
 
     }
+
+    public function showGroups()
+    {
+        $groups = Group::all();
+
+        return view('adminSlots.showGroups', compact('groups'));
+    }
+
+    public function createMorning()
+    {
+
+    }
+
+    public function store(Request $request, Group $group)
+    {
+        $group->slots()->create($request->all());
+
+        return redirect()->route('adminSlots.show');
+    }
+
 
 }

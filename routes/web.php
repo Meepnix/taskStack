@@ -30,12 +30,12 @@ Route::post('/admin/groups/store', 'AdminGroupController@store')->name('admin.gr
 Route::delete('/admin/groups/{group}', 'AdminGroupController@destroy')->name('admin.group.delete');
 
 //Users
+
 Route::delete('/admin/users/{user}', 'AdminUserController@destroy')->name('admin.user.delete');
 Route::get('/admin/users/group/{group}/create', 'AdminUserController@create')->name('admin.user.create');
 Route::post('/admin/users/group/{group}/store', 'AdminUserController@store')->name('admin.user.store');
 Route::get('/admin/users/edit/{user}', 'AdminUserController@edit')->name('admin.user.edit');
 Route::patch('/admin/users/update/{user}', 'AdminUserController@update')->name('admin.user.update');
-
 
 //Tasks
 
@@ -43,6 +43,11 @@ Route::get('/admin/tasks', 'AdminTaskController@show')->name('admin.task.show');
 Route::get('/admin/tasks/create', 'AdminTaskController@create')->name('admin.task.create');
 Route::post('/admin/tasks/store', 'AdminTaskController@store')->name('admin.task.store');
 
+
+//Slots
+
+Route::get('/admin/slots/groups/', 'AdminSlotController@showGroups')->name('admin.slot.showGroups');
+Route::get('/admin/slots/group/{group}', 'AdminSlotController@show')->name('admin.slot.show');
 
 
 Route::get('/meep', function () {
