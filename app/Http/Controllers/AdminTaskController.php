@@ -28,8 +28,7 @@ class AdminTaskController extends Controller
     */
     public function create()
     {
-        $groups = Group::all()->pluck('name', 'id');
-        return view('adminTasks.create', compact('groups'));
+        return view('adminTasks.create');
     }
 
      /** 
@@ -45,6 +44,25 @@ class AdminTaskController extends Controller
         $task = $new->addTask($request);
         return redirect()->route('admin.task.show')->with('flash_message', 'Task ' . $task->title . ' Created');
 
+    }
+
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return redirect()->route('admin.task.show')->with('flash_message', 'Task ' . $task->title . ' Deleted');
+
+    }
+
+    public function edit(Request $request, Task $task)
+    {
+        return view('adminTasks.edit', compact('task'));
+    }
+
+    public function update(Request $request, Task $task)
+    {
+        $task->update($request->all());
+
+        return redirect()->route('admin.task.show')->with('flash_message', 'Task' . $task->title. ' Updated');
     }
 
     

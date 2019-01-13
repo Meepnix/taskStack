@@ -42,12 +42,16 @@ Route::patch('/admin/users/update/{user}', 'AdminUserController@update')->name('
 Route::get('/admin/tasks', 'AdminTaskController@show')->name('admin.task.show');
 Route::get('/admin/tasks/create', 'AdminTaskController@create')->name('admin.task.create');
 Route::post('/admin/tasks/store', 'AdminTaskController@store')->name('admin.task.store');
+Route::delete('/admin/tasks/{task}', 'AdminTaskController@destroy')->name('admin.task.delete');
+Route::get('/admin/tasks/edit/{task}', 'AdminTaskController@edit')->name('admin.task.edit');
+Route::patch('admin/tasks/update/{task}', 'AdminTaskController@update')->name('admin.task.update');
 
 
 //Slots
 
 Route::get('/admin/slots/groups/', 'AdminSlotController@showGroups')->name('admin.slot.showGroups');
 Route::get('/admin/slots/group/{group}', 'AdminSlotController@show')->name('admin.slot.show');
+
 
 
 Route::get('/meep', function () {

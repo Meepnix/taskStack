@@ -38,6 +38,7 @@ class AdminUserController extends Controller
 
     public function edit(User $user)
     {
+        //Provide current selected groups for user
         $curGroups = Group::all()->pluck('name', 'id');
         $setGroups = $user->groups->pluck('id');
 
