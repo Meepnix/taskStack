@@ -16,7 +16,7 @@ class AdminSlotController extends Controller
         $evenings = $group->slots->where('time_period', 'evening')->sortBy('id');
 
 
-        return view('adminSlots.show', compact('mornings', 'afternoons', 'evenings'));
+        return view('adminSlots.show', compact('mornings', 'afternoons', 'evenings', 'group'));
 
     }
 
@@ -27,8 +27,10 @@ class AdminSlotController extends Controller
         return view('adminSlots.showGroups', compact('groups'));
     }
 
-    public function createMorning()
+    public function create()
     {
+
+        
 
     }
 

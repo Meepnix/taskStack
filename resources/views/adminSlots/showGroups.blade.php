@@ -8,43 +8,40 @@
     
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h2>Admin Slot Groups</h2></div>
-                <p><a href="{{ route('admin.slot.showGroups') }}"><strong>Slots</strong></a> ></p>
-                <div class="panel-body">
-                    <div class="card-columns">
+            
+            <h2>Slots</h2>
+            <p><a href="{{ route('admin.slot.showGroups') }}"><strong>Slots</strong></a> ></p>
+            
+            <div class="card-columns">
 
-                    @foreach ($groups as $group)
+                @foreach ($groups as $group)
 
-                        <div class="card border-primary mb-3" style="max-width: 18rem;">
-                            <div class="card-header"><h5>{{ $group->name }}</h5></div>
-                            <div class="card-body">
-                            <a style="margin-bottom: 1.5em;" href="{{ route('admin.slot.show', [$group->id]) }}" class="btn btn-primary">
-                                <i class="fa fa-btn"></i>Open slots
-                            </a>
-                            </div>
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-header"><h5>{{ $group->name }}</h5></div>
+                        <div class="card-body">
+                        <a style="margin-bottom: 1.5em;" href="{{ route('admin.slot.show', [$group->id]) }}" class="btn btn-primary">
+                            <i class="fa fa-btn"></i>Open slots
+                        </a>
                         </div>
-                    @endforeach
-
                     </div>
-
-                        
+                @endforeach
 
                 </div>
 
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                        
 
-
-                
             </div>
+
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
         </div>
     </div>
 </div>
