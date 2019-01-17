@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Slot;
 use App\Group;
+use App\Task;
 
 class AdminSlotController extends Controller
 {
@@ -27,10 +28,11 @@ class AdminSlotController extends Controller
         return view('adminSlots.showGroups', compact('groups'));
     }
 
-    public function create()
+    public function create(Group $group)
     {
-
+        $curTask = Task::all()->pluck('title', 'id');
         
+        return view('adminSlots.create', compact('curTask', 'group'));
 
     }
 
@@ -38,7 +40,7 @@ class AdminSlotController extends Controller
     {
         $group->slots()->create($request->all());
 
-        return redirect()->route('adminSlots.show');
+        return redirect()->route('admin.slots.show');
     }
 
 

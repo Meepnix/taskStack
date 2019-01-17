@@ -11,7 +11,9 @@
             
             <h2>{{ $group->name }} Slots</h2>
             <p><a href="{{ route('admin.slot.showGroups') }}">Slots</a> > <a href="{{ url()->current() }}"><strong>{{ $group->name }} Slots<strong></a></p>
-
+            <a style="margin-bottom: 1.5em;" href="{{ route('admin.slot.create', [$group->id]) }}" class="btn btn-primary">
+                <i class="fa fa-btn fa-plus-square"></i>Create New Slot
+            </a>
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-morning-tab" data-toggle="tab" href="#nav-morning" role="tab" aria-controls="nav-morning" aria-selected="true">Morning</a>
