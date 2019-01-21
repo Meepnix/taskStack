@@ -52,8 +52,9 @@ Route::patch('admin/tasks/update/{task}', 'AdminTaskController@update')->name('a
 Route::get('/admin/slots/groups/', 'AdminSlotController@showGroups')->name('admin.slot.showGroups');
 Route::get('/admin/slots/group/{group}', 'AdminSlotController@show')->name('admin.slot.show');
 Route::get('/admin/slots/group/{group}/create', 'AdminSlotController@create')->name('admin.slot.create');
-Route::get('admin/slots/group/{group}/edit', 'AdminSlotController@edit')->name('admin.slot.edit');
+Route::get('admin/slots/edit/{slot}', 'AdminSlotController@edit')->name('admin.slot.edit');
 Route::post('admin/slots/group/{group}/store', 'AdminSlotController@store')->name('admin.slot.store');
+Route::patch('admin/slots/update/{slot}', 'AdminSlotController@update')->name('admin.slot.update');
 
 
 

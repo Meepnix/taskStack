@@ -29,8 +29,11 @@
 
                     <div class="card">
                         <div class="card-header" role="tab" id="heading">
-                                    
-                            <h4>{{ $morning->time_period }}</h4>
+                           <h3>Slot: {{ $loop->iteration }}</h3>
+                           <p>  </p>
+                           <a href="{{ route('admin.slot.edit', [$morning->id]) }}" class="btn btn-secondary">
+                                <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Edit
+                            </a>
                                     
                         </div>
                         <div class="card-body">

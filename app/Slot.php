@@ -19,6 +19,7 @@ class Slot extends Model
         'sat',
         'sun',
         'all',
+        'task_id',
     ];
 
     /**
