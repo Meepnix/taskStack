@@ -58,7 +58,7 @@
 
                 <div class="form-group">
                     {!! Form::label('task_id', 'Tasks:') !!}
-                    {!! Form::select('task_id', $curTask, $slot->task_id) !!}
+                    {!! Form::select('task_id', $curTask, $slot->task_id, ['placeholder' => '']) !!}
                 </div>
 
 

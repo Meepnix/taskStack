@@ -25,69 +25,35 @@
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-morning" role="tabpanel" aria-labelledby="nav-morning-tab">
                             
-                    @foreach ($mornings as $morning)
+                    
+                @foreach ($mornings as $slot)
 
-                    <div class="card">
-                        <div class="card-header" role="tab" id="heading">
-                           <h3>Slot: {{ $loop->iteration }}</h3>
-                           <p>  </p>
-                           <a href="{{ route('admin.slot.edit', [$morning->id]) }}" class="btn btn-secondary">
-                                <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Edit
-                            </a>
-                                    
-                        </div>
-                        <div class="card-body">
-
-                            <p>{{ $morning->start_date }}</p>
-
-                        </div>
-                    </div>
-                            
-                    @endforeach
-                            
+                    @include('partials.slot')
+    
+                @endforeach
+    
                             
                 </div>
                        
                 <div class="tab-pane fade" id="nav-afternoon" role="tabpanel" aria-labelledby="nav-afternoon-tab">
                             
-                    @foreach ($afternoons as $afternoon)
+                
+                @foreach ($afternoons as $slot)
 
-                    <div class="card">
-                        <div class="card-header" role="tab" id="heading">
-                                    
-                            <h4>{{ $afternoon->time_period }}</h4>
-                                    
-                        </div>
+                    @include('partials.slot')
 
-                        <div class="card-body">
+                @endforeach
 
-                            <p>{{ $afternoon->start_date }}</p>
-
-                        </div>
-                    </div>
-                            
-                    @endforeach
                             
                 </div>
 
                 <div class="tab-pane fade" id="nav-evening" role="tabpanel" aria-labelledby="nav-evening-tab">
                             
-                    @foreach ($evenings as $evening)
+                @foreach ($evenings as $slot)
 
-                    <div class="card">
-                        <div class="card-header" role="tab" id="heading">
-                                    
-                            <h4>{{ $evening->time_period }}</h4>
-                                    
-                        </div>
-                        <div class="card-body">
+                    @include('partials.slot')
 
-                            <p>{{ $evening->start_date }}</p>
-
-                        </div>
-                    </div>
-                            
-                        @endforeach
+                @endforeach
                             
                 </div>
             </div>

@@ -51,4 +51,9 @@ class Task extends Model
         return $this->belongsToMany('App\Label')->withTimestamps();
     }
 
+    public function slots()
+    {
+        return $this->hasMany('App\Slot');
+    }
+
 }

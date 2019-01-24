@@ -55,6 +55,7 @@ Route::get('/admin/slots/group/{group}/create', 'AdminSlotController@create')->n
 Route::get('admin/slots/edit/{slot}', 'AdminSlotController@edit')->name('admin.slot.edit');
 Route::post('admin/slots/group/{group}/store', 'AdminSlotController@store')->name('admin.slot.store');
 Route::patch('admin/slots/update/{slot}', 'AdminSlotController@update')->name('admin.slot.update');
+Route::delete('/admin/slots/{slot}', 'AdminSlotController@destroyPartial')->name('admin.slot.delete');
 
 
 

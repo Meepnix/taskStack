@@ -12,24 +12,25 @@ class AdminSlotController extends Controller
 {
     public function show(Group $group)
     {
-
-        $cheese = $group->load('slots.task');
-
-        dd($cheese->slots->first()->task);
-
-        $test = Group::all();
-
-        dd($test->load('slots.task'));
-
         
+        
+        $mornings = $group->slots()->with('task')
+            ->where('group_id', $group->id)
+            ->where('time_period', 'morning')
+            ->orderBy('id', 'desc')->get();
 
+        $afternoons = $group->slots()->with('task')
+            ->where('group_id', $group->id)
+            ->where('time_period', 'afternoon')
+            ->orderBy('id', 'desc')->get();
 
-        $mornings = $group->slots->where('time_period', 'morning')->sortBy('id');
-        $afternoons = $group->slots->where('time_period', 'afternoon')->sortBy('id');
-        $evenings = $group->slots->where('time_period', 'evening')->sortBy('id');
+        $evenings = $group->slots()->with('task')
+            ->where('group_id', $group->id)
+            ->where('time_period', 'evening')
+            ->orderBy('id', 'desc')->get();
 
-
-        return view('adminSlots.show', compact('mornings', 'afternoons', 'evenings', 'group'));
+        return view('adminSlots.show', compact('afternoons', 
+                    'mornings', 'evenings', 'group'));
 
     }
 
@@ -71,11 +72,11 @@ class AdminSlotController extends Controller
 
     }
 
-    public function deletePartial(Slot $slot)
+    public function destroyPartial(Slot $slot)
     {
-        $slot->task_id = '';
-        $slot->end_date = '';
-        $slot->ocurrence = '';
+        $slot->task_id = null;
+        $slot->end_date = null;
+        $slot->occurrence = null;
         $slot->mon = 0;
         $slot->tue = 0;
         $slot->wed = 0;
@@ -84,7 +85,7 @@ class AdminSlotController extends Controller
         $slot->all = 0;
         $slot->save();
 
-        return redirect()->route('admin.slot.show', 'Slot emptied');
+        return redirect()->route('admin.slot.show')->with('flash_message', 'Slot emptied');
     }
 
 
