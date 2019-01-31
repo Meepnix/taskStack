@@ -57,6 +57,14 @@ Route::post('admin/slots/group/{group}/store', 'AdminSlotController@store')->nam
 Route::patch('admin/slots/update/{slot}', 'AdminSlotController@update')->name('admin.slot.update');
 Route::delete('/admin/slots/{slot}', 'AdminSlotController@destroyPartial')->name('admin.slot.delete');
 
+//Locations
+
+Route::get('/admin/locations', 'AdminLocationController@show')->name('admin.location.show');
+Route::get('/admin/locations/create', 'AdminLocationController@create')->name('admin.location.create');
+Route::post('/admin/locations/store', 'AdminLocationController@store')->name('admin.location.store');
+Route::delete('/admin/locations/{location}', 'AdminLocationController@destroy')->name('admin.location.delete');
+
+
 
 
 Route::get('/meep', function () {
