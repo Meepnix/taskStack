@@ -7,13 +7,18 @@
     
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <h2>Edit Location</h2>
-            <form method="POST" action="{{ route('admin.location.update', [$location->id]) }}">
+            <h2>Upload PDF</h2>
+            <form method="POST" action="{{ route('admin.file.store', [$location->id]) }}" enctype="multipart/form-data">
             @csrf
-            @method('PATCH')  
+                        
                 <div class="form-group">
                     <label for="name1">Name</label>
-                    <input type="text" class="form-control" id="name1" name="name" value="{{ $location->name }}"><br>
+                    <input type="text" class="form-control" id="name1" name="name" value="{{ old('name') }}"><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="pdf1">Upload pdf</label>
+                    <input type="file" id="pdf1" name="pdf">
                 </div>
 
                 <button type="submit">Save</button>

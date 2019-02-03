@@ -63,6 +63,12 @@ Route::get('/admin/locations', 'AdminLocationController@show')->name('admin.loca
 Route::get('/admin/locations/create', 'AdminLocationController@create')->name('admin.location.create');
 Route::post('/admin/locations/store', 'AdminLocationController@store')->name('admin.location.store');
 Route::delete('/admin/locations/{location}', 'AdminLocationController@destroy')->name('admin.location.delete');
+Route::get('/admin/locations/edit/{location}', 'AdminLocationController@edit')->name('admin.location.edit');
+Route::patch('/admin/locations/update/{location}', 'AdminLocationController@update')->name('admin.location.update');
+
+//Files
+Route::get('/admin/files/location/{location}/create', 'AdminFileController@create')->name('admin.file.create');
+Route::post('/admin/files/location/{location}/store', 'AdminFileController@store')->name('admin.file.store');
 
 
 

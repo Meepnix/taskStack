@@ -22,12 +22,19 @@
                         <h5 class="mb-0">
                             <div class="container">
                                 <div class="row">
-                                    <div class= "col-10">
+                                    <div class= "col-8">
                                         <h4>{{ $location->name }}</h4>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-4">
                                         <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteGroup{{ $loop->index }}">
                                             <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
+                                        </a>
+                                        <a href="{{ route('admin.location.edit', [$location->id]) }}" class="btn btn-secondary">
+                                            <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Edit
+                                        </a>
+
+                                        <a href="{{ route('admin.file.create', [$location->id]) }}" class="btn btn-secondary">
+                                            <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Upload file
                                         </a>
                                     </div>
                                 </div>

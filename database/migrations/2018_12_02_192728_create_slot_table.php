@@ -17,7 +17,7 @@ class CreateSlotTable extends Migration
             $table->increments('id');
             $table->integer('group_id')->unsigned()->index();
             $table->integer('task_id')->nullable()->unsigned()->index();
-            $table->timestamp('start_date');
+            $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->string('time_period');
             $table->string('occurrence')->nullable();
