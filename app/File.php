@@ -8,6 +8,12 @@ use App\Location;
 
 class File extends Model
 {
+    protected $fillable = [
+        'name',
+        'path',
+        'size',
+        'type',
+    ];
     
     public function location()
     {

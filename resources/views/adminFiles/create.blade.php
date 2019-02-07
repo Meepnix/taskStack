@@ -10,12 +10,6 @@
             <h2>Upload PDF</h2>
             <form method="POST" action="{{ route('admin.file.store', [$location->id]) }}" enctype="multipart/form-data">
             @csrf
-                        
-                <div class="form-group">
-                    <label for="name1">Name</label>
-                    <input type="text" class="form-control" id="name1" name="name" value="{{ old('name') }}"><br>
-                </div>
-
                 <div class="form-group">
                     <label for="pdf1">Upload pdf</label>
                     <input type="file" id="pdf1" name="pdf">
