@@ -31,12 +31,12 @@ class AdminFileController extends Controller
         if ($size >= 1048576)
         {
             //MegaByte worth of bytes
-            $new->size = $size / 1048576 . ' MB'; 
+            $new->size = round($size / 1048576) . ' MB'; 
         }
         elseif ($size >= 1024)
         {
             //KiloByte worth of bytes
-            $new->size = $size / 1024 . ' KB';
+            $new->size = round($size / 1024) . ' KB';
         }
         else
         {

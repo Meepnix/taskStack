@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+
 <div class="container">
 
     @include('shared.flash')
@@ -22,7 +23,7 @@
                         <h5 class="mb-0">
                             <div class="container">
                                 <div class="row">
-                                    <div class= "col-8">
+                                    <div class="col-8">
                                         <h4>{{ $location->name }}</h4>
                                     </div>
                                     <div class="col-4">
@@ -41,6 +42,41 @@
                             </div>
                         </h5>
                     </div>
+
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4>PDF files</h4>
+                                    <table class="table">
+                                        <thead>
+                                            <th scope="col">Filename</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Size</th>
+                                        </thead>
+
+                                        <tbody>
+
+                                        @foreach ($location->files as $file)
+                                        
+                                            <td>{{ $file->name }}</td>
+                                            <td>{{ $file->type }}</td>
+                                            <td>{{ $file->size }}</td>
+
+                                        @endforeach
+                                    <!-- https://pdfobject.com/ -->
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="col-6">
+
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
                 </div>
 
                 <!-- Delete Location Modal -->

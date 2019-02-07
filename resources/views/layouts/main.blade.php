@@ -61,11 +61,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col">
+
                     @if (!Auth::guest())
 
                         <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">
                             <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
                         </a>
+                        
                     @endif
 
                     </div>
@@ -74,6 +76,7 @@
                             @if (Auth::guest())
 
                                 <a href="{{ route('login') }}">{{ __('Login') }}</a>
+
                             @else
 
                             <!-- Authentication Links -->
@@ -89,11 +92,13 @@
                                     </form>
                                 </div>
                             </div>
+
                             @endif
 
                         </span>
                     </div>
                 </div>
+
                 @yield('content')
 
             </div>
