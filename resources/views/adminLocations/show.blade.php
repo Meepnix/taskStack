@@ -1,6 +1,16 @@
 @extends('layouts.main')
 
+
+@push('scripts')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js"></script>
+
+@endpush
+
+
 @section('content')
+
+<div id="app">
 
 <div class="container">
 
@@ -50,23 +60,54 @@
                                     <h4>PDF files</h4>
                                     <table class="table">
                                         <thead>
-                                            <th scope="col">Filename</th>
-                                            <th scope="col">Type</th>
-                                            <th scope="col">Size</th>
+                                            <tr>
+                                                <th scope="col">Filename</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Size</th>
+                                            </tr>
                                         </thead>
 
                                         <tbody>
 
                                         @foreach ($location->files as $file)
-                                        
-                                            <td>{{ $file->name }}</td>
-                                            <td>{{ $file->type }}</td>
-                                            <td>{{ $file->size }}</td>
+                                            <tr>
+                                                <td>{{ $file->name }}</td>
+                                                <td>{{ $file->type }}</td>
+                                                <td>{{ $file->size }}</td>
+                                                <td>
 
+                                                <a href="#" class="btn btn-danger" v-on:click="submitFile('{{ asset('storage/' . $file->path) }}')">
+                                                        <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Open
+                                                </a>
+
+                                                </td>
+                                        </tr>
+
+                                            
                                         @endforeach
+
                                     <!-- https://pdfobject.com/ -->
                                         </tbody>
                                     </table>
+
+                                     <!-- View PDF -->
+                                    <div class="modal fade" id="pdfview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">View PDF</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <div class="container-fluid">
+                                                    <div id="pdf"></div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                                 <div class="col-6">
@@ -74,9 +115,7 @@
                                 </div>
                             </div>
                         </div>
-                    
                     </div>
-
                 </div>
 
                 <!-- Delete Location Modal -->
@@ -105,7 +144,7 @@
                             </div>
                         </div>
                     </div>
-                 </div>
+                </div>
             </div>
 
             @endforeach
@@ -126,6 +165,30 @@
     </div>
 
 </div>
+
+</div>
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            options: {
+                height: "600px",
+                width: "100%",
+            },
+        },
+        methods: {
+            submitFile: function (path) {
+
+                PDFObject.embed(path, "#pdf", this.options);
+                $('#pdfview').modal('show');
+                
+            }
+        }
+    })
+
+</script>
                         
 @endsection
 

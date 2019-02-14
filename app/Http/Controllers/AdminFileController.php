@@ -23,7 +23,7 @@ class AdminFileController extends Controller
 
         ]);
         $file = $request->file('pdf');
-        $path = $file->store('pdf');
+        $path = $file->store('public/pdf');
 
         $new = new File;
         $size = $file->getSize();
