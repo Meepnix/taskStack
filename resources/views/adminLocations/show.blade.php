@@ -56,62 +56,85 @@
                     <div class="card-body">
                         <div class="container">
                             <div class="row">
-                                <div class="col-6">
-                                    <h4>PDF files</h4>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Filename</th>
-                                                <th scope="col">Type</th>
-                                                <th scope="col">Size</th>
-                                            </tr>
-                                        </thead>
+                                <h4>PDF files</h4>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Filename</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Size</th>
+                                        </tr>
+                                    </thead>
 
-                                        <tbody>
+                                    <tbody>
 
-                                        @foreach ($location->files as $file)
-                                            <tr>
-                                                <td>{{ $file->name }}</td>
-                                                <td>{{ $file->type }}</td>
-                                                <td>{{ $file->size }}</td>
-                                                <td>
+                                    @foreach ($location->files as $file)
 
-                                                <a href="#" class="btn btn-danger" v-on:click="submitFile('{{ asset('storage/' . $file->path) }}')">
-                                                        <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Open
+                                        <tr>
+                                            <td>{{ $file->name }}</td>
+                                            <td>{{ $file->type }}</td>
+                                            <td>{{ $file->size }}</td>
+                                            <td>
+                                                <a href="#" class="btn btn-secondary" v-on:click="submitFile('{{ asset('storage/' . $file->public_path) }}')">
+                                                    <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Open
                                                 </a>
 
-                                                </td>
+                                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteFile{{ $location->id + $loop->index }}">
+                                                    <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
+                                                </a>
+                                            
+                                                <!-- Delete File Modal -->
+                                                <div class="modal fade" id="deleteFile{{ $location->id + $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Delete Location</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Do you wish to continue and delete {{ $file->name}} ?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form action="{{ route('admin.file.delete', [$file->id]) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-danger">Yes
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
 
-                                            
                                         @endforeach
 
-                                    <!-- https://pdfobject.com/ -->
-                                        </tbody>
-                                    </table>
+                                    </tbody>
+                                </table>
 
-                                     <!-- View PDF -->
-                                    <div class="modal fade" id="pdfview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">View PDF</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
+                                <!-- View PDF -->
+                                <div class="modal fade" id="pdfview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">View PDF</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
                                                 <div class="container-fluid">
                                                     <div id="pdf"></div>
-                                                </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-                                <div class="col-6">
-
                                 </div>
                             </div>
                         </div>

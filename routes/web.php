@@ -69,6 +69,7 @@ Route::patch('/admin/locations/update/{location}', 'AdminLocationController@upda
 //Files
 Route::get('/admin/files/location/{location}/create', 'AdminFileController@create')->name('admin.file.create');
 Route::post('/admin/files/location/{location}/store', 'AdminFileController@store')->name('admin.file.store');
+Route::delete('/admin/files/{file}', 'AdminFileController@destroy')->name('admin.file.delete');
 
 
 

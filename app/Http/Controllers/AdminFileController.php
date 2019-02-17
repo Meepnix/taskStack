@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Location;
 use App\File;
@@ -12,6 +13,13 @@ class AdminFileController extends Controller
     public function create(Location $location)
     {
         return view('adminFiles.create', compact('location'));
+    }
+
+    public function destroy(File $file)
+    {
+        Storage::delete($file->path);
+        $file->delete();
+        return redirect()->route('admin.location.show')->with('flash_message', 'File deleted');
     }
 
 
@@ -28,23 +36,16 @@ class AdminFileController extends Controller
         $new = new File;
         $size = $file->getSize();
 
-        if ($size >= 1048576)
-        {
-            //MegaByte worth of bytes
-            $new->size = round($size / 1048576) . ' MB'; 
-        }
-        elseif ($size >= 1024)
-        {
-            //KiloByte worth of bytes
-            $new->size = round($size / 1024) . ' KB';
-        }
-        else
-        {
-            //Bytes worth of data
-            $new->size = $size . ' Bytes';
-        }
+        $new->size = ($size >= 1048576 ? round($size / 1048576) . ' MB':
+                        ($size >= 1024 ? round($size / 1024) . ' KB': 
+                        $new->size = $size . ' Bytes'));
 
+        //Storage path
         $new->path = $path;
+
+        //public path
+        $new->public_path = substr($path, 6);
+
         $new->type = $file->getMimeType();
         $new->name = $file->getClientOriginalName();
 
