@@ -17,9 +17,13 @@ class AdminFileController extends Controller
 
     public function destroy(File $file)
     {
+        //Delete file storage
         Storage::delete($file->path);
+
         $file->delete();
-        return redirect()->route('admin.location.show')->with('flash_message', 'File deleted');
+
+        return redirect()->route('admin.location.show')
+                        ->with('flash_message', 'File deleted');
     }
 
 
@@ -36,9 +40,10 @@ class AdminFileController extends Controller
         $new = new File;
         $size = $file->getSize();
 
+        //Set file size
         $new->size = ($size >= 1048576 ? round($size / 1048576) . ' MB':
-                        ($size >= 1024 ? round($size / 1024) . ' KB': 
-                        $new->size = $size . ' Bytes'));
+                    ($size >= 1024 ? round($size / 1024) . ' KB': 
+                    $new->size = $size . ' Bytes'));
 
         //Storage path
         $new->path = $path;
@@ -51,6 +56,7 @@ class AdminFileController extends Controller
 
         $location->files()->save($new);
 
-        return redirect()->route('admin.location.show')->with('flash_message', 'Sucessfully Uploaded ' . $new->name);
+        return redirect()->route('admin.location.show')
+                        ->with('flash_message', 'Sucessfully Uploaded ' . $new->name);
     }
 }

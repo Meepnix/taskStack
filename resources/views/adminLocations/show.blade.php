@@ -17,14 +17,14 @@
     @include('shared.flash')
     
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12 col-md-offset-1">
             <h2>Locations</h2>
             <a style="margin-bottom: 1.5em;" href="{{ route('admin.location.create') }}" class="btn btn-primary">
                 <i class="fa fa-btn fa-plus-square"></i>Create New Location
             </a>
                 
             <!-- Location Cards -->
-                        
+
             @foreach ($locations as $location)
 
             <div id="accordion" role="tablist">
@@ -33,20 +33,23 @@
                         <h5 class="mb-0">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-8">
+                                    <div class="col-6">
                                         <h4>{{ $location->name }}</h4>
                                     </div>
-                                    <div class="col-4">
-                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteGroup{{ $loop->index }}">
-                                            <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
+                                    <div class="col-6 text-right">
+                                        <a href="{{ route('admin.file.create', [$location->id]) }}" class="btn btn-secondary">
+                                            <i class="fa fa-btn fa-upload" aria-hidden="true"></i>Upload file
                                         </a>
                                         <a href="{{ route('admin.location.edit', [$location->id]) }}" class="btn btn-secondary">
                                             <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Edit
                                         </a>
 
-                                        <a href="{{ route('admin.file.create', [$location->id]) }}" class="btn btn-secondary">
-                                            <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Upload file
+                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteGroup{{ $loop->index }}">
+                                            <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
                                         </a>
+                                        
+
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -56,6 +59,8 @@
                     <div class="card-body">
                         <div class="container">
                             <div class="row">
+
+                            
                                 <h4>PDF files</h4>
                                 <table class="table">
                                     <thead>
@@ -74,12 +79,12 @@
                                             <td>{{ $file->name }}</td>
                                             <td>{{ $file->type }}</td>
                                             <td>{{ $file->size }}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-secondary" v-on:click="submitFile('{{ asset('storage/' . $file->public_path) }}')">
-                                                    <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Open
+                                            <td class="text-right">
+                                                <a href="#" v-on:click="submitFile('{{ asset('storage/' . $file->public_path) }}')">
+                                                    <i class="fa fa-btn fa-file-pdf-o" aria-hidden="true"></i>Open
                                                 </a>
-
-                                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteFile{{ $location->id + $loop->index }}">
+                                                
+                                                <a href="#" data-toggle="modal" data-target="#deleteFile{{ $location->id + $loop->index }}">
                                                     <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
                                                 </a>
                                             
@@ -88,7 +93,7 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Delete Location</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Delete PDF file</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
