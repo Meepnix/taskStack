@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Location;
 
@@ -47,6 +48,19 @@ class AdminLocationController extends Controller
 
     public function destroy(Location $location)
     {
+        
+        //delete all stored pdf files associated with location  
+        foreach ($location->files as $pdf)
+        {
+            Storage::delete($pdf->path);
+        }
+
+        //delete all stored images files associated with location  
+        foreach ($location->images as $img)
+        {
+            Storage::delete($img->path);
+        }
+        
         $location->delete();
 
         return redirect()->route('admin.location.show')

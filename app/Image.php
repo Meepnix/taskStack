@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Location;
 
-class File extends Model
+class Image extends Model
 {
     protected $fillable = [
         'name',
@@ -20,5 +20,4 @@ class File extends Model
     {
         return $this->belongsTo('App\Location');
     }
-
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\File;
+use App\Image;
 
 
 class Location extends Model
@@ -13,11 +14,16 @@ class Location extends Model
     ];
 
 
-public function files()
-{
+    public function files()
+    {
+        return $this->hasMany('App\File');
+    }
 
-    return $this->hasMany('App\File');
-}
+    public function images()
+    {
 
+        return $this->hasMany('App\Image');
+
+    }
 
 }

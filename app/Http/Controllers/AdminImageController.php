@@ -3,57 +3,59 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
 
 use App\Location;
-use App\File;
+use App\Image;
 
-
-class AdminFileController extends Controller
+class AdminImageController extends Controller
 {
-    public function create(Location $location)
+    public function create(Location $location) 
     {
-        return view('adminFiles.create', compact('location'));
+
+        return view('adminImages.create', compact('location'));
+
     }
 
-    public function destroy(File $file)
+    public function destroy(Image $image)
     {
-        //Delete file storage
-        Storage::delete($file->path);
+        //Delete image storage
+        Storage::delete($image->path);
 
         //Test deletion
         if (Storage::exists($image->path)){
-            Log::error('PDF file ' .  $image->path . ' failed to delete');
+            Log::error('Image file ' .  $image->path . ' failed to delete');
         }
 
-        $file->delete();
+        $image->delete();
 
         return redirect()->route('admin.location.show')
-                        ->with('flash_message', 'File deleted');
+                        ->with('flash_message', 'Image deleted');
     }
 
 
     public function store(Request $request, Location $location)
     {
+        
         $request->validate([
 
-            'pdf' => 'required|mimetypes:application/pdf|mimes:pdf',
+            'image' => 'required|mimetypes:image/jpeg,image/gif,image/png
+                        |mimes:jpeg,gif,png',
 
         ]);
-        $file = $request->file('pdf');
-        $path = $file->store('public/pdf');
+        $file = $request->file('image');
+        $path = $file->store('public/img');
 
         //Test file upload
         if (!Storage::exists($path) ) {
-            Log::error('PDF file failed to upload');
+            Log::error('Image file failed to upload');
             abort(500, 'File failed to upload');
         }
 
-        $new = new File;
+
+        $new = new Image;
         $size = $file->getSize();
 
-        //Set file size
+        //Set image file size
         $new->size = ($size >= 1048576 ? round($size / 1048576) . ' MB':
                     ($size >= 1024 ? round($size / 1024) . ' KB': 
                     $new->size = $size . ' Bytes'));
@@ -67,9 +69,11 @@ class AdminFileController extends Controller
         $new->type = $file->getMimeType();
         $new->name = $file->getClientOriginalName();
 
-        $location->files()->save($new);
+        $location->images()->save($new);
 
         return redirect()->route('admin.location.show')
                         ->with('flash_message', 'Sucessfully Uploaded ' . $new->name);
     }
+
 }
+

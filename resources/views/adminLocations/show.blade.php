@@ -38,7 +38,10 @@
                                     </div>
                                     <div class="col-6 text-right">
                                         <a href="{{ route('admin.file.create', [$location->id]) }}" class="btn btn-secondary">
-                                            <i class="fa fa-btn fa-upload" aria-hidden="true"></i>Upload file
+                                            <i class="fa fa-btn fa-upload" aria-hidden="true"></i>Upload PDF
+                                        </a>
+                                        <a href="{{ route('admin.image.create', [$location->id]) }}" class="btn btn-secondary">
+                                            <i class="fa fa-btn fa-upload" aria-hidden="true"></i>Upload Image
                                         </a>
                                         <a href="{{ route('admin.location.edit', [$location->id]) }}" class="btn btn-secondary">
                                             <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Edit
@@ -60,7 +63,7 @@
                         <div class="container">
                             <div class="row">
 
-                            
+                                <!-- PDF Table -->
                                 <h4>PDF files</h4>
                                 <table class="table">
                                     <thead>
@@ -141,6 +144,90 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <!-- Image Table -->
+                                <h4>Image files</h4>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Filename</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Size</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                    @foreach ($location->images as $image)
+
+                                        <tr>
+                                            <td>{{ $image->name }}</td>
+                                            <td>{{ $image->type }}</td>
+                                            <td>{{ $image->size }}</td>
+                                            <td class="text-right">
+                                                <a href="#" v-on:click="submitImage('{{ asset('storage/' . $image->public_path) }}')">
+                                                    <i class="fa fa-btn fa-file-pdf-o" aria-hidden="true"></i>Open
+                                                </a>
+                                                
+                                                <a href="#" data-toggle="modal" data-target="#deleteImage{{ $location->id + $loop->index }}">
+                                                    <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
+                                                </a>
+                                            
+                                                <!-- Delete File Modal -->
+                                                <div class="modal fade" id="deleteImage{{ $location->id + $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Delete PDF file</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Do you wish to continue and delete {{ $image->name}} ?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <form action="{{ route('admin.image.delete', [$image->id]) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-danger">Yes
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+
+                                <!-- View Image -->
+                                <div class="modal fade" id="imageview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">View Image</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container-fluid">
+                                                    <img v-bind:src="path" height="100%" width="100%">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -205,6 +292,7 @@
                 height: "600px",
                 width: "100%",
             },
+            path: null,
         },
         methods: {
             submitFile: function (path) {
@@ -212,6 +300,11 @@
                 PDFObject.embed(path, "#pdf", this.options);
                 $('#pdfview').modal('show');
                 
+            },
+            submitImage: function (path) {
+
+                this.path = path;
+                $('#imageview').modal('show');
             }
         }
     })

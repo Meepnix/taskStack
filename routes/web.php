@@ -23,14 +23,12 @@ Route::get('/', function () {
 /* Admin */
 
 //Groups
-
 Route::get('/admin/groups', 'AdminGroupController@show')->name('admin.group.show');
 Route::get('/admin/groups/create', 'AdminGroupController@create')->name('admin.group.create');
 Route::post('/admin/groups/store', 'AdminGroupController@store')->name('admin.group.store');
 Route::delete('/admin/groups/{group}', 'AdminGroupController@destroy')->name('admin.group.delete');
 
 //Users
-
 Route::delete('/admin/users/{user}', 'AdminUserController@destroy')->name('admin.user.delete');
 Route::get('/admin/users/group/{group}/create', 'AdminUserController@create')->name('admin.user.create');
 Route::post('/admin/users/group/{group}/store', 'AdminUserController@store')->name('admin.user.store');
@@ -38,7 +36,6 @@ Route::get('/admin/users/edit/{user}', 'AdminUserController@edit')->name('admin.
 Route::patch('/admin/users/update/{user}', 'AdminUserController@update')->name('admin.user.update');
 
 //Tasks
-
 Route::get('/admin/tasks', 'AdminTaskController@show')->name('admin.task.show');
 Route::get('/admin/tasks/create', 'AdminTaskController@create')->name('admin.task.create');
 Route::post('/admin/tasks/store', 'AdminTaskController@store')->name('admin.task.store');
@@ -46,9 +43,7 @@ Route::delete('/admin/tasks/{task}', 'AdminTaskController@destroy')->name('admin
 Route::get('/admin/tasks/edit/{task}', 'AdminTaskController@edit')->name('admin.task.edit');
 Route::patch('admin/tasks/update/{task}', 'AdminTaskController@update')->name('admin.task.update');
 
-
 //Slots
-
 Route::get('/admin/slots/groups/', 'AdminSlotController@showGroups')->name('admin.slot.showGroups');
 Route::get('/admin/slots/group/{group}', 'AdminSlotController@show')->name('admin.slot.show');
 Route::get('/admin/slots/group/{group}/create', 'AdminSlotController@create')->name('admin.slot.create');
@@ -58,7 +53,6 @@ Route::patch('admin/slots/update/{slot}', 'AdminSlotController@update')->name('a
 Route::delete('/admin/slots/{slot}', 'AdminSlotController@destroyPartial')->name('admin.slot.delete');
 
 //Locations
-
 Route::get('/admin/locations', 'AdminLocationController@show')->name('admin.location.show');
 Route::get('/admin/locations/create', 'AdminLocationController@create')->name('admin.location.create');
 Route::post('/admin/locations/store', 'AdminLocationController@store')->name('admin.location.store');
@@ -70,6 +64,11 @@ Route::patch('/admin/locations/update/{location}', 'AdminLocationController@upda
 Route::get('/admin/files/location/{location}/create', 'AdminFileController@create')->name('admin.file.create');
 Route::post('/admin/files/location/{location}/store', 'AdminFileController@store')->name('admin.file.store');
 Route::delete('/admin/files/{file}', 'AdminFileController@destroy')->name('admin.file.delete');
+
+//Images
+Route::get('/admin/images/location/{location}/create', 'AdminImageController@create')->name('admin.image.create');
+Route::post('/admin/images/location/{location}/store', 'AdminImageController@store')->name('admin.image.store');
+Route::delete('/admin/images/{image}', 'AdminImageController@destroy')->name('admin.image.delete');
 
 
 
