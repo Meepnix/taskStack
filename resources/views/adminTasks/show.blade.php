@@ -32,7 +32,7 @@
                             <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
                         </a>
                         <a href="{{ route('admin.task.edit', [$task->id]) }}" class="btn btn-secondary">
-                            <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Edit
+                            <i class="fa fa-btn fa-edit" aria-hidden="true"></i>Edit
                         </a>
                         <!-- Delete User Modal -->
                         <div class="modal fade" id="deleteTask{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

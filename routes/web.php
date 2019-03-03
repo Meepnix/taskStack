@@ -85,7 +85,14 @@ Route::get('/task', function () {
 
 
 //json
+
+//Tasks
 Route::get('/task/index', 'TaskController@index')->name('task.index');
+
+
+//Location images
+Route::get('/admin/location/index/images', 'AdminLocationController@indexImages')->name('admin.location.image.index');
+
 
 
 //Route::get('/logtest', '\App\Http\Controllers\Auth\LoginController@login');

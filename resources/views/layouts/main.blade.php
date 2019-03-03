@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'taskStack') }}</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
     <!-- Styles -->
@@ -70,14 +70,14 @@
                     @if (!Auth::guest())
 
                         <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">
-                            <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+                            <i class="fas fa-bars fa-2x" aria-hidden="true"></i>
                         </a>
                         
                     @endif
 
                     </div>
                     <div class="col">
-                        <span class="pull-right">
+                        <span class="float-right">
                             @if (Auth::guest())
 
                                 <a href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -90,7 +90,7 @@
                                     <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>&nbsp;{{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ __('Logout') }}</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"><i class="fa fa-btn fa-sign-out-alt"></i>{{ __('Logout') }}</a>
                                     <form class="dropdown-item" id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
 

@@ -9,57 +9,75 @@
 
 @section('content')
 
-<div id="images">
+<div id="app">
 
-<div class="container">
+    <div class="container">
 
     @include('shared.flash')
     
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <h2>Edit Task</h2>
-            <form method="POST" action="{{ route('admin.task.update', [$task->id]) }}">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <h2>Edit Task</h2>
+                <form method="POST" action="{{ route('admin.task.update', [$task->id]) }}">
 
-            @csrf
-            @method('PATCH')
+                @csrf
+                @method('PATCH')
                         
-                <div class="form-group">
-                    <label for="title1">Title</label>
-                    <input type="text" class="form-control" id="title1" name="title" value="{{ $task->title }}"><br>
-                </div>
+                    <div class="form-group">
+                        <label for="title1">Title</label>
+                        <input type="text" class="form-control" id="title1" name="title" value="{{ $task->title }}"><br>
+                    </div>
                             
-                <div class="form-group">
-                    <textarea name="message" class="summernote" id="summernote">{{ $task->message }}</textarea>
+                    <div class="form-group">
+                        <textarea name="message" class="summernote" id="summernote">{{ $task->message }}</textarea>
+                    </div>
+
+                    <button type="submit">Save</button>
+
+                </form>
+                        
+                <a href="{{ route('admin.task.show') }}" class="btn btn-default">Back</a>
+
+
+                <div class="modal fade" id="imgselect" tabindex="-1" role="dialog" aria-labelledby="image_label" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="image_Label">Select Image</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    
+                                    
+                                <div class="accordion" id="accordion">
+                                    <location-card v-for="location in locations" v-bind:location="location" :key="location.id"></location-card>
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <button type="submit">Save</button>
+                @if (count($errors) > 0)
 
-            </form>
-                        
-            <a href="{{ route('admin.task.show') }}" class="btn btn-default">Back</a>
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
 
-                   
+                        <li>{{ $error }}</li>
 
-            @if (count($errors) > 0)
+                        @endforeach
+                    </ul>
+                </div>
 
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-
-                     <li>{{ $error }}</li>
-
-                    @endforeach
-                </ul>
+                @endif
             </div>
-
-            @endif
-
-
-    
         </div>
     </div>
-</div>
-
 </div>
 
 
@@ -73,16 +91,16 @@
 <script>
 // Summernotes
 
-var HelloButton = function (context) {
+var ImageButton = function (context) {
   var ui = $.summernote.ui;
 
   // create button
   var button = ui.button({
-    contents: '<i class="fa fa-child"/> Hello',
-    tooltip: 'hello',
+    contents: '<i class="fas fa-image"/>',
+    tooltip: 'Insert Image',
     click: function () {
-      // invoke insertText method with 'hello' on editor module.
-      context.invoke('editor.insertText', 'hello');
+        // invoke image selection modal
+        $('#imgselect').modal('show');
     }
   });
 
@@ -94,6 +112,7 @@ $(document).ready(function() {
     $('#summernote').summernote({
 
         toolbar: [
+            ['image', ['image']],
             ['style', ['style']],
             ['fontstyle', ['bold', 'italic', 'underline', 'clear']],
             ['fontname', ['fontname']],
@@ -105,7 +124,7 @@ $(document).ready(function() {
         ],
 
         buttons: {
-            hello: HelloButton
+            image: ImageButton
         },
 
         //Fix firefox popover
@@ -126,47 +145,67 @@ $(document).ready(function() {
 @endpush
 
 
-@push('endscript')
-
-
-
+@push('endscripts')
 
 
 <script>
 // Vue app
 
-Vue.component('blog-post', {
-  props: ['title'],
-  template: '<h3>{{ title }}</h3>'
-})
-
-
-//https://stackoverflow.com/questions/38950653/vuejs-component-inside-of-v-for
-
+Vue.component('location-card', {
+    props: ['location'],
+    template: `
+    <div class="card">
+        <div class="card-header" v-bind:id="'heading' + location.id">
+            <h5 class="mb-0">
+                <h3>@{{ location.name }}</h3>
+                    <button class="btn btn-link" type="button" data-toggle="collapse" v-bind:data-target="'#collapse' + location.id" aria-expanded="false" v-bind:aria-controls="'collapse' + location.id">
+                        Click for more 
+                    </button> 
+            </h5> 
+        </div> 
+        <div v-bind:id="'collapse' + location.id" class="collapse" v-bind:aria-labelledby="'heading' + location.id" data-parent="#accordion">
+        
+            <div class="card-body">
+                <table class="table"> 
+                    <thead> 
+                        <tr> 
+                            <th scope="col">Filename</th> 
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr v-for="img in location.images" :key="img.id"> 
+                            <td>@{{ img.name }}</td> 
+                        </tr> 
+                    </tbody> 
+            </div> 
+        </div>
+    </div>`
+    })
 
     var app = new Vue({
-        el: '#images',
+        el: '#app',
         data: {
-            options: {
-                height: "600px",
-                width: "100%",
-            },
-            path: null,
+            locations: null,
+            errors: []
         },
         methods: {
-            submitFile: function (path) {
-
-                PDFObject.embed(path, "#pdf", this.options);
-                $('#pdfview').modal('show');
-                
-            },
-            submitImage: function (path) {
-
-                this.path = path;
-                $('#imageview').modal('show');
+            read: function () {
+                axios.get('/admin/location/index/images').then( response => {
+                    this.locations = response.data;
+                })
+                .catch(e => {
+                    this.error.push(e);
+                })
             }
+
+        },
+        created: function () {
+            
+            this.read();
         }
     })
+
+    Vue.config.devtools = true;
 
 </script>
 

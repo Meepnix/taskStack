@@ -292,7 +292,7 @@
                 height: "600px",
                 width: "100%",
             },
-            path: null,
+            path: null
         },
         methods: {
             submitFile: function (path) {

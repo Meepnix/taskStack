@@ -67,4 +67,12 @@ class AdminLocationController extends Controller
                 ->with('flash_message', 'Location' . $location->name . ' deleted');
 
     }
+
+
+    public function indexImages()
+    {
+        //HTTP status OK
+        return response()->json(Location::with('images')->get(),200);
+    }
+
 }
