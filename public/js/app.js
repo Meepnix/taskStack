@@ -47485,6 +47485,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['task']
@@ -47528,7 +47531,7 @@ var render = function() {
                   "aria-controls": "collapse" + _vm.task.id
                 }
               },
-              [_vm._v("\n          Click for more\n      ")]
+              [_vm._v("\n        Click for more\n      ")]
             )
           ],
           2

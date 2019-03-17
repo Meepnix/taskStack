@@ -18,15 +18,15 @@
 
                 <div class="card border-primary mb-3" style="max-width: 18rem;">
                     <div class="card-header"><h5>{{ $group->name }}</h5></div>
-                        <div class="card-body">
+                    <div class="card-body">
                         <a style="margin-bottom: 1.5em;" href="{{ route('admin.slot.show', [$group->id]) }}" class="btn btn-primary">
                             <i class="fa fa-btn"></i>Open slots
                         </a>
-                        </div>
                     </div>
-                @endforeach
-
+                    
                 </div>
+
+                @endforeach
 
                         
 
