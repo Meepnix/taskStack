@@ -83,7 +83,7 @@
                                             <td>{{ $file->type }}</td>
                                             <td>{{ $file->size }}</td>
                                             <td class="text-right">
-                                                <a href="#" v-on:click="submitFile('{{ asset('storage/' . $file->public_path) }}')">
+                                                <a href="#" v-on:click="submitFile('{{ asset('storage' . $file->public_path) }}')">
                                                     <i class="fa fa-btn fa-file-pdf-o" aria-hidden="true"></i>Open
                                                 </a>
                                                 
@@ -166,7 +166,7 @@
                                             <td>{{ $image->type }}</td>
                                             <td>{{ $image->size }}</td>
                                             <td class="text-right">
-                                                <a href="#" v-on:click="submitImage('{{ asset('storage/' . $image->public_path) }}')">
+                                                <a href="#" v-on:click="submitImage('{{ asset('storage' . $image->public_path) }}')">
                                                     <i class="fa fa-btn fa-file-pdf-o" aria-hidden="true"></i>Open
                                                 </a>
                                                 

@@ -40,8 +40,7 @@ class AdminImageController extends Controller
         
         $request->validate([
 
-            'image' => 'required|mimetypes:image/jpeg,image/gif,image/png
-                        |mimes:jpeg,gif,png',
+            'image' => 'required|mimes:jpeg,gif,png',
 
         ]);
         $file = $request->file('image');
