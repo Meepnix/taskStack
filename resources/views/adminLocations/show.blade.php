@@ -18,217 +18,239 @@
     
     <div class="row">
         <div class="col-md-12 col-md-offset-1">
-            <h2>Locations</h2>
+            <h2>File locations</h2>
             <a style="margin-bottom: 1.5em;" href="{{ route('admin.location.create') }}" class="btn btn-primary">
-                <i class="fa fa-btn fa-plus-square"></i>Create New Location
+                <i class="fa fa-btn fa-plus-square"></i>CREATE FILE LOCATION
             </a>
                 
             <!-- Location Cards -->
 
             @foreach ($locations as $location)
 
-            <div id="accordion" role="tablist">
+            <div class="accordion" id="accordionLocation">
                 <div class="card">
-                    <div class="card-header" role="tab" id="heading{{ $loop->index }}">
+                    <div class="card-header" id="heading{{ $loop->index }}">
                         <h5 class="mb-0">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-6">
-                                        <h4>{{ $location->name }}</h4>
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{ $loop->index}}" aria-expanded="false" aria-controls="collapse{{ $loop->index}}">                            
+                                            {{ $location->name }}
+                                        </button>
                                     </div>
                                     <div class="col-6 text-right">
-                                        <a href="{{ route('admin.file.create', [$location->id]) }}" class="btn btn-secondary">
-                                            <i class="fa fa-btn fa-upload" aria-hidden="true"></i>Upload PDF
-                                        </a>
-                                        <a href="{{ route('admin.image.create', [$location->id]) }}" class="btn btn-secondary">
-                                            <i class="fa fa-btn fa-upload" aria-hidden="true"></i>Upload Image
-                                        </a>
-                                        <a href="{{ route('admin.location.edit', [$location->id]) }}" class="btn btn-secondary">
-                                            <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Edit
-                                        </a>
 
-                                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteGroup{{ $loop->index }}">
-                                            <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
-                                        </a>
-                                        
-
-                                        
                                     </div>
                                 </div>
                             </div>
                         </h5>
                     </div>
 
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="row">
+                    <div id="collapse{{ $loop->index}}" class="collapse" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionLocation">
 
-                                <!-- PDF Table -->
-                                <h4>PDF files</h4>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Filename</th>
-                                            <th scope="col">Type</th>
-                                            <th scope="col">Size</th>
-                                        </tr>
-                                    </thead>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
 
-                                    <tbody>
+                                    <!-- PDF Table -->
+                                    <div class="col">
+                                    <h4>PDF files</h4>
+                                    </div>
 
-                                    @foreach ($location->files as $file)
+                                    <div class="col">
+                                
+                                        <a href="{{ route('admin.file.create', [$location->id]) }}" class="btn btn-secondary btn-sm">
+                                            <i class="fa fa-btn fa-upload fa-sm" aria-hidden="true"></i>UPLOAD PDF
+                                        </a>
+                                    </div>
+                                
 
-                                        <tr>
-                                            <td>{{ $file->name }}</td>
-                                            <td>{{ $file->type }}</td>
-                                            <td>{{ $file->size }}</td>
-                                            <td class="text-right">
-                                                <a href="#" v-on:click="submitFile('{{ asset('storage' . $file->public_path) }}')">
-                                                    <i class="fa fa-btn fa-file-pdf-o" aria-hidden="true"></i>Open
-                                                </a>
-                                                
-                                                <a href="#" data-toggle="modal" data-target="#deleteFile{{ $location->id + $loop->index }}">
-                                                    <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
-                                                </a>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Filename</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Size</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                        @foreach ($location->files as $file)
+
+                                            <tr>
+                                                <td>{{ $file->name }}</td>
+                                                <td>{{ $file->type }}</td>
+                                                <td>{{ $file->size }}</td>
+                                                <td class="text-right">
+                                                    <a href="#" v-on:click="submitFile('{{ asset('storage' . $file->public_path) }}')">
+                                                        <i class="fa fa-btn fa-file-pdf" aria-hidden="true"></i>OPEN
+                                                    </a>
+                                                    &nbsp;
+                                                    <a href="#" data-toggle="modal" data-target="#deleteFile{{ $location->id + $loop->index }}">
+                                                        <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE
+                                                    </a>
                                             
-                                                <!-- Delete File Modal -->
-                                                <div class="modal fade" id="deleteFile{{ $location->id + $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Delete PDF file</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Do you wish to continue and delete {{ $file->name}} ?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <form action="{{ route('admin.file.delete', [$file->id]) }}" method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
+                                                    <!-- Delete File Modal -->
+                                                    <div class="modal fade" id="deleteFile{{ $location->id + $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Delete PDF file</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Do you wish to continue and delete {{ $file->name}} ?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <form action="{{ route('admin.file.delete', [$file->id]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
                                                 
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No
-                                                                    </button>
-                                                                    <button type="submit" class="btn btn-danger">Yes
-                                                                    </button>
-                                                                </form>
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-danger">Yes
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </td>
+                                            </tr>
+
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                    <!-- View PDF -->
+                                    <div class="modal fade" id="pdfview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">View PDF</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                 </div>
-                                            </td>
-                                        </tr>
-
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
-
-                                <!-- View PDF -->
-                                <div class="modal fade" id="pdfview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">View PDF</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="container-fluid">
-                                                    <div id="pdf"></div>
+                                                <div class="modal-body">
+                                                    <div class="container-fluid">
+                                                        <div id="pdf"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
 
-                                <!-- Image Table -->
-                                <h4>Image files</h4>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Filename</th>
-                                            <th scope="col">Type</th>
-                                            <th scope="col">Size</th>
-                                        </tr>
-                                    </thead>
+                                    <!-- Image Table -->
+                                    <div class="col">
+                                        <h4>Image files</h4>
+                                    </div>
 
-                                    <tbody>
+                                    <div class="col">
+                                        <a href="{{ route('admin.image.create', [$location->id]) }}" class="btn btn-secondary btn-sm">
+                                            <i class="fa fa-btn fa-upload fa-sm" aria-hidden="true"></i>UPLOAD IMAGE
+                                        </a>
 
-                                    @foreach ($location->images as $image)
+                                    </div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Filename</th>
+                                                <th scope="col">Type</th>
+                                                <th scope="col">Size</th>
+                                            </tr>
+                                        </thead>
 
-                                        <tr>
-                                            <td>{{ $image->name }}</td>
-                                            <td>{{ $image->type }}</td>
-                                            <td>{{ $image->size }}</td>
-                                            <td class="text-right">
-                                                <a href="#" v-on:click="submitImage('{{ asset('storage' . $image->public_path) }}')">
-                                                    <i class="fa fa-btn fa-file-pdf-o" aria-hidden="true"></i>Open
-                                                </a>
+                                        <tbody>
+
+                                        @foreach ($location->images as $image)
+
+                                            <tr>
+                                                <td>{{ $image->name }}</td>
+                                                <td>{{ $image->type }}</td>
+                                                <td>{{ $image->size }}</td>
+                                                <td class="text-right">
+                                                    <a href="#" v-on:click="submitImage('{{ asset('storage' . $image->public_path) }}')">
+                                                        <i class="fa fa-btn fa-images" aria-hidden="true"></i>OPEN
+                                                    </a>
+                                                    &nbsp;
+                                                    <a href="#" data-toggle="modal" data-target="#deleteImage{{ $location->id + $loop->index }}">
+                                                        <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE
+                                                    </a>
                                                 
-                                                <a href="#" data-toggle="modal" data-target="#deleteImage{{ $location->id + $loop->index }}">
-                                                    <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
-                                                </a>
-                                            
-                                                <!-- Delete File Modal -->
-                                                <div class="modal fade" id="deleteImage{{ $location->id + $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Delete PDF file</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                Do you wish to continue and delete {{ $image->name}} ?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <form action="{{ route('admin.image.delete', [$image->id]) }}" method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No
+                                                    <!-- Delete File Modal -->
+                                                    <div class="modal fade" id="deleteImage{{ $location->id + $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Delete PDF file</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
                                                                     </button>
-                                                                    <button type="submit" class="btn btn-danger">Yes
-                                                                    </button>
-                                                                </form>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Do you wish to continue and delete {{ $image->name}} ?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <form action="{{ route('admin.image.delete', [$image->id]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                    
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-danger">Yes
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </td>
+                                            </tr>
+
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                    <!-- View Image -->
+                                    <div class="modal fade" id="imageview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">View Image</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                 </div>
-                                            </td>
-                                        </tr>
-
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
-
-                                <!-- View Image -->
-                                <div class="modal fade" id="imageview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">View Image</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="container-fluid">
-                                                    <img v-bind:src="path" height="100%" width="100%">
-                                                    
+                                                <div class="modal-body">
+                                                    <div class="container-fluid">
+                                                        <img v-bind:src="path" height="100%" width="100%">
+                                                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Card footer -->
+                        <div class="card-footer">
+
+                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteGroup{{ $loop->index }}">
+                                <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE LOCATION
+                            </a>
+                            &nbsp;
+                            <a href="{{ route('admin.location.edit', [$location->id]) }}" class="btn btn-secondary">
+                                <i class="fa fa-btn fa-edit" aria-hidden="true"></i>CHANGE LOCATION NAME
+                            </a>
                         </div>
                     </div>
                 </div>
