@@ -19,15 +19,23 @@
     <div class="row">
         <div class="col-md-12 col-md-offset-1">
             <h2>File locations</h2>
+            <p>
+                <a href="{{ route('admin.dashboard.show') }}">Dashboard</a> >
+                <a href="{{ route('admin.location.show') }}"><strong>File locations</strong></a>
+            </p>
+
             <a style="margin-bottom: 1.5em;" href="{{ route('admin.location.create') }}" class="btn btn-primary">
                 <i class="fa fa-btn fa-plus-square"></i>CREATE FILE LOCATION
             </a>
                 
             <!-- Location Cards -->
 
-            @foreach ($locations as $location)
+            
 
             <div class="accordion" id="accordionLocation">
+            
+            @foreach ($locations as $location)
+
                 <div class="card">
                     <div class="card-header" id="heading{{ $loop->index }}">
                         <h5 class="mb-0">
@@ -282,9 +290,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
             @endforeach
+            
+            </div>
+
+            
 
             @if (count($errors) > 0)
             

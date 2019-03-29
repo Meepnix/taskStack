@@ -10,7 +10,10 @@
         <div class="col-md-10 col-md-offset-1">
             
             <h2>Slots</h2>
-            <p><a href="{{ route('admin.slot.showGroups') }}"><strong>Slots</strong></a> ></p>
+            <p>
+                <a href="{{ route('admin.dashboard.show') }}">Dashboard</a> >
+                <a href="{{ route('admin.slot.showGroups') }}"><strong>Slots</strong></a>
+            </p>
             
             <div class="card-columns">
 

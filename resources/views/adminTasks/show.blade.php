@@ -6,16 +6,19 @@
     @include('shared.flash')
     
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12 col-md-offset-1">
             
             <h2>Tasks</h2>
-                <a style="margin-bottom: 1.5em;" href="{{ route('admin.task.create') }}" class="btn btn-primary">
-                    <i class="fa fa-btn fa-plus-square"></i>Create New Task
-                </a>
-                
+            <p>
+                <a href="{{ route('admin.dashboard.show') }}">Dashboard</a> >
+                <a href="{{ route('admin.task.show') }}"><strong>Tasks</strong></a>
+            </p>
 
-            
 
+            <a style="margin-bottom: 1.5em;" href="{{ route('admin.task.create') }}" class="btn btn-primary">
+                <i class="fa fa-btn fa-plus-square"></i>CREATE TASK
+            </a>
+        
             <div class="accordion" id="accordionTask">
 
             @foreach ($tasks as $task)
@@ -23,9 +26,9 @@
                 <div class="card">
                     <div class="card-header" id="heading{{ $loop->index }}">
                         <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{ $loop->index}}" aria-expanded="false" aria-controls="collapse{{ $loop->index}}">                            
-                            {{ $task->title }}
-                        </button>
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{ $loop->index}}" aria-expanded="false" aria-controls="collapse{{ $loop->index}}">                            
+                                {{ $task->title }}
+                            </button>
                         </h5>
                     </div>
 
@@ -37,10 +40,11 @@
                         </div>
                         <div class="card-footer">
                             <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteTask{{ $loop->index }}">
-                                <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
+                                <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE TASK
                             </a>
+                            &nbsp;
                             <a href="{{ route('admin.task.edit', [$task->id]) }}" class="btn btn-secondary">
-                                <i class="fa fa-btn fa-edit" aria-hidden="true"></i>Edit
+                                <i class="fa fa-btn fa-edit" aria-hidden="true"></i>EDIT CONTENT
                             </a>
                             <!-- Delete User Modal -->
                             <div class="modal fade" id="deleteTask{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

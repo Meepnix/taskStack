@@ -17,7 +17,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', function () {
     return view('dashboard');
-});
+})->name('admin.dashboard.show');
 
 
 /* Admin */
