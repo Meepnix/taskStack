@@ -45,7 +45,8 @@
 
                 <div class="form-group">
                     {!! Form::label('time_period', 'Time Periods:') !!}
-                    {!! Form::select('time_period', ['morning' => 'Morning', 'afternoon' => 'Afternoon', 'evening' => 'Evening']) !!}
+                    {!! Form::select('time_period', 
+                    ['morning' => 'Morning', 'afternoon' => 'Afternoon', 'evening' => 'Evening']) !!}
                 </div>
               
 

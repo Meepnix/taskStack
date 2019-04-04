@@ -25,7 +25,8 @@
                         
                     <div class="form-group">
                         <label for="title1">Title</label>
-                        <input type="text" class="form-control" id="title1" name="title" value="{{ $task->title }}"><br>
+                        <input type="text" class="form-control" id="title1" name="title" value="{{ $task->title }}">
+                        <br>
                     </div>
                             
                     <div class="form-group">
@@ -39,7 +40,13 @@
                 <a href="{{ route('admin.task.show') }}" class="btn btn-default">Back</a>
 
 
-                <div class="modal fade" id="imgselect" tabindex="-1" role="dialog" aria-labelledby="image_label" aria-hidden="true">
+                <div 
+                class="modal fade" 
+                id="imgselect" 
+                tabindex="-1" 
+                role="dialog" 
+                aria-labelledby="image_label" 
+                aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -53,7 +60,11 @@
                                     
                                     
                                 <div class="accordion" id="accordion">
-                                    <location-card v-for="location in locations" v-bind:location="location" :key="location.id"></location-card>
+                                    <location-card 
+                                    v-for="location in locations" 
+                                    v-bind:location="location" 
+                                    :key="location.id">
+                                    </location-card>
                                 </div>
 
                                 </div>

@@ -26,20 +26,34 @@
                 <div class="card">
                     <div class="card-header" id="heading{{ $loop->index }}">
                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{ $loop->index}}" aria-expanded="false" aria-controls="collapse{{ $loop->index}}">                            
+                            <button 
+                            class="btn btn-link collapsed" 
+                            type="button" 
+                            data-toggle="collapse" 
+                            data-target="#collapse{{ $loop->index}}" 
+                            aria-expanded="false" 
+                            aria-controls="collapse{{ $loop->index}}">                            
                                 {{ $task->title }}
                             </button>
                         </h5>
                     </div>
 
-                    <div id="collapse{{ $loop->index}}" class="collapse" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionTask">
+                    <div 
+                    id="collapse{{ $loop->index}}" 
+                    class="collapse" 
+                    aria-labelledby="heading{{ $loop->index }}" 
+                    data-parent="#accordionTask">
 
                         <div class="card-body">
                             <p>{!! $task->message !!}</p>
 
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteTask{{ $loop->index }}">
+                            <a 
+                            href="#" 
+                            class="btn btn-danger" 
+                            data-toggle="modal" 
+                            data-target="#deleteTask{{ $loop->index }}">
                                 <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE TASK
                             </a>
                             &nbsp;
@@ -47,12 +61,22 @@
                                 <i class="fa fa-btn fa-edit" aria-hidden="true"></i>EDIT CONTENT
                             </a>
                             <!-- Delete User Modal -->
-                            <div class="modal fade" id="deleteTask{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div 
+                            class="modal fade" 
+                            id="deleteTask{{ $loop->index }}" 
+                            tabindex="-1" 
+                            role="dialog" 
+                            aria-labelledby="exampleModalLabel" 
+                            aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Delete Task</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button 
+                                                type="button" 
+                                                class="close" 
+                                                data-dismiss="modal" 
+                                                aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                         </div>

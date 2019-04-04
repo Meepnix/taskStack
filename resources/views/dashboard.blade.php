@@ -16,7 +16,10 @@
                 <div class="card border-primary mb-3" style="max-width: 18rem;">
                     <div class="card-header"><h5>Groups</h5></div>
                     <div class="card-body">
-                        <a style="margin-bottom: 1.5em;" href="{{ route('admin.group.show') }}" class="btn btn-primary">
+                        <a 
+                        style="margin-bottom: 1.5em;" 
+                        href="{{ route('admin.group.show') }}" 
+                        class="btn btn-primary">
                             <i class="fa fa-btn"></i>Open
                         </a>
                     </div>
@@ -26,7 +29,10 @@
                 <div class="card border-primary mb-3" style="max-width: 18rem;">
                     <div class="card-header"><h5>Tasks</h5></div>
                     <div class="card-body">
-                        <a style="margin-bottom: 1.5em;" href="{{ route('admin.task.show') }}" class="btn btn-primary">
+                        <a 
+                        style="margin-bottom: 1.5em;" 
+                        href="{{ route('admin.task.show') }}" 
+                        class="btn btn-primary">
                             <i class="fa fa-btn"></i>Open
                         </a>
                     </div>
@@ -36,7 +42,10 @@
                  <div class="card border-primary mb-3" style="max-width: 18rem;">
                     <div class="card-header"><h5>Slots</h5></div>
                     <div class="card-body">
-                        <a style="margin-bottom: 1.5em;" href="{{ route('admin.slot.showGroups') }}" class="btn btn-primary">
+                        <a 
+                        style="margin-bottom: 1.5em;" 
+                        href="{{ route('admin.slot.showGroups') }}" 
+                        class="btn btn-primary">
                             <i class="fa fa-btn"></i>Open
                         </a>
                     </div>
@@ -46,7 +55,10 @@
                 <div class="card border-primary mb-3" style="max-width: 18rem;">
                     <div class="card-header"><h5>Locations</h5></div>
                     <div class="card-body">
-                        <a style="margin-bottom: 1.5em;" href="{{ route('admin.location.show') }}" class="btn btn-primary">
+                        <a 
+                        style="margin-bottom: 1.5em;" 
+                        href="{{ route('admin.location.show') }}" 
+                        class="btn btn-primary">
                             <i class="fa fa-btn"></i>Open
                         </a>
                     </div>

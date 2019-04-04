@@ -10,10 +10,14 @@
             <h2>Groups</h2>
             <p>
                 <a href="{{ route('admin.dashboard.show') }}">Dashboard</a> >
-                <a href="{{ route('admin.group.show') }}"><strong>Groups</strong></a>
+                <a href="{{ route('admin.group.show') }}">
+                    <strong>Groups</strong>
+                </a>
             </p>
             
-                <a style="margin-bottom: 1.5em;" href="{{ route('admin.group.create') }}" class="btn btn-primary">
+                <a style="margin-bottom: 1.5em;" 
+                href="{{ route('admin.group.create') }}" 
+                class="btn btn-primary">
                         <i class="fa fa-btn fa-plus-square"></i>CREATE GROUP
                 </a>
                 
@@ -30,7 +34,11 @@
                             <div class="container">
                                 <div class="row">
                                     <div class= "col-10">
-                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse{{ $loop->index}}" aria-expanded="false" aria-controls="collapse{{ $loop->index}}">                            
+                                        <button class="btn btn-link collapsed" 
+                                        type="button" data-toggle="collapse" 
+                                        data-target="#collapse{{ $loop->index}}" 
+                                        aria-expanded="false" 
+                                        aria-controls="collapse{{ $loop->index}}">                            
                                             {{ $group->name }}
                                         </button>
                                         
@@ -42,7 +50,9 @@
                             </div>
                         </h5>
                     </div>
-                    <div id="collapse{{ $loop->index}}" class="collapse" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionGroup">
+                    <div id="collapse{{ $loop->index}}" class="collapse" 
+                    aria-labelledby="heading{{ $loop->index }}" 
+                    data-parent="#accordionGroup">
 
                         <div class="card-body">
                             
@@ -52,8 +62,10 @@
                                         <th scope="col">Group</th>
                                         <th scope="col">Username</th>
                                         <th scope="col">
-                                            <a href="{{ route('admin.user.create', [$group->id]) }}" class="btn btn-secondary btn-sm">
-                                                <i class="fa fa-btn fa-plus-square fa-sm"></i>CREATE USER
+                                            <a href="{{ route('admin.user.create', [$group->id]) }}" 
+                                            class="btn btn-secondary btn-sm">
+                                                <i class="fa fa-btn fa-plus-square fa-sm">
+                                                </i>CREATE USER
                                             </a>
                                         </th>
                                     </tr>
@@ -69,35 +81,48 @@
                                         <td><p>{{ $user->name }}</p></td>
                                         <td>
                                             <a href="{{ route('admin.user.edit', [$user->id]) }}">
-                                                <i class="fa fa-btn fa-edit" aria-hidden="true"></i>EDIT
+                                                <i class="fa fa-btn fa-edit" 
+                                                aria-hidden="true"></i>EDIT
                                             </a>
                                             &nbsp;
-                                            <a href="#" data-toggle="modal" data-target="#deleteUser{{ $loop->index }}">
-                                                <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE
+                                            <a href="#" data-toggle="modal" 
+                                            data-target="#deleteUser{{ $loop->index }}">
+                                                <i class="fa fa-btn fa-trash" 
+                                                aria-hidden="true"></i>DELETE
                                             </a>
                                             
 
                                             <!-- Delete User Modal -->
-                                            <div class="modal fade" id="deleteUser{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="deleteUser{{ $loop->index }}"
+                                            tabindex="-1" role="dialog" 
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <h5 class="modal-title" 
+                                                            id="exampleModalLabel">Delete User</h5>
+                                                            <button type="button" class="close" 
+                                                            data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            Do you wish to continue and delete {{ $user->name }} ?
+                                                        Do you wish to continue 
+                                                        and delete {{ $user->name }} ?
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <form action="{{ route('admin.user.delete', [$user->id]) }}" method="POST">
+                                                            <form action="{{ route('admin.user.delete', [$user->id]) }}" 
+                                                            method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                         
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No
+                                                                <button type="button" class="btn btn-secondary" 
+                                                                data-dismiss="modal">
+                                                                No
                                                                 </button>
-                                                                <button type="submit" class="btn btn-danger">Yes
+                                                                <button type="submit" 
+                                                                class="btn btn-danger">
+                                                                Yes
                                                                 </button>
                                                             </form>
                                                         </div>
@@ -114,8 +139,10 @@
                         </div>
 
                         <div class="card-footer">
-                            <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteGroup{{ $loop->index }}">
-                                <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE GROUP
+                            <a href="#" class="btn btn-danger" 
+                            data-toggle="modal" data-target="#deleteGroup{{ $loop->index }}">
+                                <i class="fa fa-btn fa-trash" 
+                                aria-hidden="true"></i>DELETE GROUP
                             </a>
                         </div>
 
@@ -123,12 +150,14 @@
                 </div>
 
                 <!-- Delete Group Modal -->
-                <div class="modal fade" id="deleteGroup{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deleteGroup{{ $loop->index }}" 
+                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Delete Group</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close" data-dismiss="modal" 
+                                aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -136,13 +165,17 @@
                                 Do you wish to continue and delete {{ $group->name}} ?
                             </div>
                             <div class="modal-footer">
-                                <form action="{{ route('admin.group.delete', [$group->id]) }}" method="POST">
+                                <form action="{{ route('admin.group.delete', [$group->id]) }}" 
+                                method="POST">
                                     @csrf
                                     @method('DELETE')
                                     
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No
+                                    <button type="button" class="btn btn-secondary" 
+                                    data-dismiss="modal">
+                                    No
                                     </button>
-                                    <button type="submit" class="btn btn-danger">Yes
+                                    <button type="submit" class="btn btn-danger">
+                                    Yes
                                     </button>
                                 </form>
                             </div>

@@ -13,5 +13,7 @@ class AdminLinkController extends Controller
     public function create(Task $task)
     {
         $locations = Location::with('files')->get();
+
+        
     }
 }

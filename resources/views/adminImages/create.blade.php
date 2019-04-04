@@ -8,7 +8,8 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <h2>Upload Image</h2>
-            <form method="POST" action="{{ route('admin.image.store', [$location->id]) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.image.store', [$location->id]) }}" 
+            enctype="multipart/form-data">
             @csrf
                 <div class="form-group">
                     <label for="image1">Upload image</label>

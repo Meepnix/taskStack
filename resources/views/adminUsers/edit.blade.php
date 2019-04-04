@@ -20,7 +20,12 @@
                         
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $user->name }}" required autofocus>
+                                <input 
+                                id="name" 
+                                type="text" 
+                                class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" 
+                                name="name" value="{{ $user->name }}" 
+                                required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" role="alert">
@@ -31,7 +36,8 @@
 
                             <div class="form-group">
                             {!! Form::label('groups', 'Groups:') !!}
-                            {!! Form::select('groups[]', $curGroups, $setGroups, ['class' => 'form-control', 'multiple']) !!}
+                            {!! Form::select('groups[]', 
+                            $curGroups, $setGroups, ['class' => 'form-control', 'multiple']) !!}
                             </div>
                             
 

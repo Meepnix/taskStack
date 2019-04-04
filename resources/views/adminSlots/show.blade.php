@@ -15,19 +15,56 @@
                 <a href="{{ route('admin.slot.showGroups') }}">Slots</a> > 
                 <a href="{{ url()->current() }}"><strong>{{ $group->name }} Slots<strong></a>
             </p>
-            <a style="margin-bottom: 1.5em;" href="{{ route('admin.slot.create', [$group->id]) }}" class="btn btn-primary">
+            <a 
+            style="margin-bottom: 1.5em;" 
+            href="{{ route('admin.slot.create', [$group->id]) }}" 
+            class="btn btn-primary">
                 <i class="fa fa-btn fa-plus-square"></i>CREATE SLOT
             </a>
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-morning-tab" data-toggle="tab" href="#nav-morning" role="tab" aria-controls="nav-morning" aria-selected="true">Morning</a>
-                    <a class="nav-item nav-link" id="nav-afternoon-tab" data-toggle="tab" href="#nav-afternoon" role="tab" aria-controls="nav-afternoon" aria-selected="false">Afternoon</a>
-                    <a class="nav-item nav-link" id="nav-evening-tab" data-toggle="tab" href="#nav-evening" role="tab" aria-controls="nav-evening" aria-selected="false">Evening</a>
+                    <a 
+                    class="nav-item nav-link active" 
+                    id="nav-morning-tab" 
+                    data-toggle="tab" 
+                    href="#nav-morning" 
+                    role="tab" 
+                    aria-controls="nav-morning" 
+                    aria-selected="true">
+                    Morning
+                    </a>
+
+                    <a 
+                    class="nav-item nav-link" 
+                    id="nav-afternoon-tab" 
+                    data-toggle="tab" 
+                    href="#nav-afternoon" 
+                    role="tab" 
+                    aria-controls="nav-afternoon" 
+                    aria-selected="false">
+                    Afternoon
+                    </a>
+
+                    <a 
+                    class="nav-item nav-link" 
+                    id="nav-evening-tab" 
+                    data-toggle="tab" 
+                    href="#nav-evening" 
+                    role="tab" 
+                    aria-controls="nav-evening" 
+                    aria-selected="false">
+                    Evening
+                    </a>
+
                 </div>
             </nav>
 
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-morning" role="tabpanel" aria-labelledby="nav-morning-tab">
+                <div 
+                class="tab-pane fade show active" 
+                id="nav-morning" 
+                role="tabpanel" 
+                aria-labelledby="nav-morning-tab">
                             
                     
                 @foreach ($mornings as $slot)

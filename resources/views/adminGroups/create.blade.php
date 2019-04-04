@@ -14,18 +14,23 @@
 
                         <h3>Create Group</h3>
 
-                        <form method="POST" action="{{ route('admin.group.store') }}">
+                        <form method="POST" 
+                        action="{{ route('admin.group.store') }}">
                         @csrf
                         
                             <div class="form-group">
                                 <label for="name1">Name</label>
-                                <input type="text" class="form-control" id="name1" name="name" value="{{ old('name') }}"><br>
+                                <input type="text" class="form-control" 
+                                id="name1" name="name" 
+                                value="{{ old('name') }}">
+                                <br>
                             </div>
 
                             <button type="submit">Save</button>
 
                         </form>
-                        <a href="{{ route('admin.group.show') }}" class="btn btn-default">Back</a>
+                        <a href="{{ route('admin.group.show') }}" 
+                        class="btn btn-default">Back</a>
 
                     </div>
 

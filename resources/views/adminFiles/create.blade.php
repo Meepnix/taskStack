@@ -8,7 +8,11 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <h2>Upload PDF</h2>
-            <form method="POST" action="{{ route('admin.file.store', [$location->id]) }}" enctype="multipart/form-data">
+
+            <form method="POST" 
+            action="{{ route('admin.file.store', [$location->id]) }}"
+            enctype="multipart/form-data">
+
             @csrf
                 <div class="form-group">
                     <label for="pdf1">Upload pdf</label>
@@ -19,7 +23,9 @@
 
             </form>
             
-            <a href="{{ route('admin.location.show') }}" class="btn btn-default">Back</a>
+            <a href="{{ route('admin.location.show') }}" class="btn btn-default">
+            Back
+            </a>
 
             @if (count($errors) > 0)
             <div class="alert alert-danger">
