@@ -20,7 +20,7 @@
                         style="margin-bottom: 1.5em;" 
                         href="{{ route('admin.group.show') }}" 
                         class="btn btn-primary">
-                            <i class="fa fa-btn"></i>Open
+                            Open
                         </a>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         style="margin-bottom: 1.5em;" 
                         href="{{ route('admin.task.show') }}" 
                         class="btn btn-primary">
-                            <i class="fa fa-btn"></i>Open
+                            Open
                         </a>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                         style="margin-bottom: 1.5em;" 
                         href="{{ route('admin.slot.showGroups') }}" 
                         class="btn btn-primary">
-                            <i class="fa fa-btn"></i>Open
+                            Open
                         </a>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                         style="margin-bottom: 1.5em;" 
                         href="{{ route('admin.location.show') }}" 
                         class="btn btn-primary">
-                            <i class="fa fa-btn"></i>Open
+                            Open
                         </a>
                     </div>
                 </div>

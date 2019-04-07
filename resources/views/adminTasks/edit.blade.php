@@ -39,7 +39,7 @@
                         
                 <a href="{{ route('admin.task.show') }}" class="btn btn-default">Back</a>
 
-
+                <!-- Insert image modal from summernote -->
                 <div 
                 class="modal fade" 
                 id="imgselect" 
@@ -60,11 +60,11 @@
                                     
                                     
                                 <div class="accordion" id="accordion">
-                                    <location-card 
-                                    v-for="location in locations" 
-                                    v-bind:location="location" 
-                                    :key="location.id">
-                                    </location-card>
+                                    <location-image 
+                                    v-for="img in images" 
+                                    v-bind:image="img" 
+                                    :key="img.id">
+                                    </location-image>
                                 </div>
 
                                 </div>
@@ -72,6 +72,41 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Insert file modal from summernote -->
+                <div 
+                class="modal fade" 
+                id="fileselect" 
+                tabindex="-1" 
+                role="dialog" 
+                aria-labelledby="file_label" 
+                aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="file_Label">Select PDF</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    
+                                    
+                                <div class="accordion" id="accordion">
+                                    <location-image 
+                                    v-for="img in images" 
+                                    v-bind:image="img" 
+                                    :key="img.id">
+                                    </location-image>
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 @if (count($errors) > 0)
 

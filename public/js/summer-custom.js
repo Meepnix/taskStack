@@ -17,6 +17,23 @@ var ImageButton = function (context) {
   return button.render();   // return button as jquery object
 }
 
+var FileButton = function (context) {
+    var ui = $.summernote.ui;
+  
+    // create button
+    var button = ui.button({
+      contents: '<i class="fas fa-file-pdf"/>',
+      tooltip: 'Insert PDF',
+      click: function () {
+          // invoke file selection modal
+          $('#fileselect').modal('show');
+      }
+    });
+  
+    return button.render();   // return button as jquery object
+  }
+
+
 
 $(document).ready(function() {
     $('#summernote').summernote({
@@ -30,11 +47,13 @@ $(document).ready(function() {
             ['table', ['table']],
             ['media', ['link', 'video', 'hr']],
             ['image', ['image']],
+            ['file', ['file']],
             ['view', ['codeview']]
         ],
 
         buttons: {
-            image: ImageButton
+            image: ImageButton,
+            file: FileButton
         },
 
         //Fix firefox popover
@@ -53,18 +72,20 @@ $(document).ready(function() {
 
 // Vue app
 
-Vue.component('location-card', {
-    props: ['location'],
+//Insert image component
+
+Vue.component('location-image', {
+    props: ['image'],
     template: `
     <div class="card">
-        <div class="card-header" v-bind:id="'heading' + location.id">
+        <div class="card-header" v-bind:id="'heading' + image.id">
             <h5 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" v-bind:data-target="'#collapse' + location.id" aria-expanded="false" v-bind:aria-controls="'collapse' + location.id">
-                    {{ location.name }}
+                <button class="btn btn-link" type="button" data-toggle="collapse" v-bind:data-target="'#collapse' + image.id" aria-expanded="false" v-bind:aria-controls="'collapse' + image.id">
+                    {{ image.name }}
                 </button> 
             </h5> 
         </div> 
-        <div v-bind:id="'collapse' + location.id" class="collapse" v-bind:aria-labelledby="'heading' + location.id" data-parent="#accordion">
+        <div v-bind:id="'collapse' + image.id" class="collapse" v-bind:aria-labelledby="'heading' + image.id" data-parent="#accordion">
         
             <div class="card-body">
                 <table class="table"> 
@@ -75,7 +96,7 @@ Vue.component('location-card', {
                         </tr>
                     </thead>
                     <tbody> 
-                        <tr v-for="img in location.images" :key="img.id"> 
+                        <tr v-for="img in image.images" :key="img.id"> 
                             <td>{{ img.name }}</td>
                             <td>
                                 <img v-bind:src="SiteRoute + 'storage' + img.public_path" height="100px">
@@ -85,6 +106,7 @@ Vue.component('location-card', {
                             </td>
                         </tr> 
                     </tbody> 
+                </table>
             </div> 
         </div>
     </div>`,
@@ -104,13 +126,14 @@ Vue.component('location-card', {
 var app = new Vue({
     el: '#app',
     data: {
-        locations: null,
+        images: null,
+        files: null,
         errors: []
     },
     methods: {
         read: function () {
             axios.get('/admin/location/index/images').then( response => {
-                this.locations = response.data;
+                this.images = response.data;
             })
             .catch(e => {
                 this.error.push(e);
