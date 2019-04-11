@@ -94,11 +94,11 @@
                                     
                                     
                                 <div class="accordion" id="accordion">
-                                    <location-image 
-                                    v-for="img in images" 
-                                    v-bind:image="img" 
-                                    :key="img.id">
-                                    </location-image>
+                                    <location-file
+                                    v-for="pdf in files" 
+                                    v-bind:file="pdf" 
+                                    :key="pdf.id">
+                                    </location-file>
                                 </div>
 
                                 </div>

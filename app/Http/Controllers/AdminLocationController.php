@@ -75,4 +75,10 @@ class AdminLocationController extends Controller
         return response()->json(Location::with('images')->get(),200);
     }
 
+    public function indexFiles()
+    {
+        //HTTP status OK
+        return response()->json(Location::with('files')->get(),200);
+    }
+
 }
