@@ -85,7 +85,7 @@ class AdminSlotController extends Controller
         $slot->all = 0;
         $slot->save();
 
-        return redirect()->route('admin.slot.show')->with('flash_message', 'Slot emptied');
+        return redirect()->route('admin.slot.show', [$slot->group_id])->with('flash_message', 'Slot emptied');
     }
 
 

@@ -128,6 +128,10 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+
+        'label_fmt' => [
+            'required' => 'The Label type is required.',
+        ],
     ],
 
     /*

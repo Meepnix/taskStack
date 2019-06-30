@@ -63,6 +63,22 @@
                         </a>
                     </div>
                 </div>
+
+                <!--Label-->
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-header"><h5>Labels</h5></div>
+                    <div class="card-body">
+                        <a 
+                        style="margin-bottom: 1.5em;" 
+                        href="{{ route('admin.label.show') }}" 
+                        class="btn btn-primary">
+                            Open
+                        </a>
+                    </div>
+                </div>
+
+
+                
                 
 
             </div>

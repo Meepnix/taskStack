@@ -71,6 +71,17 @@ Route::post('/admin/images/location/{location}/store', 'AdminImageController@sto
 Route::delete('/admin/images/{image}', 'AdminImageController@destroy')->name('admin.image.delete');
 
 
+//Labels
+Route::get('/admin/labels', 'AdminLabelController@show')->name('admin.label.show');
+Route::get('/admin/labels/create', 'AdminLabelController@create')->name('admin.label.create');
+Route::delete('/admin/labels/{label}', 'AdminLabelController@destroy')->name('admin.label.delete');
+Route::post('/admin/labels/store', 'AdminLabelController@store')->name('admin.label.store');
+Route::get('/admin/labels/edit/{label}', 'AdminLabelController@edit')->name('admin.label.edit');
+Route::patch('/admin/labels/update/{label}', 'AdminLabelController@update')->name('admin.label.update');
+
+
+
+
 
 
 Route::get('/meep', function () {
