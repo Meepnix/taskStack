@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
 use App\Group;
+use App\Label;
 
 class AdminTaskController extends Controller
 {
@@ -28,7 +29,9 @@ class AdminTaskController extends Controller
     */
     public function create()
     {
-        return view('adminTasks.create');
+        $labels = Label::all();
+
+        return view('adminTasks.create', compact('labels'));
     }
 
      /** 
@@ -39,9 +42,15 @@ class AdminTaskController extends Controller
     */
     public function store(Request $request)
     {
+        
+        
         $new = new Task;
         
         $task = $new->addTask($request);
+
+        $task->labels()->attach($request->label_check);
+        
+
         return redirect()->route('admin.task.show')->with('flash_message', 'Task ' . $task->title . ' Created');
 
     }

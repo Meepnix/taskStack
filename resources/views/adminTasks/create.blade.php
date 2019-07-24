@@ -20,9 +20,9 @@
             
                 <form method="POST" action="{{ route('admin.task.store') }}">
                 @csrf
-                        
+                    
                     <div class="form-group">
-                        <label for="title1">Title</label>
+                        <label for="title1"><h5>Title:</h5></label>
                         <input 
                         type="text" 
                         class="form-control" id="title1" 
@@ -30,7 +30,23 @@
                         value="{{ old('title') }}">
                         <br>
                     </div>
+
                     <div class="form-group">
+                        <h5>Tags:</h5>
+                        @foreach( $labels as $label)
+                    
+
+                        <label for="{{ $label->id }}">{!! $label->html !!}</label>
+
+                        <input id="{{ $label->id }}" name="label_check[]" type="checkbox" value="{{ $label->id }}">
+                        
+                    
+                        @endforeach
+                    </div>
+
+
+                    <div class="form-group">
+                        <h5>Content:</h5>
                         <textarea name="message" class="summernote" id="summernote">{{ old('message') }}</textarea>
                     </div>
 
@@ -41,6 +57,7 @@
                 <a href="{{ route('admin.task.show') }}" class="btn btn-default">Back</a>
 
 
+                <!-- Insert image modal from summernote -->
                 <div 
                 class="modal fade" 
                 id="imgselect" 
@@ -61,11 +78,45 @@
                                     
                                     
                                 <div class="accordion" id="accordion">
-                                    <location-card 
-                                    v-for="location in locations" 
-                                    v-bind:location="location" 
-                                    :key="location.id">
-                                    </location-card>
+                                    <location-image 
+                                    v-for="img in images" 
+                                    v-bind:image="img" 
+                                    :key="img.id">
+                                    </location-image>
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insert file modal from summernote -->
+                <div 
+                class="modal fade" 
+                id="fileselect" 
+                tabindex="-1" 
+                role="dialog" 
+                aria-labelledby="file_label" 
+                aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="file_Label">Select PDF</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    
+                                    
+                                <div class="accordion" id="accordion">
+                                    <location-file
+                                    v-for="pdf in files" 
+                                    v-bind:file="pdf" 
+                                    :key="pdf.id">
+                                    </location-file>
                                 </div>
 
                                 </div>
