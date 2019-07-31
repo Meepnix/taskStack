@@ -49,6 +49,14 @@
 
                         </div>
                         <div class="card-footer">
+
+                            @foreach ($task->labels as $label)
+                                <label>
+                                {!! $label->html !!}
+                                </label>
+                                
+                            @endforeach
+
                             <a 
                             href="#" 
                             class="btn btn-danger" 
@@ -58,7 +66,7 @@
                             </a>
                             &nbsp;
                             <a href="{{ route('admin.task.edit', [$task->id]) }}" class="btn btn-secondary">
-                                <i class="fa fa-btn fa-edit" aria-hidden="true"></i>EDIT CONTENT
+                                <i class="fa fa-btn fa-edit" aria-hidden="true"></i>EDIT TASK
                             </a>
                             <!-- Delete User Modal -->
                             <div 

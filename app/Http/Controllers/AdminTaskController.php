@@ -17,7 +17,8 @@ class AdminTaskController extends Controller
     */
     public function show()
     {
-        $tasks = Task::all();
+        
+        $tasks = Task::with('labels')->get();
         return view('adminTasks.show', compact('tasks'));
     }
 
@@ -48,6 +49,7 @@ class AdminTaskController extends Controller
         
         $task = $new->addTask($request);
 
+        #Attach checked labels
         $task->labels()->attach($request->label_check);
         
 
@@ -64,12 +66,18 @@ class AdminTaskController extends Controller
 
     public function edit(Request $request, Task $task)
     {
-        return view('adminTasks.edit', compact('task'));
+        $labels = Label::all();
+
+        $label_chks = $task->labels;
+
+        return view('adminTasks.edit', compact('task', 'labels', 'label_chks'));
     }
 
     public function update(Request $request, Task $task)
     {
         $task->update($request->all());
+
+        $task->labels()->sync($request->label_check);
 
         return redirect()->route('admin.task.show')->with('flash_message', 'Task' . $task->title. ' Updated');
     }

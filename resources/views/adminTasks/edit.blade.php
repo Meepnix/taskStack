@@ -28,6 +28,23 @@
                         <input type="text" class="form-control" id="title1" name="title" value="{{ $task->title }}">
                         <br>
                     </div>
+
+                    <div class="form-group">
+                        <h5>Tags:</h5>
+                        @foreach( $labels as $label)
+                    
+
+                            <label for="{{ $label->id }}">{!! $label->html !!}</label>
+
+                            <input id="{{ $label->id }}" name="label_check[]" type="checkbox" value="{{ $label->id }}"
+                            {{ $label_chks->contains('id', $label->id) ? 'checked' : ''}} >
+                        
+                            
+
+
+                        @endforeach
+                    </div>
+
                             
                     <div class="form-group">
                         <textarea name="message" class="summernote" id="summernote">{{ $task->message }}</textarea>
