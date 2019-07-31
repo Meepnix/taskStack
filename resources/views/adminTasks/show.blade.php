@@ -1,6 +1,15 @@
 @extends('layouts.main')
 
+@push('scripts')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js"></script>
+
+@endpush
+
 @section('content')
+
+<div id="app">
+
 <div class="container">
 
     @include('shared.flash')
@@ -43,19 +52,28 @@
                     class="collapse" 
                     aria-labelledby="heading{{ $loop->index }}" 
                     data-parent="#accordionTask">
-
+                        
+                        <!-- Labels -->
                         <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
+                                <h5>Labels:</h5>
+                                @foreach ($task->labels as $label)
+                                    
+                                    <label>
+                                    {!! $label->html !!}
+                                    </label>
+                                
+                                @endforeach
+                                </div>
+                            </div>
+
+
                             <p>{!! $task->message !!}</p>
 
                         </div>
                         <div class="card-footer">
 
-                            @foreach ($task->labels as $label)
-                                <label>
-                                {!! $label->html !!}
-                                </label>
-                                
-                            @endforeach
 
                             <a 
                             href="#" 
@@ -113,6 +131,36 @@
 
             </div>
 
+
+            <!-- View PDF -->
+            <div 
+            class="modal fade" 
+            id="pdfview" 
+            tabindex="-1" 
+            role="dialog" 
+            aria-labelledby="view_pdf" 
+            aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="view_pdf">View PDF</h5>
+                            <button 
+                            type="button" 
+                            class="close" 
+                            data-dismiss="modal" 
+                            aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div id="pdf"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             
 
                     
@@ -133,6 +181,32 @@
         </div>
     </div>
 </div>
+
+</div>
+
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            options: {
+                height: "600px",
+                width: "100%",
+            },
+            path: null
+        },
+        methods: {
+            submitFile: function (path) {
+
+                PDFObject.embed(path, "#pdf", this.options);
+                $('#pdfview').modal('show');
+                
+            },
+        }
+    })
+
+</script>
                         
 @endsection
 

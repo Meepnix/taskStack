@@ -116,14 +116,14 @@
                                                     id="deleteFile{{ $location->id + $loop->index }}" 
                                                     tabindex="-1" 
                                                     role="dialog" 
-                                                    aria-labelledby="exampleModalLabel" 
+                                                    aria-labelledby="delete_pdf" 
                                                     aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 
                                                                     class="modal-title" 
-                                                                    id="exampleModalLabel">Delete PDF file
+                                                                    id="delete_pdf">Delete PDF file
                                                                     </h5>
                                                                     <button type="button" 
                                                                     class="close" 
@@ -170,12 +170,12 @@
                                     id="pdfview" 
                                     tabindex="-1" 
                                     role="dialog" 
-                                    aria-labelledby="exampleModalLabel" 
+                                    aria-labelledby="view_pdf" 
                                     aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">View PDF</h5>
+                                                    <h5 class="modal-title" id="view_pdf">View PDF</h5>
                                                     <button 
                                                     type="button" 
                                                     class="close" 
@@ -238,20 +238,20 @@
                                                         <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE
                                                     </a>
                                                 
-                                                    <!-- Delete File Modal -->
+                                                    <!-- Delete image Modal -->
                                                     <div 
                                                     class="modal fade" 
                                                     id="deleteImage{{ $location->id + $loop->index }}" 
                                                     tabindex="-1" 
                                                     role="dialog" 
-                                                    aria-labelledby="exampleModalLabel" 
+                                                    aria-labelledby="delete_image" 
                                                     aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 
                                                                     class="modal-title" 
-                                                                    id="exampleModalLabel">Delete PDF file</h5>
+                                                                    id="delete_image">Delete PDF file</h5>
                                                                     <button 
                                                                     type="button" 
                                                                     class="close" 
