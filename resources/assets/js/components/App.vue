@@ -1,6 +1,6 @@
 <template>
-    <div id="app">
-        <h1>Task</h1>
+    <div id="app" class="bg-primary">
+        <h1 class="text-white"><strong>taskSTACK</strong></h1>
         <div class="accordion" id="accordion">
             <task-component
                 v-for="task in tasks"

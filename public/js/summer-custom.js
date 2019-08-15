@@ -170,7 +170,7 @@ Vue.component('location-file', {
             console.log(SiteRoute + url);
             //var HTMLstring = "<p> Test </p>";
 
-            var HTMLstring = `<a href="#" v-on:click="submitFile('`+ SiteRoute + url +`')"><i class="fa fa-btn fa-file-pdf" aria-hidden="true"></i>` + name + `</a>`;
+            var HTMLstring = `<button type="button" class="btn btn-link" v-on:click="submitFile('`+ SiteRoute + url +`')"><i class="fa fa-btn fa-file-pdf" aria-hidden="true"></i>` + name + `</button>`;
             $('#summernote').summernote('pasteHTML', HTMLstring);
         }
     }   
