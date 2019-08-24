@@ -47923,7 +47923,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             tasks: [],
-            errors: []
+            errors: [],
+            options: {
+                height: "600px",
+                width: "100%"
+            },
+            path: null
         };
     },
 
@@ -47932,12 +47937,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         read: function read() {
             var _this = this;
 
+            console.log("read");
             window.axios.get('/task/index').then(function (response) {
                 _this.tasks = response.data;
             }).catch(function (e) {
                 _this.error.push(e);
             });
+        },
+
+        submitFile: function submitFile(path) {
+            console.log("submit");
+            PDFObject.embed(path, "#pdf", this.options);
+            $('#pdfview').modal('show');
         }
+
     },
 
     components: {
@@ -47945,6 +47958,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     created: function created() {
+        this.submitFile('http://localhost/storage/pdf/kPzNhG7EcQ1GAOuKXFuS4uASzNuiQ8dCWfs0Jg6I.pdf');
         this.read();
     }
 });
@@ -48035,7 +48049,7 @@ exports = module.exports = __webpack_require__(45)(true);
 
 
 // module
-exports.push([module.i, "\n.label[data-v-5df6e888]{\r\n\r\n  margin-right: 3px;\n}\n.card-margin[data-v-5df6e888]{\r\n\r\n  margin-bottom: 3px;\n}\nbutton.btn.collapsed[data-v-5df6e888]:before\r\n{\r\n    content:'Read more';\n}\nbutton.btn[data-v-5df6e888]:before\r\n{\r\n    content:'Read less';\n}\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/Task.vue"],"names":[],"mappings":";AA0CA;;EAEA,kBAAA;CACA;AAEA;;EAEA,mBAAA;CACA;AAEA;;IAEA,oBAAA;CAEA;AACA;;IAEA,oBAAA;CAEA","file":"Task.vue","sourcesContent":["<template>\r\n  <div class=\"card card-margin bg-light\">\r\n    <div class=\"card-header\" v-bind:id=\"'heading' + task.id\">\r\n      <h5 class=\"mb-0\">\r\n        <div class=\"container-fluid\">\r\n          <div class=\"row\">\r\n            <div class=\"col-8\">\r\n              <h3>{{ task.title }}</h3>\r\n              <label v-for=\"label in task.labels\" :key=\"label.id\" v-html=\"label.html\" class=\"label\">\r\n          \r\n              </label>\r\n            </div>\r\n\r\n            <div class=\"col-4\">\r\n\r\n              <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n              </button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </h5>\r\n    </div>\r\n\r\n    <div v-bind:id=\"'collapse' + task.id\" class=\"collapse\" v-bind:aria-labelledby=\"'heading' + task.id\" data-parent=\"#accordion\">\r\n      <div class=\"card-body\" v-html=\"task.message\">\r\n\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n</template>\r\n<script>\r\n    export default {\r\n        props: ['task']\r\n    }\r\n</script>\r\n\r\n\r\n<style scoped>\r\n\r\n.label{\r\n\r\n  margin-right: 3px;\r\n}\r\n\r\n.card-margin{\r\n\r\n  margin-bottom: 3px;\r\n}\r\n\r\nbutton.btn.collapsed:before\r\n{\r\n    content:'Read more';\r\n    \r\n}\r\nbutton.btn:before\r\n{\r\n    content:'Read less';\r\n    \r\n}\r\n\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.label[data-v-5df6e888]{\r\n\r\n  margin-right: 3px;\n}\n.card-margin[data-v-5df6e888]{\r\n\r\n  margin-bottom: 3px;\n}\nbutton.btn.collapsed[data-v-5df6e888]:before\r\n{\r\n  content:'Expand more';\n}\nbutton.btn[data-v-5df6e888]:before\r\n{\r\n  content:'Expand less';\n}\r\n\r\n\r\n/* Resolve bottom border missing in accordion card child */\n.accordion div.card[data-v-5df6e888]:only-child \r\n{ \r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.125);\r\n  border-radius: calc(0.25rem - 1px);\n} \r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/Task.vue"],"names":[],"mappings":";AAgEA;;EAEA,kBAAA;CACA;AAEA;;EAEA,mBAAA;CACA;AAEA;;EAEA,sBAAA;CAEA;AACA;;EAEA,sBAAA;CAEA;;;AAGA,2DAAA;AACA;;EAEA,8CAAA;EACA,mCAAA;CACA","file":"Task.vue","sourcesContent":["<template>\r\n  <div class=\"card card-margin bg-light\">\r\n    <div class=\"card-header\" v-bind:id=\"'heading' + task.id\">\r\n      <h2 class=\"mb-0\">\r\n        <div class=\"container-fluid\">\r\n          <div class=\"row\">\r\n            <div class=\"col-8\">\r\n              <h3>{{ task.title }}</h3>\r\n              \r\n              <label v-for=\"label in task.labels\" :key=\"label.id\" v-html=\"label.html\" class=\"label\">\r\n          \r\n              </label>\r\n            </div>\r\n\r\n            <div class=\"col-4\">\r\n\r\n              <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n              </button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </h2>\r\n    </div>\r\n\r\n    <div v-bind:id=\"'collapse' + task.id\" class=\"collapse\" v-bind:aria-labelledby=\"'heading' + task.id\" data-parent=\"#accordion\">\r\n      <div class=\"card-body\" v-html=\"task.message\">\r\n\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n</template>\r\n<script>\r\n    import VRuntimeTemplate from \"v-runtime-template\";\r\n\r\n    export default {\r\n        props: ['task'],\r\n        data() {\r\n            return {\r\n                options: {\r\n                    height: \"600px\",\r\n                    width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            submitFile: function (path) {\r\n                console.log(\"submit_cheese\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            }\r\n            \r\n        },\r\n    }\r\n</script>\r\n\r\n\r\n<style scoped>\r\n\r\n.label{\r\n\r\n  margin-right: 3px;\r\n}\r\n\r\n.card-margin{\r\n\r\n  margin-bottom: 3px;\r\n}\r\n\r\nbutton.btn.collapsed:before\r\n{\r\n  content:'Expand more';\r\n    \r\n}\r\nbutton.btn:before\r\n{\r\n  content:'Expand less';\r\n    \r\n}\r\n\r\n\r\n/* Resolve bottom border missing in accordion card child */\r\n.accordion div.card:only-child \r\n{ \r\n  border-bottom: 1px solid rgba(0, 0, 0, 0.125);\r\n  border-radius: calc(0.25rem - 1px); \r\n} \r\n\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -48389,6 +48403,8 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+throw new Error("Cannot find module \"v-runtime-template\"");
+//
 //
 //
 //
@@ -48423,8 +48439,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['task']
+    props: ['task'],
+    data: function data() {
+        return {
+            options: {
+                height: "600px",
+                width: "100%"
+            },
+            path: null
+        };
+    },
+
+
+    methods: {
+        submitFile: function submitFile(path) {
+            console.log("submit_cheese");
+            PDFObject.embed(path, "#pdf", this.options);
+            $('#pdfview').modal('show');
+        }
+
+    }
 });
 
 /***/ }),
@@ -48440,7 +48477,7 @@ var render = function() {
       "div",
       { staticClass: "card-header", attrs: { id: "heading" + _vm.task.id } },
       [
-        _c("h5", { staticClass: "mb-0" }, [
+        _c("h2", { staticClass: "mb-0" }, [
           _c("div", { staticClass: "container-fluid" }, [
             _c("div", { staticClass: "row" }, [
               _c(
@@ -48515,7 +48552,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "bg-primary", attrs: { id: "app" } }, [
+  return _c("div", { attrs: { id: "app" } }, [
     _vm._m(0),
     _vm._v(" "),
     _c(
