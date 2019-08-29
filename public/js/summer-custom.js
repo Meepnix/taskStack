@@ -17,21 +17,7 @@ var ImageButton = function (context) {
   return button.render();   // return button as jquery object
 }
 
-var FileButton = function (context) {
-    var ui = $.summernote.ui;
-  
-    // create button
-    var button = ui.button({
-      contents: '<i class="fas fa-file-pdf"/>',
-      tooltip: 'Insert PDF link',
-      click: function () {
-          // invoke file selection modal
-          $('#fileselect').modal('show');
-      }
-    });
-  
-    return button.render();   // return button as jquery object
-  }
+
 
 
 
@@ -47,13 +33,11 @@ $(document).ready(function() {
             ['table', ['table']],
             ['media', ['link', 'video', 'hr']],
             ['image', ['image']],
-            ['file', ['file']],
             ['view', ['codeview']]
         ],
 
         buttons: {
             image: ImageButton,
-            file: FileButton
         },
 
         //Fix firefox popover
@@ -65,9 +49,21 @@ $(document).ready(function() {
                 ['float', ['floatLeft', 'floatRight', 'floatNone']],
                 ['remove', ['removeMedia']]
             ]
-        }
+        },
+
+        //Add summernote content to Vue message field.
+        callbacks: {
+            onChange: function(contents, $editable) {
+              app.fields.message = contents;
+            }
+          }
     });
 });
+
+
+
+
+
 
 
 // Vue app
@@ -154,7 +150,7 @@ Vue.component('location-file', {
                                 <a v-bind:href="SiteRoute + 'storage' + pdf.public_path" target="_blank">{{ pdf.name }}</a>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="insertFile('storage' + pdf.public_path, pdf.name)">Insert file</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="addLink(pdf.id, pdf.name)">Insert file</button>
                             </td>
                         </tr> 
                     </tbody> 
@@ -172,9 +168,35 @@ Vue.component('location-file', {
 
             var HTMLstring = `<button type="button" class="btn btn-link" v-on:click="submitFile('`+ SiteRoute + url +`')"><i class="fa fa-btn fa-file-pdf" aria-hidden="true"></i>` + name + `</button>`;
             $('#summernote').summernote('pasteHTML', HTMLstring);
+        },
+
+        addLink: function (id, name) {
+
+            this.$emit('add-link', id, name);
+
         }
     }   
 
+})
+
+
+// List File links
+
+Vue.component('list-file', {
+    props: ['file'],
+    template: `
+
+    <li class="list-group-item">{{ file.name }}
+    <button type="button" class="btn btn-primary" v-on:click="removeLink(file)">X</button></li>
+    
+    `,
+    methods: {
+
+        removeLink: function (link) {
+            this.$emit('remove-link', link);
+            console.log('emitted remove');
+        },
+    }
 })
 
 
@@ -184,8 +206,18 @@ var app = new Vue({
     el: '#app',
     data: {
         images: null,
+        test: null,
         files: null,
-        errors: []
+        fields: {
+            links: [],
+            label_check: [],
+            title: null,
+            message: null,
+
+        },
+        links: [],
+        errors: [],
+        labels: 0
     },
     methods: {
         read: function () {
@@ -204,6 +236,16 @@ var app = new Vue({
             .catch(e => {
                 this.error.push(e);
             })
+        },
+
+        addLink: function (linkid, linkname) {
+            this.fields.links.push({id: linkid, name: linkname});
+        },
+
+        removeLink: function (link) {
+            console.log(link);
+            this.fields.links.splice(this.fields.links.indexOf(link), 1);
+
         }
 
 

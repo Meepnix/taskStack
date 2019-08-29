@@ -27,7 +27,8 @@
                         type="text" 
                         class="form-control" id="title1" 
                         name="title" 
-                        value="{{ old('title') }}">
+                        value="{{ old('title') }}"
+                        v-model="fields.title">
                         <br>
                     </div>
 
@@ -38,7 +39,12 @@
 
                         <label for="{{ $label->id }}">{!! $label->html !!}</label>
 
-                        <input id="{{ $label->id }}" name="label_check[]" type="checkbox" value="{{ $label->id }}">
+                        <input 
+                        id="{{ $label->id }}" 
+                        name="label_check[]" 
+                        type="checkbox" 
+                        value="{{ $label->id }}"
+                        v-model="fields.label_check">
                         
                     
                         @endforeach
@@ -47,8 +53,36 @@
 
                     <div class="form-group">
                         <h5>Content:</h5>
-                        <textarea name="message" class="summernote" id="summernote">{{ old('message') }}</textarea>
+                        <textarea 
+                        name="message" 
+                        class="summernote" 
+                        id="summernote">
+                            {{ old('message') }}
+                        </textarea>
+                        @{{ test }}
+                        @{{ fields.title }}
+                        @{{ fields.message }}
                     </div>
+
+                    <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    data-toggle="modal" 
+                    data-target="#fileselect">
+                        Add PDF
+                    </button>
+
+                    <ul class="list-group">
+                        <list-file class="list-group-item"
+                        v-for="pdf in fields.links" 
+                        v-bind:file="pdf" 
+                        :key="pdf.id"
+                        v-on:remove-link="removeLink">
+                        </list-file>
+  
+                    </ul>
+
+
 
                     <button type="submit">Save</button>
 
@@ -115,7 +149,8 @@
                                     <location-file
                                     v-for="pdf in files" 
                                     v-bind:file="pdf" 
-                                    :key="pdf.id">
+                                    :key="pdf.id"
+                                    v-on:add-link="addLink">
                                     </location-file>
                                 </div>
 

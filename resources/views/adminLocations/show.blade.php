@@ -164,36 +164,6 @@
                                         </tbody>
                                     </table>
 
-                                    <!-- View PDF -->
-                                    <div 
-                                    class="modal fade" 
-                                    id="pdfview" 
-                                    tabindex="-1" 
-                                    role="dialog" 
-                                    aria-labelledby="view_pdf" 
-                                    aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="view_pdf">View PDF</h5>
-                                                    <button 
-                                                    type="button" 
-                                                    class="close" 
-                                                    data-dismiss="modal" 
-                                                    aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="container-fluid">
-                                                        <div id="pdf"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
                                     <!-- Image Table -->
                                     <div class="col">
                                         <h4>Image files</h4>
@@ -292,36 +262,6 @@
 
                                         </tbody>
                                     </table>
-
-                                    <!-- View Image -->
-                                    <div 
-                                    class="modal fade" 
-                                    id="imageview" 
-                                    tabindex="-1" 
-                                    role="dialog" 
-                                    aria-labelledby="exampleModalLabel" 
-                                    aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">View Image</h5>
-                                                    <button 
-                                                    type="button" 
-                                                    class="close" 
-                                                    data-dismiss="modal" 
-                                                    aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="container-fluid">
-                                                        <img v-bind:src="path" height="100%" width="100%">
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -378,7 +318,65 @@
                 </div>
 
             @endforeach
-            
+
+                <!-- View PDF -->
+                <div 
+                class="modal fade" 
+                id="pdfview" 
+                tabindex="-1" 
+                role="dialog" 
+                aria-labelledby="view_pdf" 
+                aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="view_pdf">View PDF</h5>
+                                <button 
+                                type="button" 
+                                class="close" 
+                                data-dismiss="modal" 
+                                aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div id="pdf"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View Image -->
+                <div 
+                class="modal fade" 
+                id="imageview" 
+                tabindex="-1" 
+                role="dialog" 
+                aria-labelledby="exampleModalLabel" 
+                aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">View Image</h5>
+                                <button 
+                                type="button" 
+                                class="close" 
+                                data-dismiss="modal" 
+                                aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <img v-bind:src="path" height="100%" width="100%">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             

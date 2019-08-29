@@ -23,8 +23,8 @@ class AdminFileController extends Controller
         Storage::delete($file->path);
 
         //Test deletion
-        if (Storage::exists($image->path)){
-            Log::error('PDF file ' .  $image->path . ' failed to delete');
+        if (Storage::exists($file->path)){
+            Log::error('PDF file ' .  $file->path . ' failed to delete');
         }
 
         $file->delete();

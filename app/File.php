@@ -21,4 +21,9 @@ class File extends Model
         return $this->belongsTo('App\Location');
     }
 
+    function tasks()
+    {
+        return $this->belongsToMany('App\Task')->withTimestamps();
+    }
+
 }
