@@ -18,9 +18,6 @@ var ImageButton = function (context) {
 }
 
 
-
-
-
 $(document).ready(function() {
     $('#summernote').summernote({
 
@@ -59,10 +56,6 @@ $(document).ready(function() {
           }
     });
 });
-
-
-
-
 
 
 
@@ -208,6 +201,8 @@ var app = new Vue({
         images: null,
         test: null,
         files: null,
+        success: false,
+        loaded: true,
         fields: {
             links: [],
             label_check: [],
@@ -216,7 +211,7 @@ var app = new Vue({
 
         },
         links: [],
-        errors: [],
+        errors: {},
         labels: 0
     },
     methods: {
@@ -245,6 +240,29 @@ var app = new Vue({
         removeLink: function (link) {
             console.log(link);
             this.fields.links.splice(this.fields.links.indexOf(link), 1);
+
+        },
+
+        submit: function () {
+            if (this.loaded) {
+                this.loaded = false;
+                this.success = false;
+                this.errors = {};
+
+                axios.post('/admin/tasks/store', this.fields).then(response => {
+                    this.success = true;
+                    setTimeout(function(){
+                        this.success = false;
+                    }, 2000);
+                    window.location = response.data.redirect;
+                })
+                .catch(error => {
+                    this.loaded = true;
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors || {};
+                    }
+                });
+            }
 
         }
 

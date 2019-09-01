@@ -44,16 +44,21 @@ class AdminTaskController extends Controller
     public function store(Request $request)
     {
         
-        
         $new = new Task;
-        
+
         $task = $new->addTask($request);
 
-        #Attach checked labels
+        #Attach checked labels 
         $task->labels()->attach($request->label_check);
-        
 
-        return redirect()->route('admin.task.show')->with('flash_message', 'Task ' . $task->title . ' Created');
+        #Attach linked files
+        $links = collect($request->links)->pluck('id');
+        $task->files()->attach($links);
+
+        return response()->json(['redirect' => route('admin.task.show')], 200);
+        
+        
+        #return redirect()->route('admin.task.show')->with('flash_message', 'Task ' . $task->title . ' Created');
 
     }
 

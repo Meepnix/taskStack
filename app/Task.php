@@ -51,6 +51,16 @@ class Task extends Model
         return $this->belongsToMany('App\Label')->withTimestamps();
     }
 
+    /**
+     * Retrieve Files associated with the Task.
+     * 
+     */
+
+     public function files()
+     {
+         return $this->belongsToMany('App\File')->withTimestamps();
+     }
+
     public function slots()
     {
         return $this->hasMany('App\Slot');

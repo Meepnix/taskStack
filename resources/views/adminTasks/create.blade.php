@@ -12,13 +12,15 @@
 
     <div class="container">
 
-    @include('shared.flash')
+    <div v-if="success" class="alert alert-success" role="alert">
+            Task Created.
+    </div>
     
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <h2>Create Task</h2>
             
-                <form method="POST" action="{{ route('admin.task.store') }}">
+                <form @submit.prevent="submit">
                 @csrf
                     
                     <div class="form-group">
