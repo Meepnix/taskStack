@@ -61,9 +61,7 @@
                         id="summernote">
                             {{ old('message') }}
                         </textarea>
-                        @{{ test }}
-                        @{{ fields.title }}
-                        @{{ fields.message }}
+                       
                     </div>
 
                     <button 

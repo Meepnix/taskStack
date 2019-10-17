@@ -80,10 +80,6 @@ Route::get('/admin/labels/edit/{label}', 'AdminLabelController@edit')->name('adm
 Route::patch('/admin/labels/update/{label}', 'AdminLabelController@update')->name('admin.label.update');
 
 
-
-
-
-
 Route::get('/meep', function () {
     return view('welcome');
 });
@@ -100,12 +96,14 @@ Route::get('/task', function () {
 //Tasks
 Route::get('/task/index', 'TaskController@index')->name('task.index');
 
-
-//Location images
+//Locations images
 Route::get('/admin/location/index/images', 'AdminLocationController@indexImages')->name('admin.location.image.index');
 
-//Location images
+//Locations files
 Route::get('/admin/location/index/files', 'AdminLocationController@indexFiles')->name('admin.location.file.index');
+
+//Tasks links
+Route::get('/admin/tasks/links/{task}', 'AdminTaskController@editLinks')->name('admin.task.links');
 
 
 

@@ -18,14 +18,20 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <h2>Edit Task</h2>
-                <form method="POST" action="{{ route('admin.task.update', [$task->id]) }}">
+                <form @submit.prevent="submit">
 
                 @csrf
                 @method('PATCH')
                         
                     <div class="form-group">
                         <label for="title1">Title</label>
-                        <input type="text" class="form-control" id="title1" name="title" value="{{ $task->title }}">
+                        <input 
+                        type="text" 
+                        class="form-control" 
+                        id="title1" 
+                        name="title" 
+                        value="{{ $task->title }}"
+                        v-model="fields.title">
                         <br>
                     </div>
 
@@ -36,12 +42,13 @@
 
                             <label for="{{ $label->id }}">{!! $label->html !!}</label>
 
-                            <input id="{{ $label->id }}" name="label_check[]" type="checkbox" value="{{ $label->id }}"
+                            <input id="{{ $label->id }}" 
+                            name="label_check[]" 
+                            type="checkbox" 
+                            value="{{ $label->id }}"
+                            v-model="fields.label_check"
                             {{ $label_chks->contains('id', $label->id) ? 'checked' : ''}} >
                         
-                            
-
-
                         @endforeach
                     </div>
 
@@ -150,8 +157,9 @@
 <script>
     //Pass site route
     var SiteRoute = "{{asset('')}}";
+    var id = "{{$task->id}}";
 </script>
 
-<script src="{{ asset('js/summer-custom.js') }}"></script>
+<script src="{{ asset('js/summer-custom-update.js') }}"></script>
 
 @endpush

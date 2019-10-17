@@ -69,7 +69,7 @@ class AdminTaskController extends Controller
 
     }
 
-    public function edit(Request $request, Task $task)
+    public function edit(Task $task)
     {
         $labels = Label::all();
 
@@ -88,5 +88,8 @@ class AdminTaskController extends Controller
     }
 
     
-
+    public function editLinks(Task $task)
+    {
+        return response()->json($task->links,200);
+    }
 }
