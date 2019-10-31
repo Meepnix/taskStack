@@ -13,11 +13,14 @@
 
     <div class="container">
 
-    @include('shared.flash')
+    <div v-if="success" class="alert alert-success" role="alert">
+            Task Updated.
+    </div>
     
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <h2>Edit Task</h2>
+
                 <form @submit.prevent="submit">
 
                 @csrf
@@ -47,15 +50,40 @@
                             type="checkbox" 
                             value="{{ $label->id }}"
                             v-model="fields.label_check"
-                            {{ $label_chks->contains('id', $label->id) ? 'checked' : ''}} >
+                            style="margin-right: 10px;">
                         
                         @endforeach
                     </div>
 
                             
                     <div class="form-group">
-                        <textarea name="message" class="summernote" id="summernote">{{ $task->message }}</textarea>
+                        <textarea 
+                        name="message"
+                        class="summernote" 
+                        id="summernote">
+                            {{ $task->message }}
+                        </textarea>
                     </div>
+
+                    
+
+                    <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    data-toggle="modal" 
+                    data-target="#fileselect">
+                        Add PDF
+                    </button>
+
+                    <ul class="list-group">
+                        <list-file class="list-group-item"
+                        v-for="pdf in fields.links" 
+                        v-bind:file="pdf" 
+                        :key="pdf.id"
+                        v-on:remove-link="removeLink">
+                        </list-file>
+  
+                    </ul>
 
                     <button type="submit">Save</button>
 
@@ -121,7 +149,8 @@
                                     <location-file
                                     v-for="pdf in files" 
                                     v-bind:file="pdf" 
-                                    :key="pdf.id">
+                                    :key="pdf.id"
+                                    v-on:add-link="addLink">
                                     </location-file>
                                 </div>
 

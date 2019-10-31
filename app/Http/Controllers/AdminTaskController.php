@@ -80,16 +80,32 @@ class AdminTaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
-        $task->update($request->all());
-
+        #Update columns
+        $task->title = $request->title;
+        $task->message = $request->message;
+    
+        #Sync checked labels
         $task->labels()->sync($request->label_check);
 
-        return redirect()->route('admin.task.show')->with('flash_message', 'Task' . $task->title. ' Updated');
+        #Sync linked files
+        $links = collect($request->links)->pluck('id');
+        $task->files()->sync($links);
+
+        return response()->json(['redirect' => route('admin.task.show')], 200);
     }
 
     
     public function editLinks(Task $task)
     {
-        return response()->json($task->links,200);
+        return response()->json($task->files,200);
+    }
+
+    public function editTasks(Task $task)
+    {
+
+        $task->labels_chk = collect($task->labels)->pluck('id');
+        
+        return response()->json($task, 200);
+
     }
 }

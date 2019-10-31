@@ -105,6 +105,9 @@ Route::get('/admin/location/index/files', 'AdminLocationController@indexFiles')-
 //Tasks links
 Route::get('/admin/tasks/links/{task}', 'AdminTaskController@editLinks')->name('admin.task.links');
 
+//Tasks with labels
+Route::get('/admin/tasks/task/{task}', 'AdminTaskController@editTasks')->name('admin.task.tasks');
+
 
 
 //Route::get('/logtest', '\App\Http\Controllers\Auth\LoginController@login');

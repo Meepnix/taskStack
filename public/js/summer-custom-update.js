@@ -211,8 +211,8 @@ var app = new Vue({
             message: null,
 
         },
-        links: [],
-        errors: {},
+        links: null,
+        errors: [],
         labels: 0
     },
     methods: {
@@ -222,7 +222,7 @@ var app = new Vue({
                 this.images = response.data;
             })
             .catch(e => {
-                this.error.push(e);
+                this.errors.push(e);
             })
 
             //get file json
@@ -230,16 +230,34 @@ var app = new Vue({
                 this.files = response.data;
             })
             .catch(e => {
-                this.error.push(e);
+                this.errors.push(e);
             })
 
-            //get link json
+            //get file links json
             axios.get('/admin/tasks/links/' + this.id).then( response => {
-                this.fields.links = reponse.data;
+                let links = response.data;
+                for (let link in links) {
+                    this.fields.links.push({id: links[link].id, name: links[link].name});
+                }
             })
             .catch(e => {
-                this.error.push(e);
+                this.errors.push(e);
             })
+
+            //get task json
+            axios.get('/admin/tasks/task/' + this.id).then( response => {
+                this.fields.title = response.data.title;
+                //json object to label checked array
+                for (const label in response.data.labels)
+                {
+                    this.fields.label_check.push(response.data.labels[label].id);
+                }
+                
+            })
+            .catch(e => {
+                this.errors.push(e);
+            })
+
         },
 
         addLink: function (linkid, linkname) {
@@ -253,12 +271,13 @@ var app = new Vue({
         },
 
         submit: function () {
+            console.log('submit');
             if (this.loaded) {
                 this.loaded = false;
                 this.success = false;
-                this.errors = {};
+                this.errors = [];
 
-                axios.post('/admin/tasks/store', this.fields).then(response => {
+                axios.patch('/admin/tasks/update/' + this.id, this.fields).then(response => {
                     this.success = true;
                     setTimeout(function(){
                         this.success = false;
@@ -268,7 +287,7 @@ var app = new Vue({
                 .catch(error => {
                     this.loaded = true;
                     if (error.response.status === 422) {
-                        this.errors = error.response.data.errors || {};
+                        this.errors.push(error);
                     }
                 });
             }
