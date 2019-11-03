@@ -90,6 +90,8 @@ class AdminTaskController extends Controller
         #Sync linked files
         $links = collect($request->links)->pluck('id');
         $task->files()->sync($links);
+        
+        $task->save();
 
         return response()->json(['redirect' => route('admin.task.show')], 200);
     }

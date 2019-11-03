@@ -20,14 +20,19 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <h2>Edit Task</h2>
+                <hr>
 
-                <form @submit.prevent="submit">
+                <form @submit.prevent="update">
 
                 @csrf
                 @method('PATCH')
                         
                     <div class="form-group">
-                        <label for="title1">Title</label>
+                        <label for="title1">
+                            <h5>
+                                <strong>Title</strong>
+                            </h5>
+                        </label>
                         <input 
                         type="text" 
                         class="form-control" 
@@ -39,7 +44,9 @@
                     </div>
 
                     <div class="form-group">
-                        <h5>Tags:</h5>
+                        <h5>
+                            <strong>Tags</strong>
+                        </h5>
                         @foreach( $labels as $label)
                     
 
@@ -57,6 +64,9 @@
 
                             
                     <div class="form-group">
+                        <h5>
+                            <strong>Contents</strong>
+                        </h5>
                         <textarea 
                         name="message"
                         class="summernote" 
@@ -65,15 +75,22 @@
                         </textarea>
                     </div>
 
-                    
-
-                    <button 
-                    type="button" 
-                    class="btn btn-primary" 
-                    data-toggle="modal" 
-                    data-target="#fileselect">
-                        Add PDF
-                    </button>
+                    <h5>
+                        <p>
+                        <strong>Attached PDFs</strong>
+                        
+                        <button 
+                        type="button" 
+                        class="btn btn-primary" 
+                        data-toggle="modal" 
+                        data-target="#fileselect">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i> ADD PDF
+                        </button>
+                        
+                        
+                        </p>
+                    </h5>
+                   
 
                     <ul class="list-group">
                         <list-file class="list-group-item"
@@ -85,7 +102,7 @@
   
                     </ul>
 
-                    <button type="submit">Save</button>
+                    <button type="submit" class="btn btn-outline-primary">SAVE</button>
 
                 </form>
                         

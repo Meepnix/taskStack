@@ -109,7 +109,7 @@ Vue.component('location-image', {
         }
     }   
 
-})
+});
 
 
 
@@ -170,7 +170,7 @@ Vue.component('location-file', {
         }
     }   
 
-})
+});
 
 
 // List File links
@@ -190,7 +190,7 @@ Vue.component('list-file', {
             console.log('emitted remove');
         },
     }
-})
+});
 
 
 
@@ -217,13 +217,14 @@ var app = new Vue({
     },
     methods: {
         read: function () {
+
             //get image json
             axios.get('/admin/location/index/images').then( response => {
                 this.images = response.data;
             })
             .catch(e => {
                 this.errors.push(e);
-            })
+            });
 
             //get file json
             axios.get('/admin/location/index/files').then( response => {
@@ -231,32 +232,37 @@ var app = new Vue({
             })
             .catch(e => {
                 this.errors.push(e);
-            })
+            });
 
-            //get file links json
-            axios.get('/admin/tasks/links/' + this.id).then( response => {
-                let links = response.data;
-                for (let link in links) {
-                    this.fields.links.push({id: links[link].id, name: links[link].name});
-                }
-            })
-            .catch(e => {
-                this.errors.push(e);
-            })
+            //Check if editing tasking
+            if (this.id) {
 
-            //get task json
-            axios.get('/admin/tasks/task/' + this.id).then( response => {
-                this.fields.title = response.data.title;
-                //json object to label checked array
-                for (const label in response.data.labels)
-                {
-                    this.fields.label_check.push(response.data.labels[label].id);
-                }
-                
-            })
-            .catch(e => {
-                this.errors.push(e);
-            })
+                //get file links json
+                axios.get('/admin/tasks/links/' + this.id).then( response => {
+                    let links = response.data;
+                    for (let link in links) {
+                        this.fields.links.push({id: links[link].id, name: links[link].name});
+                    }
+                })
+                .catch(e => {
+                    this.errors.push(e);
+                });
+
+                //get task json
+                axios.get('/admin/tasks/task/' + this.id).then( response => {
+                    this.fields.title = response.data.title;
+                    //json object to label checked array
+                    for (const label in response.data.labels)
+                    {
+                        this.fields.label_check.push(response.data.labels[label].id);
+                    }
+                    
+                })
+                .catch(e => {
+                    this.errors.push(e);
+                });
+                    
+            }
 
         },
 
@@ -270,8 +276,7 @@ var app = new Vue({
 
         },
 
-        submit: function () {
-            console.log('submit');
+        update: function () {
             if (this.loaded) {
                 this.loaded = false;
                 this.success = false;
@@ -292,15 +297,38 @@ var app = new Vue({
                 });
             }
 
+        },
+
+        create: function () {
+            if (this.loaded) {
+                this.loaded = false;
+                this.success = false;
+                this.errors = {};
+
+                axios.post('/admin/tasks/store', this.fields).then(response => {
+                    this.success = true;
+                    setTimeout(function(){
+                        this.success = false;
+                    }, 2000);
+                    window.location = response.data.redirect;
+                })
+                .catch(error => {
+                    this.loaded = true;
+                    if (error.response.status === 422) {
+                        this.errors.push(error);
+                    }
+                });
+            }
+
         }
 
 
     },
     created: function () {
             
-        this.read();
+            this.read();
     }
-})
+});
 
 Vue.config.devtools = true;
 

@@ -249,7 +249,7 @@ var app = new Vue({
                 this.success = false;
                 this.errors = {};
 
-                axios.patch('/admin/tasks/store', this.fields).then(response => {
+                axios.post('/admin/tasks/store', this.fields).then(response => {
                     this.success = true;
                     setTimeout(function(){
                         this.success = false;

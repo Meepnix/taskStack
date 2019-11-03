@@ -20,7 +20,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <h2>Create Task</h2>
             
-                <form @submit.prevent="submit">
+                <form @submit.prevent="create">
                 @csrf
                     
                     <div class="form-group">
@@ -184,9 +184,10 @@
 <script>
     //Pass site route
     var SiteRoute = "{{asset('')}}";
+    var id = 0;
 </script>
 
-<script src="{{ asset('js/summer-custom.js') }}"></script>
+<script src="{{ asset('js/summer-custom-update.js') }}"></script>
 
 @endpush
 
