@@ -19,12 +19,17 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <h2>Create Task</h2>
+                <hr>
             
                 <form @submit.prevent="create">
                 @csrf
                     
                     <div class="form-group">
-                        <label for="title1"><h5>Title:</h5></label>
+                        <label for="title1">
+                            <h5>
+                                <strong>Title</strong>
+                            </h5>
+                        </label>
                         <input 
                         type="text" 
                         class="form-control" id="title1" 
@@ -35,7 +40,9 @@
                     </div>
 
                     <div class="form-group">
-                        <h5>Tags:</h5>
+                        <h5>
+                            <strong>Tags</strong>
+                        </h5>
                         @foreach( $labels as $label)
                     
 
@@ -46,7 +53,8 @@
                         name="label_check[]" 
                         type="checkbox" 
                         value="{{ $label->id }}"
-                        v-model="fields.label_check">
+                        v-model="fields.label_check"
+                        style="margin-right: 10px;">
                         
                     
                         @endforeach
@@ -54,7 +62,9 @@
 
 
                     <div class="form-group">
-                        <h5>Content:</h5>
+                        <h5>
+                            <strong>Content</strong>
+                        </h5>
                         <textarea 
                         name="message" 
                         class="summernote" 
@@ -160,17 +170,11 @@
                     </div>
                 </div>
 
-
-            
-                @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                    </ul>
-                </div>
-                @endif
+                <ul>
+                    <li v-for="error in errors">
+                        @{{ error }}
+                    </li>
+                </ul>
 
             </div>
         </div>

@@ -43,6 +43,12 @@ class AdminTaskController extends Controller
     */
     public function store(Request $request)
     {
+        $request->validate([
+
+            'title' => 'required',
+            'message' => 'required',
+
+        ]);
         
         $new = new Task;
 
@@ -80,6 +86,14 @@ class AdminTaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
+
+        $request->validate([
+
+            'title' => 'required',
+            'message' => 'required',
+
+        ]);
+
         #Update columns
         $task->title = $request->title;
         $task->message = $request->message;

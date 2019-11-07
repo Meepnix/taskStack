@@ -76,20 +76,15 @@
                     </div>
 
                     <h5>
-                        <p>
                         <strong>Attached PDFs</strong>
-                        
-                        <button 
+                    </h5>
+                    <button 
                         type="button" 
                         class="btn btn-primary" 
                         data-toggle="modal" 
                         data-target="#fileselect">
                             <i class="fa fa-plus-square" aria-hidden="true"></i> ADD PDF
-                        </button>
-                        
-                        
-                        </p>
-                    </h5>
+                    </button>
                    
 
                     <ul class="list-group">
@@ -178,19 +173,11 @@
                 </div>
 
 
-                @if (count($errors) > 0)
-
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-
-                        <li>{{ $error }}</li>
-
-                        @endforeach
-                    </ul>
-                </div>
-
-                @endif
+                <ul>
+                    <li v-for="error in errors">
+                        @{{ error }}
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

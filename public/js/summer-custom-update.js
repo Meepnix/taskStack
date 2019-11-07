@@ -156,7 +156,6 @@ Vue.component('location-file', {
 
         insertFile: function (url, name) {
             //insert file link into summernote
-            console.log(SiteRoute + url);
             //var HTMLstring = "<p> Test </p>";
 
             var HTMLstring = `<button type="button" class="btn btn-link" v-on:click="submitFile('`+ SiteRoute + url +`')"><i class="fa fa-btn fa-file-pdf" aria-hidden="true"></i>` + name + `</button>`;
@@ -187,7 +186,6 @@ Vue.component('list-file', {
 
         removeLink: function (link) {
             this.$emit('remove-link', link);
-            console.log('emitted remove');
         },
     }
 });
@@ -213,7 +211,8 @@ var app = new Vue({
         },
         links: null,
         errors: [],
-        labels: 0
+        labels: 0,
+        validation: {},
     },
     methods: {
         read: function () {
@@ -251,6 +250,7 @@ var app = new Vue({
                 //get task json
                 axios.get('/admin/tasks/task/' + this.id).then( response => {
                     this.fields.title = response.data.title;
+                    this.fields.message = response.data.message;
                     //json object to label checked array
                     for (const label in response.data.labels)
                     {
@@ -271,7 +271,6 @@ var app = new Vue({
         },
 
         removeLink: function (link) {
-            console.log(link);
             this.fields.links.splice(this.fields.links.indexOf(link), 1);
 
         },
@@ -292,7 +291,7 @@ var app = new Vue({
                 .catch(error => {
                     this.loaded = true;
                     if (error.response.status === 422) {
-                        this.errors.push(error);
+                        this.errors = error.response.data.errors.message;
                     }
                 });
             }
@@ -303,7 +302,7 @@ var app = new Vue({
             if (this.loaded) {
                 this.loaded = false;
                 this.success = false;
-                this.errors = {};
+                this.errors = [];
 
                 axios.post('/admin/tasks/store', this.fields).then(response => {
                     this.success = true;
@@ -315,7 +314,7 @@ var app = new Vue({
                 .catch(error => {
                     this.loaded = true;
                     if (error.response.status === 422) {
-                        this.errors.push(error);
+                        this.errors = error.response.data.errors.message;
                     }
                 });
             }
