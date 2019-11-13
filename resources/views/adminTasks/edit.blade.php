@@ -87,8 +87,8 @@
                     </button>
                    
 
-                    <ul class="list-group">
-                        <list-file class="list-group-item"
+                    <ul class="list-group" style="padding-top: 5px">
+                        <list-file class="list-group-item list-group-item"
                         v-for="pdf in fields.links" 
                         v-bind:file="pdf" 
                         :key="pdf.id"
@@ -97,11 +97,19 @@
   
                     </ul>
 
-                    <button type="submit" class="btn btn-outline-primary">SAVE</button>
+                    <hr>
+
+                    <div class="float-right">
+                        <a href="{{ route('admin.task.show') }}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">SAVE</button>
+                        
+                    </div>
+
+                    
 
                 </form>
                         
-                <a href="{{ route('admin.task.show') }}" class="btn btn-default">Back</a>
+                
 
                 <!-- Insert image modal from summernote -->
                 <div 

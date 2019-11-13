@@ -21,6 +21,9 @@ var ImageButton = function (context) {
 $(document).ready(function() {
     $('#summernote').summernote({
 
+        //Resolve can't scroll to the bottom issue
+        followingToolbar: false,
+
         toolbar: [
             ['style', ['style']],
             ['fontstyle', ['bold', 'italic', 'underline', 'clear']],
@@ -143,7 +146,7 @@ Vue.component('location-file', {
                                 <a v-bind:href="SiteRoute + 'storage' + pdf.public_path" target="_blank">{{ pdf.name }}</a>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="addLink(pdf.id, pdf.name)">Insert file</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="addLink(pdf.id, pdf.name)">Add PDF</button>
                             </td>
                         </tr> 
                     </tbody> 
@@ -178,8 +181,22 @@ Vue.component('list-file', {
     props: ['file'],
     template: `
 
-    <li class="list-group-item">{{ file.name }}
-    <button type="button" class="btn btn-primary" v-on:click="removeLink(file)">X</button></li>
+    <li class="list-group-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <i class="fa fa-btn fa-file-pdf" aria-hidden="true"></i>
+                    {{ file.name }}
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-danger" v-on:click="removeLink(file)">
+                        <i class="fa fa-btn fa-trash" aria-hidden="true"></i>
+                        DELETE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </li>
     
     `,
     methods: {

@@ -71,19 +71,22 @@
                         id="summernote">
                             {{ old('message') }}
                         </textarea>
-                       
                     </div>
+
+                    <h5>
+                        <strong>Attached PDFs</strong>
+                    </h5>
 
                     <button 
                     type="button" 
                     class="btn btn-primary" 
                     data-toggle="modal" 
                     data-target="#fileselect">
-                        Add PDF
+                        <i class="fa fa-plus-square" aria-hidden="true"></i> ADD PDF
                     </button>
 
-                    <ul class="list-group">
-                        <list-file class="list-group-item"
+                    <ul class="list-group" style="padding-top: 5px">
+                        <list-file class="list-group-item list-group-item"
                         v-for="pdf in fields.links" 
                         v-bind:file="pdf" 
                         :key="pdf.id"
@@ -93,12 +96,16 @@
                     </ul>
 
 
-
-                    <button type="submit">Save</button>
+                    <hr>
+                    <div class="float-right">
+                        <a href="{{ route('admin.task.show') }}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">SAVE</button>
+                        
+                    </div>
 
                 </form>
             
-                <a href="{{ route('admin.task.show') }}" class="btn btn-default">Back</a>
+                
 
 
                 <!-- Insert image modal from summernote -->
