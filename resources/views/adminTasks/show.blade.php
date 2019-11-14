@@ -111,11 +111,17 @@
                     aria-labelledby="heading{{ $loop->index }}" 
                     data-parent="#accordionTask">
                         
-                        <!-- Labels -->
+                        
                         <div class="card-body">
-                            <div class="card">
+                            <!-- Tags -->
+                            <div class="card border-primary mb-3">
+                                <div class="card-header">
+                                    <h5>
+                                        <strong>Tags</strong>
+                                    </h5>
+                                </div>
                                 <div class="card-body">
-                                <h5>Labels:</h5>
+                                    
                                 @foreach ($task->labels as $label)
                                     
                                     <label>
@@ -125,9 +131,37 @@
                                 @endforeach
                                 </div>
                             </div>
+                            <!-- Contents -->
+                            <div class="card border-primary mb-3">
+                                <div class="card-header">
+                                    <h5>
+                                        <strong>Contents</strong>
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>{!! $task->message !!}</p>
+                                </div>
+                            </div>
+                            <!-- Attached PDFs -->
+                            <div class="card border-primary mb-3">
+                                <div class="card-header">
+                                    <h5>
+                                        <strong>Attached PDFs</strong>
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                @foreach ($task->files as $file)
+                                    <button
+                                    type="button"
+                                    v-on:click="submitFile('{{ asset('storage' . $file->public_path) }}')"
+                                    class="btn btn-primary">
+                                        <i class="fa fa-btn fa-file-pdf" aria-hidden="true"></i>{{ $file->name }}
+                                    </button>
+                                @endforeach
+                                </div>
+                            </div>
 
 
-                            <p>{!! $task->message !!}</p>
 
                         </div>
                         <div class="card-footer">

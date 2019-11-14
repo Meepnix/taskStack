@@ -99,16 +99,20 @@
                                                 <td>{{ $file->type }}</td>
                                                 <td>{{ $file->size }}</td>
                                                 <td class="text-right">
-                                                    <a href="#" 
+                                                    <button
+                                                    type="button"
+                                                    class="btn btn-primary mr-2"
                                                     v-on:click="submitFile('{{ asset('storage' . $file->public_path) }}')">
                                                         <i class="fa fa-btn fa-file-pdf" aria-hidden="true"></i>OPEN
-                                                    </a>
-                                                    &nbsp;
-                                                    <a href="#" 
+                                                    </button>
+
+                                                    <button
+                                                    type="button"
+                                                    class="btn btn-danger" 
                                                     data-toggle="modal" 
                                                     data-target="#deleteFile{{ $location->id + $loop->index }}">
                                                         <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE
-                                                    </a>
+                                                    </button>
                                             
                                                     <!-- Delete File Modal -->
                                                     <div 
@@ -195,18 +199,20 @@
                                                 <td>{{ $image->type }}</td>
                                                 <td>{{ $image->size }}</td>
                                                 <td class="text-right">
-                                                    <a 
-                                                    href="#" 
+                                                    <button 
+                                                    type="button"
+                                                    class="btn btn-primary ml-2" 
                                                     v-on:click="submitImage('{{ asset('storage' . $image->public_path) }}')">
                                                         <i class="fa fa-btn fa-images" aria-hidden="true"></i>OPEN
-                                                    </a>
-                                                    &nbsp;
-                                                    <a 
-                                                    href="#" 
+                                                    </button>
+
+                                                    <button 
+                                                    type="button"
+                                                    class="btn btn-danger" 
                                                     data-toggle="modal" 
                                                     data-target="#deleteImage{{ $location->id + $loop->index }}">
                                                         <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE
-                                                    </a>
+                                                    </button>
                                                 
                                                     <!-- Delete image Modal -->
                                                     <div 

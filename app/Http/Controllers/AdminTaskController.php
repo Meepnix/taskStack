@@ -18,7 +18,7 @@ class AdminTaskController extends Controller
     public function show()
     {
         
-        $tasks = Task::with('labels')->get();
+        $tasks = Task::with('labels', 'files')->get();
         return view('adminTasks.show', compact('tasks'));
     }
 
