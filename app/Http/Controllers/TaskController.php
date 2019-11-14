@@ -11,7 +11,7 @@ class TaskController extends Controller
     public function index()
     {
         //HTTP status OK
-        return response()->json(Task::with('labels')->get(),200);
+        return response()->json(Task::with('labels', 'files')->get(),200);
     }
 
 }

@@ -28,6 +28,17 @@
 
       </div>
 
+      <button
+      v-for="file in task.files"
+      :key="file.id"
+      type="button"
+      v-on:click="submitFile(SiteRoute + 'storage' + file.public_path)"
+      class="btn btn-primary ml-2">
+        <i class="fa fa-btn fa-file-pdf" aria-hidden="true"></i>{{file.name}}
+      </button>
+
+      <p>Cheese</p>
+
     </div>
   </div>
 
@@ -39,6 +50,7 @@
         props: ['task'],
         data() {
             return {
+              SiteRoute: SiteRoute,
                 options: {
                     height: "600px",
                     width: "100%",
@@ -72,12 +84,12 @@
   margin-bottom: 3px;
 }
 
-button.btn.collapsed:before
+button.btn-link.collapsed:before
 {
   content:'Expand more';
     
 }
-button.btn:before
+button.btn-link:before
 {
   content:'Expand less';
     

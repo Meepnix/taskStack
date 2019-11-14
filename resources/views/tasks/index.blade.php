@@ -26,11 +26,18 @@
     }
   </style>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js"></script>
+  
 </head>
 <body>
 
 <div id="app"></div>
+
+<script>
+    //Pass site route
+    var SiteRoute = "{{asset('')}}";
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js"></script>
 
 <script src="{{ mix('js/app.js') }}"></script>
 </body>
