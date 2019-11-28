@@ -1,22 +1,25 @@
 <template>
     <div id="app">
-        <h1 class="text-white"><strong>taskSTACK</strong></h1>
-        <div class="accordion" id="accordion">
-            <task-component
-                v-for="task in tasks"
-                v-bind:task="task"
-                :key="task.id"
-            ></task-component>
+        <div class="container-fluid bg-black">
+            <div class="row">
+                <div class="col-1">
+                </div>
+
+                <div class="col-10">
+
+                    <h1 class="text-white"><strong>taskSTACK</strong></h1>
+                    <div class="accordion" id="accordion">
+                        <task-component
+                            v-for="task in tasks"
+                            v-bind:task="task"
+                            :key="task.id"
+                        ></task-component>
+                    </div>
+                </div>
+                <div class="col-1">
+                </div>
+            </div>
         </div>
-
-
-        <button
-        type="button"
-        v-on:click="submitFile('http://localhost/storage/pdf/kPzNhG7EcQ1GAOuKXFuS4uASzNuiQ8dCWfs0Jg6I.pdf')"
-        class="btn btn-primary">
-            <i class="fa fa-btn fa-file-pdf" aria-hidden="true"></i>TEST
-        </button>
-
 
         <!-- View PDF -->
         <div 
@@ -94,7 +97,27 @@
         created() {
             
             this.read();
+
+            //Focus on opened accordion card
+            $(document).ready(function() {
+                $('#accordion').on('shown.bs.collapse', function(e) {
+
+                    var $card = $(this).find('.collapse.show').prev();
+                    $('html,body').animate({
+                    scrollTop: $card.offset().top
+                    }, 500);
+                });
+            });
         }
     }
 </script>
+
+<style scoped>
+
+.bg-black {
+  background-color: black;
+}
+
+
+</style>
 
