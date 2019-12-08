@@ -1,13 +1,13 @@
 <template>
     <div id="app">
-        <div class="container-fluid bg-black">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-1">
                 </div>
 
                 <div class="col-10">
 
-                    <h1 class="text-white"><strong>taskSTACK</strong></h1>
+                    <h1><strong>taskSTACK</strong></h1>
                     <div class="accordion" id="accordion">
                         <task-component
                             v-for="task in tasks"

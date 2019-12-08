@@ -48445,7 +48445,7 @@ exports = module.exports = __webpack_require__(12)(true);
 
 
 // module
-exports.push([module.i, "\n.bg-black[data-v-8142f38c] {\r\n  background-color: black;\n}\r\n\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/App.vue"],"names":[],"mappings":";AAoHA;EACA,wBAAA;CACA","file":"App.vue","sourcesContent":["<template>\r\n    <div id=\"app\">\r\n        <div class=\"container-fluid bg-black\">\r\n            <div class=\"row\">\r\n                <div class=\"col-1\">\r\n                </div>\r\n\r\n                <div class=\"col-10\">\r\n\r\n                    <h1 class=\"text-white\"><strong>taskSTACK</strong></h1>\r\n                    <div class=\"accordion\" id=\"accordion\">\r\n                        <task-component\r\n                            v-for=\"task in tasks\"\r\n                            v-bind:task=\"task\"\r\n                            :key=\"task.id\"\r\n                        ></task-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-1\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- View PDF -->\r\n        <div \r\n        class=\"modal fade\" \r\n        id=\"pdfview\" \r\n        tabindex=\"-1\" \r\n        role=\"dialog\" \r\n        aria-labelledby=\"view_pdf\" \r\n        aria-hidden=\"true\">\r\n            <div class=\"modal-dialog modal-dialog-centered modal-xl\" role=\"document\">\r\n                <div class=\"modal-content\">\r\n                    <div class=\"modal-header\">\r\n                        <h5 class=\"modal-title\" id=\"view_pdf\">View PDF</h5>\r\n                        <button \r\n                        type=\"button\" \r\n                        class=\"close\" \r\n                        data-dismiss=\"modal\" \r\n                        aria-label=\"Close\">\r\n                            <span aria-hidden=\"true\">&times;</span>\r\n                        </button>\r\n                    </div>\r\n                    <div class=\"modal-body\">\r\n                        <div class=\"container-fluid\">\r\n                            <div id=\"pdf\"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</template>\r\n\r\n<script>\r\n\r\n    import TaskComponent from './Task.vue';\r\n\r\n    export default {\r\n        data() {\r\n            return {\r\n                tasks: [],\r\n                errors: [],\r\n                options: {\r\n                    height: \"600px\",\r\n                    width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            read() {\r\n                console.log(\"read\"); \r\n                window.axios.get('/task/index').then( response => {\r\n                    this.tasks = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.error.push(e);\r\n                })\r\n            },\r\n            submitFile: function (path) {\r\n                console.log(\"submit\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            }\r\n            \r\n        },\r\n        \r\n        components: {\r\n            TaskComponent\r\n        },\r\n\r\n        created() {\r\n            \r\n            this.read();\r\n\r\n            //Focus on opened accordion card\r\n            $(document).ready(function() {\r\n                $('#accordion').on('shown.bs.collapse', function(e) {\r\n\r\n                    var $card = $(this).find('.collapse.show').prev();\r\n                    $('html,body').animate({\r\n                    scrollTop: $card.offset().top\r\n                    }, 500);\r\n                });\r\n            });\r\n        }\r\n    }\r\n</script>\r\n\r\n<style scoped>\r\n\r\n.bg-black {\r\n  background-color: black;\r\n}\r\n\r\n\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.bg-black[data-v-8142f38c] {\r\n  background-color: black;\n}\r\n\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/App.vue"],"names":[],"mappings":";AAoHA;EACA,wBAAA;CACA","file":"App.vue","sourcesContent":["<template>\r\n    <div id=\"app\">\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col-1\">\r\n                </div>\r\n\r\n                <div class=\"col-10\">\r\n\r\n                    <h1><strong>taskSTACK</strong></h1>\r\n                    <div class=\"accordion\" id=\"accordion\">\r\n                        <task-component\r\n                            v-for=\"task in tasks\"\r\n                            v-bind:task=\"task\"\r\n                            :key=\"task.id\"\r\n                        ></task-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-1\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- View PDF -->\r\n        <div \r\n        class=\"modal fade\" \r\n        id=\"pdfview\" \r\n        tabindex=\"-1\" \r\n        role=\"dialog\" \r\n        aria-labelledby=\"view_pdf\" \r\n        aria-hidden=\"true\">\r\n            <div class=\"modal-dialog modal-dialog-centered modal-xl\" role=\"document\">\r\n                <div class=\"modal-content\">\r\n                    <div class=\"modal-header\">\r\n                        <h5 class=\"modal-title\" id=\"view_pdf\">View PDF</h5>\r\n                        <button \r\n                        type=\"button\" \r\n                        class=\"close\" \r\n                        data-dismiss=\"modal\" \r\n                        aria-label=\"Close\">\r\n                            <span aria-hidden=\"true\">&times;</span>\r\n                        </button>\r\n                    </div>\r\n                    <div class=\"modal-body\">\r\n                        <div class=\"container-fluid\">\r\n                            <div id=\"pdf\"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</template>\r\n\r\n<script>\r\n\r\n    import TaskComponent from './Task.vue';\r\n\r\n    export default {\r\n        data() {\r\n            return {\r\n                tasks: [],\r\n                errors: [],\r\n                options: {\r\n                    height: \"600px\",\r\n                    width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            read() {\r\n                console.log(\"read\"); \r\n                window.axios.get('/task/index').then( response => {\r\n                    this.tasks = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.error.push(e);\r\n                })\r\n            },\r\n            submitFile: function (path) {\r\n                console.log(\"submit\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            }\r\n            \r\n        },\r\n        \r\n        components: {\r\n            TaskComponent\r\n        },\r\n\r\n        created() {\r\n            \r\n            this.read();\r\n\r\n            //Focus on opened accordion card\r\n            $(document).ready(function() {\r\n                $('#accordion').on('shown.bs.collapse', function(e) {\r\n\r\n                    var $card = $(this).find('.collapse.show').prev();\r\n                    $('html,body').animate({\r\n                    scrollTop: $card.offset().top\r\n                    }, 500);\r\n                });\r\n            });\r\n        }\r\n    }\r\n</script>\r\n\r\n<style scoped>\r\n\r\n.bg-black {\r\n  background-color: black;\r\n}\r\n\r\n\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -48692,7 +48692,7 @@ exports = module.exports = __webpack_require__(12)(true);
 
 
 // module
-exports.push([module.i, "\n.label[data-v-5df6e888] {\r\n\r\n  margin-right: 3px;\n}\n.card-margin[data-v-5df6e888] {\r\n\r\n  \r\n  margin-bottom: 3px;\n}\n.btn-link[data-v-5df6e888] {\r\n  color: #FFFF80;\r\n  font-weight: bold;\r\n  font-size: large;\n}\n.btn-expand[data-v-5df6e888] {\r\n  color: black;\r\n  background-color: #FFFF80;\r\n  border-color: #FFFF80;\r\n  font-weight: bold;\r\n  font-size: large;\n}\nbutton.btn-link.collapsed[data-v-5df6e888]:before {\r\n  content:'+ Click to Read more';\n}\nbutton.btn-link[data-v-5df6e888]:before {\r\n  content:'- Click to Read less';\n}\r\n\r\n\r\n/* Resolve bottom border missing in accordion card child */\n.accordion div.card[data-v-5df6e888]:only-child { \r\n  border-bottom: 1px solid rgb(255, 255, 255);\r\n  border-radius: calc(0.25rem - 1px);\n}\n.bg-lightblack[data-v-5df6e888] {\r\n  background-color: #1A1A1B;\n}\n.border-task[data-v-5df6e888] {\r\n  border-style: solid;\r\n  border-width: 3px;\r\n  border-color: #F7EC6E;\n}\r\n\r\n\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/Task.vue"],"names":[],"mappings":";AAwFA;;EAEA,kBAAA;CACA;AAEA;;;EAGA,mBAAA;CACA;AAEA;EACA,eAAA;EACA,kBAAA;EACA,iBAAA;CAEA;AAEA;EACA,aAAA;EACA,0BAAA;EACA,sBAAA;EACA,kBAAA;EACA,iBAAA;CACA;AAGA;EACA,+BAAA;CAEA;AACA;EACA,+BAAA;CAEA;;;AAGA,2DAAA;AACA;EACA,4CAAA;EACA,mCAAA;CACA;AAGA;EACA,0BAAA;CACA;AAEA;EACA,oBAAA;EACA,kBAAA;EACA,sBAAA;CACA","file":"Task.vue","sourcesContent":["<template>\r\n  <div class=\"card text-white bg-blacklight border-task border-right-0 border-bottom-0 mb-3\">\r\n    <div class=\"card-header bg-dark\" v-bind:id=\"'heading' + task.id\">\r\n      <h2 class=\"mb-0\">\r\n        <div class=\"container-fluid\">\r\n          <div class=\"row\">\r\n            <div class=\"col-8\">\r\n              <h4><strong>{{ task.title }}</strong></h4>\r\n\r\n\r\n              <!-- Label tags -->\r\n              <label v-for=\"label in task.labels\" :key=\"label.id\" v-html=\"label.html\" class=\"mr-3\">\r\n          \r\n              </label>\r\n            </div>\r\n\r\n            <div class=\"col-4 text-center\">\r\n              <h3>\r\n              <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n              </button>\r\n              </h3>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </h2>\r\n    </div>\r\n\r\n    <div v-bind:id=\"'collapse' + task.id\" class=\"collapse\" v-bind:aria-labelledby=\"'heading' + task.id\" data-parent=\"#accordion\">\r\n\r\n      <!-- Content -->\r\n      <div class=\"card-body bg-dark\" v-html=\"task.message\">\r\n\r\n      </div>\r\n\r\n      <div class=\"card-body bg-dark\">\r\n        <!-- Attached Files -->\r\n        <button\r\n        v-for=\"file in task.files\"\r\n        :key=\"file.id\"\r\n        type=\"button\"\r\n        v-on:click=\"submitFile(SiteRoute + 'storage' + file.public_path)\"\r\n        class=\"btn btn-primary ml-2\">\r\n          <i class=\"fa fa-btn fa-file-pdf\" aria-hidden=\"true\"></i> {{file.name}}\r\n        </button>\r\n      </div>\r\n\r\n      <div class=\"card-footer bg-dark text-center\">\r\n        <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n        </button>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n</template>\r\n<script>\r\n    \r\n\r\n    export default {\r\n        props: ['task'],\r\n        data() {\r\n            return {\r\n              SiteRoute: SiteRoute,\r\n                options: {\r\n                    height: \"600px\",\r\n                    width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            submitFile: function (path) {\r\n                console.log(\"submit_cheese\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            }\r\n            \r\n        },\r\n    }\r\n</script>\r\n\r\n\r\n<style scoped>\r\n\r\n.label {\r\n\r\n  margin-right: 3px;\r\n}\r\n\r\n.card-margin {\r\n\r\n  \r\n  margin-bottom: 3px;\r\n}\r\n\r\n.btn-link {\r\n  color: #FFFF80;\r\n  font-weight: bold;\r\n  font-size: large;\r\n\r\n}\r\n\r\n.btn-expand {\r\n  color: black;\r\n  background-color: #FFFF80;\r\n  border-color: #FFFF80;\r\n  font-weight: bold;\r\n  font-size: large;\r\n}\r\n\r\n\r\nbutton.btn-link.collapsed:before {\r\n  content:'+ Click to Read more';\r\n    \r\n}\r\nbutton.btn-link:before {\r\n  content:'- Click to Read less';\r\n    \r\n}\r\n\r\n\r\n/* Resolve bottom border missing in accordion card child */\r\n.accordion div.card:only-child { \r\n  border-bottom: 1px solid rgb(255, 255, 255);\r\n  border-radius: calc(0.25rem - 1px); \r\n}\r\n\r\n\r\n.bg-lightblack {\r\n  background-color: #1A1A1B;\r\n}\r\n\r\n.border-task {\r\n  border-style: solid;\r\n  border-width: 3px;\r\n  border-color: #F7EC6E;\r\n}\r\n\r\n\r\n\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.btn-link[data-v-5df6e888] {\r\n  color: #8050bf;\r\n  font-weight: bold;\r\n  font-size: large;\n}\n.btn-expand[data-v-5df6e888] {\r\n  color: black;\r\n  background-color: #FFFF80;\r\n  border-color: #FFFF80;\r\n  font-weight: bold;\r\n  font-size: large;\n}\nbutton.btn-link.collapsed[data-v-5df6e888]:before {\r\n  content:'+ Click to Read more';\n}\nbutton.btn-link[data-v-5df6e888]:before {\r\n  content:'- Click to Read less';\n}\n.bg-lightblack[data-v-5df6e888] {\r\n  background-color: #1A1A1B;\n}\n.border-task[data-v-5df6e888] {\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-bottom-width: 1px;\r\n  border-color: #8050bf;\n}\r\n\r\n/* Resolve bottom border missing in accordion card child */\n.accordion div.card[data-v-5df6e888]:only-child { \r\n  border-bottom: 1px solid rgb(128, 80, 191);\r\n  border-radius: 0.25rem\n}\n.accordion > .card[data-v-5df6e888]:not(:first-of-type):not(:last-of-type) {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-radius: 0.25rem;\n}\n.accordion > .card[data-v-5df6e888]:first-of-type {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-bottom-right-radius: 0.25rem;\r\n    border-bottom-left-radius: 0.25rem;\n}\n.accordion > .card[data-v-5df6e888]:last-of-type {\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\n}\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/Task.vue"],"names":[],"mappings":";AA0FA;EACA,eAAA;EACA,kBAAA;EACA,iBAAA;CAEA;AAEA;EACA,aAAA;EACA,0BAAA;EACA,sBAAA;EACA,kBAAA;EACA,iBAAA;CACA;AAGA;EACA,+BAAA;CAEA;AACA;EACA,+BAAA;CAEA;AAGA;EACA,0BAAA;CACA;AAEA;EACA,oBAAA;EACA,kBAAA;EACA,yBAAA;EACA,sBAAA;CACA;;AAEA,2DAAA;AACA;EACA,2CAAA;EACA,sBAAA;CACA;AAEA;IACA,2CAAA;IACA,uBAAA;CACA;AAEA;IACA,2CAAA;IACA,oCAAA;IACA,mCAAA;CACA;AAEA;IACA,gCAAA;IACA,iCAAA;CACA","file":"Task.vue","sourcesContent":["<template>\r\n  <div class=\"card bg-transparent border-task border-right-1 mb-3\">\r\n    <div class=\"card-header\" v-bind:id=\"'heading' + task.id\">\r\n      <h2 class=\"mb-0\">\r\n        <div class=\"container-fluid\">\r\n          <div class=\"row\">\r\n            <div class=\"col-8\">\r\n              <h4><strong>{{ task.title }}</strong></h4>\r\n\r\n\r\n              <!-- Label tags -->\r\n              <label v-for=\"label in task.labels\" :key=\"label.id\" v-html=\"label.html\" class=\"mr-2 mt-1 mb-1\">\r\n          \r\n              </label>\r\n            </div>\r\n\r\n            <div class=\"col-4 text-center\">\r\n              <h3>\r\n              <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n              </button>\r\n              </h3>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </h2>\r\n    </div>\r\n\r\n    <div v-bind:id=\"'collapse' + task.id\" class=\"collapse\" v-bind:aria-labelledby=\"'heading' + task.id\" data-parent=\"#accordion\">\r\n\r\n      <!-- Content -->\r\n      <div class=\"card-body\" v-html=\"task.message\">\r\n\r\n      </div>\r\n\r\n      <div class=\"card-body\">\r\n        <h5 v-show=\"task.files\">Attached files</h5>\r\n        <!-- Attached Files -->\r\n        <button\r\n        v-for=\"file in task.files\"\r\n        :key=\"file.id\"\r\n        type=\"button\"\r\n        v-on:click=\"submitFile(SiteRoute + 'storage' + file.public_path)\"\r\n        class=\"btn btn-outline-dark ml-2\">\r\n          <i class=\"fa fa-btn fa-file-pdf\" aria-hidden=\"true\"></i> {{file.name}}\r\n        </button>\r\n      </div>\r\n\r\n      <div class=\"card-footer text-center bg-transparent border-task border-bottom-0 border-right-0 border-left-0 border-top-0\">\r\n        <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n        </button>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n</template>\r\n<script>\r\n    \r\n\r\n    export default {\r\n        props: ['task'],\r\n        data() {\r\n            return {\r\n              SiteRoute: SiteRoute,\r\n                options: {\r\n                    height: \"600px\",\r\n                    width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            submitFile: function (path) {\r\n                console.log(\"submit_cheese\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            }\r\n            \r\n        },\r\n    }\r\n</script>\r\n\r\n\r\n<style scoped>\r\n\r\n\r\n.btn-link {\r\n  color: #8050bf;\r\n  font-weight: bold;\r\n  font-size: large;\r\n\r\n}\r\n\r\n.btn-expand {\r\n  color: black;\r\n  background-color: #FFFF80;\r\n  border-color: #FFFF80;\r\n  font-weight: bold;\r\n  font-size: large;\r\n}\r\n\r\n\r\nbutton.btn-link.collapsed:before {\r\n  content:'+ Click to Read more';\r\n    \r\n}\r\nbutton.btn-link:before {\r\n  content:'- Click to Read less';\r\n    \r\n}\r\n\r\n\r\n.bg-lightblack {\r\n  background-color: #1A1A1B;\r\n}\r\n\r\n.border-task {\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-bottom-width: 1px;\r\n  border-color: #8050bf;\r\n}\r\n\r\n/* Resolve bottom border missing in accordion card child */\r\n.accordion div.card:only-child { \r\n  border-bottom: 1px solid rgb(128, 80, 191);\r\n  border-radius: 0.25rem\r\n}\r\n\r\n.accordion > .card:not(:first-of-type):not(:last-of-type) {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-radius: 0.25rem;\r\n}\r\n\r\n.accordion > .card:first-of-type {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-bottom-right-radius: 0.25rem;\r\n    border-bottom-left-radius: 0.25rem;\r\n}\r\n\r\n.accordion > .card:last-of-type {\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\r\n}\r\n\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -48703,6 +48703,7 @@ exports.push([module.i, "\n.label[data-v-5df6e888] {\r\n\r\n  margin-right: 3px;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -48796,17 +48797,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass:
-        "card text-white bg-blacklight border-task border-right-0 border-bottom-0 mb-3"
-    },
+    { staticClass: "card bg-transparent border-task border-right-1 mb-3" },
     [
       _c(
         "div",
-        {
-          staticClass: "card-header bg-dark",
-          attrs: { id: "heading" + _vm.task.id }
-        },
+        { staticClass: "card-header", attrs: { id: "heading" + _vm.task.id } },
         [
           _c("h2", { staticClass: "mb-0" }, [
             _c("div", { staticClass: "container-fluid" }, [
@@ -48820,7 +48815,7 @@ var render = function() {
                     _vm._l(_vm.task.labels, function(label) {
                       return _c("label", {
                         key: label.id,
-                        staticClass: "mr-3",
+                        staticClass: "mr-2 mt-1 mb-1",
                         domProps: { innerHTML: _vm._s(label.html) }
                       })
                     })
@@ -48860,51 +48855,76 @@ var render = function() {
         },
         [
           _c("div", {
-            staticClass: "card-body bg-dark",
+            staticClass: "card-body",
             domProps: { innerHTML: _vm._s(_vm.task.message) }
           }),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "card-body bg-dark" },
-            _vm._l(_vm.task.files, function(file) {
-              return _c(
-                "button",
+            { staticClass: "card-body" },
+            [
+              _c(
+                "h5",
                 {
-                  key: file.id,
-                  staticClass: "btn btn-primary ml-2",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      _vm.submitFile(
-                        _vm.SiteRoute + "storage" + file.public_path
-                      )
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.task.files,
+                      expression: "task.files"
                     }
-                  }
+                  ]
                 },
-                [
-                  _c("i", {
-                    staticClass: "fa fa-btn fa-file-pdf",
-                    attrs: { "aria-hidden": "true" }
-                  }),
-                  _vm._v(" " + _vm._s(file.name) + "\n      ")
-                ]
-              )
-            })
+                [_vm._v("Attached files")]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.task.files, function(file) {
+                return _c(
+                  "button",
+                  {
+                    key: file.id,
+                    staticClass: "btn btn-outline-dark ml-2",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.submitFile(
+                          _vm.SiteRoute + "storage" + file.public_path
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-btn fa-file-pdf",
+                      attrs: { "aria-hidden": "true" }
+                    }),
+                    _vm._v(" " + _vm._s(file.name) + "\n      ")
+                  ]
+                )
+              })
+            ],
+            2
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "card-footer bg-dark text-center" }, [
-            _c("button", {
-              staticClass: "btn btn-link collapsed",
-              attrs: {
-                type: "button",
-                "data-toggle": "collapse",
-                "data-target": "#collapse" + _vm.task.id,
-                "aria-expanded": "false",
-                "aria-controls": "collapse" + _vm.task.id
-              }
-            })
-          ])
+          _c(
+            "div",
+            {
+              staticClass:
+                "card-footer text-center bg-transparent border-task border-bottom-0 border-right-0 border-left-0 border-top-0"
+            },
+            [
+              _c("button", {
+                staticClass: "btn btn-link collapsed",
+                attrs: {
+                  type: "button",
+                  "data-toggle": "collapse",
+                  "data-target": "#collapse" + _vm.task.id,
+                  "aria-expanded": "false",
+                  "aria-controls": "collapse" + _vm.task.id
+                }
+              })
+            ]
+          )
         ]
       )
     ]
@@ -48929,7 +48949,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
-    _c("div", { staticClass: "container-fluid bg-black" }, [
+    _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-1" }),
         _vm._v(" "),
@@ -48960,9 +48980,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h1", { staticClass: "text-white" }, [
-      _c("strong", [_vm._v("taskSTACK")])
-    ])
+    return _c("h1", [_c("strong", [_vm._v("taskSTACK")])])
   },
   function() {
     var _vm = this
