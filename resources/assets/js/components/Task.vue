@@ -6,7 +6,10 @@
           <div class="row">
             <div class="col-8">
               <h4><strong>{{ task.title }}</strong></h4>
-
+              <h5>Created:</h5>
+              <p>{{ task.created_at | formatDate }}</p>
+              <h5>Last updated:</h5>
+              <p>{{ task.updated_at }}</p>
 
               <!-- Label tags -->
               <label v-for="label in task.labels" :key="label.id" v-html="label.html" class="mr-2 mt-1 mb-1">
@@ -69,6 +72,14 @@
                     width: "100%",
                 },
                 path: null
+            }
+        },
+
+        filters: {
+            formatDate: function (value) {
+                if (value) {
+                    return window.moment(String(value)).format('MM/DD/YYYY hh:mm')
+                }
             }
         },
 

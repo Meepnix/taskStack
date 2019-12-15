@@ -8,6 +8,14 @@ use App\Location;
 
 class File extends Model
 {
+    /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['tasks'];
+
+
     protected $fillable = [
         'name',
         'path',
