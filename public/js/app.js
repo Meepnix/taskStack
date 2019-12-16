@@ -65777,7 +65777,7 @@ exports = module.exports = __webpack_require__(141)(true);
 
 
 // module
-exports.push([module.i, "\n.btn-link[data-v-5df6e888] {\r\n  color: #8050bf;\r\n  font-weight: bold;\r\n  font-size: large;\n}\n.btn-expand[data-v-5df6e888] {\r\n  color: black;\r\n  background-color: #FFFF80;\r\n  border-color: #FFFF80;\r\n  font-weight: bold;\r\n  font-size: large;\n}\nbutton.btn-link.collapsed[data-v-5df6e888]:before {\r\n  content:'+ Click to Read more';\n}\nbutton.btn-link[data-v-5df6e888]:before {\r\n  content:'- Click to Read less';\n}\n.bg-lightblack[data-v-5df6e888] {\r\n  background-color: #1A1A1B;\n}\n.border-task[data-v-5df6e888] {\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-bottom-width: 1px;\r\n  border-color: #8050bf;\n}\r\n\r\n/* Resolve bottom border missing in accordion card child */\n.accordion div.card[data-v-5df6e888]:only-child { \r\n  border-bottom: 1px solid rgb(128, 80, 191);\r\n  border-radius: 0.25rem\n}\n.accordion > .card[data-v-5df6e888]:not(:first-of-type):not(:last-of-type) {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-radius: 0.25rem;\n}\n.accordion > .card[data-v-5df6e888]:first-of-type {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-bottom-right-radius: 0.25rem;\r\n    border-bottom-left-radius: 0.25rem;\n}\n.accordion > .card[data-v-5df6e888]:last-of-type {\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\n}\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/Task.vue"],"names":[],"mappings":";AAqGA;EACA,eAAA;EACA,kBAAA;EACA,iBAAA;CAEA;AAEA;EACA,aAAA;EACA,0BAAA;EACA,sBAAA;EACA,kBAAA;EACA,iBAAA;CACA;AAGA;EACA,+BAAA;CAEA;AACA;EACA,+BAAA;CAEA;AAGA;EACA,0BAAA;CACA;AAEA;EACA,oBAAA;EACA,kBAAA;EACA,yBAAA;EACA,sBAAA;CACA;;AAEA,2DAAA;AACA;EACA,2CAAA;EACA,sBAAA;CACA;AAEA;IACA,2CAAA;IACA,uBAAA;CACA;AAEA;IACA,2CAAA;IACA,oCAAA;IACA,mCAAA;CACA;AAEA;IACA,gCAAA;IACA,iCAAA;CACA","file":"Task.vue","sourcesContent":["<template>\r\n  <div class=\"card bg-transparent border-task border-right-1 mb-3\">\r\n    <div class=\"card-header\" v-bind:id=\"'heading' + task.id\">\r\n      <h2 class=\"mb-0\">\r\n        <div class=\"container-fluid\">\r\n          <div class=\"row\">\r\n            <div class=\"col-8\">\r\n              <h4><strong>{{ task.title }}</strong></h4>\r\n              <h5>Created:</h5>\r\n              <p>{{ task.created_at | formatDate }}</p>\r\n              <h5>Last updated:</h5>\r\n              <p>{{ task.updated_at }}</p>\r\n\r\n              <!-- Label tags -->\r\n              <label v-for=\"label in task.labels\" :key=\"label.id\" v-html=\"label.html\" class=\"mr-2 mt-1 mb-1\">\r\n          \r\n              </label>\r\n            </div>\r\n\r\n            <div class=\"col-4 text-center\">\r\n              <h3>\r\n              <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n              </button>\r\n              </h3>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </h2>\r\n    </div>\r\n\r\n    <div v-bind:id=\"'collapse' + task.id\" class=\"collapse\" v-bind:aria-labelledby=\"'heading' + task.id\" data-parent=\"#accordion\">\r\n\r\n      <!-- Content -->\r\n      <div class=\"card-body\" v-html=\"task.message\">\r\n\r\n      </div>\r\n\r\n      <div class=\"card-body\">\r\n        <h5>Attached files</h5>\r\n        <!-- Attached Files -->\r\n        <button\r\n        v-for=\"file in task.files\"\r\n        :key=\"file.id\"\r\n        type=\"button\"\r\n        v-on:click=\"submitFile(SiteRoute + 'storage' + file.public_path)\"\r\n        class=\"btn btn-outline-dark ml-2\">\r\n          <i class=\"fa fa-btn fa-file-pdf\" aria-hidden=\"true\"></i> {{file.name}}\r\n        </button>\r\n      </div>\r\n\r\n      <div class=\"card-footer text-center bg-transparent border-task border-bottom-0 border-right-0 border-left-0 border-top-0\">\r\n        <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n        </button>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n</template>\r\n<script>\r\n    \r\n\r\n    export default {\r\n        props: ['task'],\r\n        data() {\r\n            return {\r\n              SiteRoute: SiteRoute,\r\n                options: {\r\n                    height: \"600px\",\r\n                    width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        filters: {\r\n            formatDate: function (value) {\r\n                if (value) {\r\n                    return window.moment(String(value)).format('MM/DD/YYYY hh:mm')\r\n                }\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            submitFile: function (path) {\r\n                console.log(\"submit_cheese\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            }\r\n            \r\n        },\r\n    }\r\n</script>\r\n\r\n\r\n<style scoped>\r\n\r\n\r\n.btn-link {\r\n  color: #8050bf;\r\n  font-weight: bold;\r\n  font-size: large;\r\n\r\n}\r\n\r\n.btn-expand {\r\n  color: black;\r\n  background-color: #FFFF80;\r\n  border-color: #FFFF80;\r\n  font-weight: bold;\r\n  font-size: large;\r\n}\r\n\r\n\r\nbutton.btn-link.collapsed:before {\r\n  content:'+ Click to Read more';\r\n    \r\n}\r\nbutton.btn-link:before {\r\n  content:'- Click to Read less';\r\n    \r\n}\r\n\r\n\r\n.bg-lightblack {\r\n  background-color: #1A1A1B;\r\n}\r\n\r\n.border-task {\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-bottom-width: 1px;\r\n  border-color: #8050bf;\r\n}\r\n\r\n/* Resolve bottom border missing in accordion card child */\r\n.accordion div.card:only-child { \r\n  border-bottom: 1px solid rgb(128, 80, 191);\r\n  border-radius: 0.25rem\r\n}\r\n\r\n.accordion > .card:not(:first-of-type):not(:last-of-type) {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-radius: 0.25rem;\r\n}\r\n\r\n.accordion > .card:first-of-type {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-bottom-right-radius: 0.25rem;\r\n    border-bottom-left-radius: 0.25rem;\r\n}\r\n\r\n.accordion > .card:last-of-type {\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\r\n}\r\n\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.btn-link[data-v-5df6e888] {\r\n  color: #8050bf;\r\n  font-weight: bold;\r\n  font-size: large;\n}\n.btn-expand[data-v-5df6e888] {\r\n  color: black;\r\n  background-color: #FFFF80;\r\n  border-color: #FFFF80;\r\n  font-weight: bold;\r\n  font-size: large;\n}\nbutton.btn-link.collapsed[data-v-5df6e888]:before {\r\n  content:'+ Click to Read more';\n}\nbutton.btn-link[data-v-5df6e888]:before {\r\n  content:'- Click to Read less';\n}\n.bg-lightblack[data-v-5df6e888] {\r\n  background-color: #1A1A1B;\n}\n.border-task[data-v-5df6e888] {\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-bottom-width: 1px;\r\n  border-color: #8050bf;\n}\r\n\r\n/* Resolve bottom border missing in accordion card child */\n.accordion div.card[data-v-5df6e888]:only-child { \r\n  border-bottom: 1px solid rgb(128, 80, 191);\r\n  border-radius: 0.25rem\n}\n.accordion > .card[data-v-5df6e888]:not(:first-of-type):not(:last-of-type) {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-radius: 0.25rem;\n}\n.accordion > .card[data-v-5df6e888]:first-of-type {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-bottom-right-radius: 0.25rem;\r\n    border-bottom-left-radius: 0.25rem;\n}\n.accordion > .card[data-v-5df6e888]:last-of-type {\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\n}\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/Task.vue"],"names":[],"mappings":";AAiHA;EACA,eAAA;EACA,kBAAA;EACA,iBAAA;CAEA;AAEA;EACA,aAAA;EACA,0BAAA;EACA,sBAAA;EACA,kBAAA;EACA,iBAAA;CACA;AAGA;EACA,+BAAA;CAEA;AACA;EACA,+BAAA;CAEA;AAGA;EACA,0BAAA;CACA;AAEA;EACA,oBAAA;EACA,kBAAA;EACA,yBAAA;EACA,sBAAA;CACA;;AAEA,2DAAA;AACA;EACA,2CAAA;EACA,sBAAA;CACA;AAEA;IACA,2CAAA;IACA,uBAAA;CACA;AAEA;IACA,2CAAA;IACA,oCAAA;IACA,mCAAA;CACA;AAEA;IACA,gCAAA;IACA,iCAAA;CACA","file":"Task.vue","sourcesContent":["<template>\r\n  <div class=\"card bg-transparent border-task border-right-1 mb-3\">\r\n    <div class=\"card-header\" v-bind:id=\"'heading' + task.id\">\r\n      <h2 class=\"mb-0\">\r\n        <div class=\"container-fluid\">\r\n          <div class=\"row\">\r\n            <div class=\"col-8\">\r\n              <h4><strong>{{ task.title }}</strong></h4>\r\n              <h5>Created:</h5>\r\n              <p>{{ task.created_at | formatDate }}</p>\r\n              <h5>Last updated:</h5>\r\n              <p>{{ task.updated_at | formatDate }}</p>\r\n              <h4 v-if=\"updateDate(task.updated_at)\">Updated</h4>\r\n\r\n              <!-- Label tags -->\r\n              <label v-for=\"label in task.labels\" :key=\"label.id\" v-html=\"label.html\" class=\"mr-2 mt-1 mb-1\">\r\n          \r\n              </label>\r\n            </div>\r\n\r\n            <div class=\"col-4 text-center\">\r\n              <h3>\r\n              <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n              </button>\r\n              </h3>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </h2>\r\n    </div>\r\n\r\n    <div v-bind:id=\"'collapse' + task.id\" class=\"collapse\" v-bind:aria-labelledby=\"'heading' + task.id\" data-parent=\"#accordion\">\r\n\r\n      <!-- Content -->\r\n      <div class=\"card-body\" v-html=\"task.message\">\r\n\r\n      </div>\r\n\r\n      <div class=\"card-body\">\r\n        <h5>Attached files</h5>\r\n        <!-- Attached Files -->\r\n        <button\r\n        v-for=\"file in task.files\"\r\n        :key=\"file.id\"\r\n        type=\"button\"\r\n        v-on:click=\"submitFile(SiteRoute + 'storage' + file.public_path)\"\r\n        class=\"btn btn-outline-dark ml-2\">\r\n          <i class=\"fa fa-btn fa-file-pdf\" aria-hidden=\"true\"></i> {{file.name}}\r\n        </button>\r\n      </div>\r\n\r\n      <div class=\"card-footer text-center bg-transparent border-task border-bottom-0 border-right-0 border-left-0 border-top-0\">\r\n        <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n        </button>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n</template>\r\n<script>\r\n    \r\n\r\n    export default {\r\n        props: ['task'],\r\n        data() {\r\n            return {\r\n              SiteRoute: SiteRoute,\r\n                options: {\r\n                  height: \"600px\",\r\n                  width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        filters: {\r\n            formatDate: function (value) {\r\n              if (value) {\r\n                return window.moment(String(value)).format(\"Do MMM YYYY\")\r\n              }\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            submitFile: function (path) {\r\n              console.log(\"submit_cheese\"); \r\n              PDFObject.embed(path, \"#pdf\", this.options);\r\n              $('#pdfview').modal('show');\r\n                \r\n            },\r\n\r\n            updateDate: function (value) {\r\n              let current = window.moment();\r\n              let now = window.moment(value);\r\n              let diff = current.diff(now, 'days');\r\n              if (diff < 7) {\r\n                return true;\r\n              } else {\r\n                return false;\r\n              }\r\n            }\r\n            \r\n        },\r\n    }\r\n</script>\r\n\r\n\r\n<style scoped>\r\n\r\n\r\n.btn-link {\r\n  color: #8050bf;\r\n  font-weight: bold;\r\n  font-size: large;\r\n\r\n}\r\n\r\n.btn-expand {\r\n  color: black;\r\n  background-color: #FFFF80;\r\n  border-color: #FFFF80;\r\n  font-weight: bold;\r\n  font-size: large;\r\n}\r\n\r\n\r\nbutton.btn-link.collapsed:before {\r\n  content:'+ Click to Read more';\r\n    \r\n}\r\nbutton.btn-link:before {\r\n  content:'- Click to Read less';\r\n    \r\n}\r\n\r\n\r\n.bg-lightblack {\r\n  background-color: #1A1A1B;\r\n}\r\n\r\n.border-task {\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-bottom-width: 1px;\r\n  border-color: #8050bf;\r\n}\r\n\r\n/* Resolve bottom border missing in accordion card child */\r\n.accordion div.card:only-child { \r\n  border-bottom: 1px solid rgb(128, 80, 191);\r\n  border-radius: 0.25rem\r\n}\r\n\r\n.accordion > .card:not(:first-of-type):not(:last-of-type) {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-radius: 0.25rem;\r\n}\r\n\r\n.accordion > .card:first-of-type {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-bottom-right-radius: 0.25rem;\r\n    border-bottom-left-radius: 0.25rem;\r\n}\r\n\r\n.accordion > .card:last-of-type {\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\r\n}\r\n\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -65849,38 +65849,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['task'],
-    data: function data() {
-        return {
-            SiteRoute: SiteRoute,
-            options: {
-                height: "600px",
-                width: "100%"
-            },
-            path: null
-        };
-    },
+  props: ['task'],
+  data: function data() {
+    return {
+      SiteRoute: SiteRoute,
+      options: {
+        height: "600px",
+        width: "100%"
+      },
+      path: null
+    };
+  },
 
 
-    filters: {
-        formatDate: function formatDate(value) {
-            if (value) {
-                return window.moment(String(value)).format('MM/DD/YYYY hh:mm');
-            }
-        }
-    },
-
-    methods: {
-        submitFile: function submitFile(path) {
-            console.log("submit_cheese");
-            PDFObject.embed(path, "#pdf", this.options);
-            $('#pdfview').modal('show');
-        }
-
+  filters: {
+    formatDate: function formatDate(value) {
+      if (value) {
+        return window.moment(String(value)).format("Do MMM YYYY");
+      }
     }
+  },
+
+  methods: {
+    submitFile: function submitFile(path) {
+      console.log("submit_cheese");
+      PDFObject.embed(path, "#pdf", this.options);
+      $('#pdfview').modal('show');
+    },
+
+    updateDate: function updateDate(value) {
+      var current = window.moment();
+      var now = window.moment(value);
+      var diff = current.diff(now, 'days');
+      if (diff < 7) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+  }
 });
 
 /***/ }),
@@ -65916,7 +65928,13 @@ var render = function() {
                     _vm._v(" "),
                     _c("h5", [_vm._v("Last updated:")]),
                     _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(_vm.task.updated_at))]),
+                    _c("p", [
+                      _vm._v(_vm._s(_vm._f("formatDate")(_vm.task.updated_at)))
+                    ]),
+                    _vm._v(" "),
+                    _vm.updateDate(_vm.task.updated_at)
+                      ? _c("h4", [_vm._v("Updated")])
+                      : _vm._e(),
                     _vm._v(" "),
                     _vm._l(_vm.task.labels, function(label) {
                       return _c("label", {

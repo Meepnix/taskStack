@@ -9,7 +9,8 @@
               <h5>Created:</h5>
               <p>{{ task.created_at | formatDate }}</p>
               <h5>Last updated:</h5>
-              <p>{{ task.updated_at }}</p>
+              <p>{{ task.updated_at | formatDate }}</p>
+              <h4 v-if="updateDate(task.updated_at)">Updated</h4>
 
               <!-- Label tags -->
               <label v-for="label in task.labels" :key="label.id" v-html="label.html" class="mr-2 mt-1 mb-1">
@@ -68,8 +69,8 @@
             return {
               SiteRoute: SiteRoute,
                 options: {
-                    height: "600px",
-                    width: "100%",
+                  height: "600px",
+                  width: "100%",
                 },
                 path: null
             }
@@ -77,18 +78,29 @@
 
         filters: {
             formatDate: function (value) {
-                if (value) {
-                    return window.moment(String(value)).format('MM/DD/YYYY hh:mm')
-                }
+              if (value) {
+                return window.moment(String(value)).format("Do MMM YYYY")
+              }
             }
         },
 
         methods: {
             submitFile: function (path) {
-                console.log("submit_cheese"); 
-                PDFObject.embed(path, "#pdf", this.options);
-                $('#pdfview').modal('show');
+              console.log("submit_cheese"); 
+              PDFObject.embed(path, "#pdf", this.options);
+              $('#pdfview').modal('show');
                 
+            },
+
+            updateDate: function (value) {
+              let current = window.moment();
+              let now = window.moment(value);
+              let diff = current.diff(now, 'days');
+              if (diff < 7) {
+                return true;
+              } else {
+                return false;
+              }
             }
             
         },
