@@ -1,33 +1,28 @@
 <template>
   <div class="card bg-transparent border-task border-right-1 mb-3">
     <div class="card-header" v-bind:id="'heading' + task.id">
-      <h2 class="mb-0">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-8">
-              <h4><strong>{{ task.title }}</strong></h4>
-              <h5>Created:</h5>
-              <p>{{ task.created_at | formatDate }}</p>
-              <h5>Last updated:</h5>
-              <p>{{ task.updated_at | formatDate }}</p>
-              <h4 v-if="updateDate(task.updated_at)">Updated</h4>
+      
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-8">
+            <h4><strong>{{ task.title }}</strong><span v-if="createDate(task.created_at)" class="badge badge-new ml-1">NEW*</span><span v-if="updateDate(task.updated_at, task.created_at)" class="badge badge-dark ml-1">UPDATED</span></h4>
+            <p class="mb-0"><strong>Created:</strong> {{ task.created_at | formatDate }} <strong>Updated:</strong> {{ task.updated_at | formatDate }}</p>
+            <!-- Label tags -->
+            <label v-for="label in task.labels" :key="label.id" v-html="label.html" class="mr-2 mt-1 mb-1">
+        
+            </label>
+          </div>
 
-              <!-- Label tags -->
-              <label v-for="label in task.labels" :key="label.id" v-html="label.html" class="mr-2 mt-1 mb-1">
-          
-              </label>
-            </div>
-
-            <div class="col-4 text-center">
-              <h3>
-              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" v-bind:data-target="'#collapse' + task.id" aria-expanded="false" v-bind:aria-controls="'collapse' + task.id">
-                
-              </button>
-              </h3>
-            </div>
+          <div class="col-4 text-center">
+            <h3>
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" v-bind:data-target="'#collapse' + task.id" aria-expanded="false" v-bind:aria-controls="'collapse' + task.id">
+              
+            </button>
+            </h3>
           </div>
         </div>
-      </h2>
+      </div>
+      
     </div>
 
     <div v-bind:id="'collapse' + task.id" class="collapse" v-bind:aria-labelledby="'heading' + task.id" data-parent="#accordion">
@@ -92,15 +87,44 @@
                 
             },
 
-            updateDate: function (value) {
+            createDate: function (created) {
               let current = window.moment();
-              let now = window.moment(value);
-              let diff = current.diff(now, 'days');
+              let create = window.moment(created)
+              let diff = current.diff(create, 'days');
+
+              //Check current and create difference
               if (diff < 7) {
                 return true;
               } else {
                 return false;
               }
+
+            },
+
+            updateDate: function (updated, created) {
+
+              let current = window.moment();
+              let update = window.moment(updated);
+              let create = window.moment(created);
+              let cdiff = update.diff(create, 'days');
+              let diff = current.diff(update, 'days');
+              console.log('create difference');
+              console.log(cdiff);
+              // Check create and update difference
+              if (cdiff > 7)
+              {
+                //Check current and update difference
+                if (diff < 7) {
+                  return true;
+                } else {
+                  return false;
+                }
+
+              } else {
+
+                return false;
+              }
+              
             }
             
         },
@@ -116,14 +140,6 @@
   font-weight: bold;
   font-size: large;
 
-}
-
-.btn-expand {
-  color: black;
-  background-color: #FFFF80;
-  border-color: #FFFF80;
-  font-weight: bold;
-  font-size: large;
 }
 
 
@@ -168,6 +184,12 @@ button.btn-link:before {
 .accordion > .card:last-of-type {
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
+}
+
+
+.badge-new {
+  color: #fff;
+  background-color: #8050bf;
 }
 
 </style>
