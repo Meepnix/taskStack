@@ -7,7 +7,8 @@
     
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <h2>Create Location</h2>
+            <h3>Create Location</h3>
+            <hr>
             <form method="POST" action="{{ route('admin.location.store') }}">
             @csrf
                         
@@ -16,11 +17,15 @@
                     <input type="text" class="form-control" id="name1" name="name" value="{{ old('name') }}"><br>
                 </div>
 
-                <button type="submit">Save</button>
+                <hr>
+                <div class="float-right">
+                    <a href="{{ route('admin.location.show') }}"  class="btn btn-outline-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
+                        
+                </div>
 
             </form>
             
-            <a href="{{ route('admin.location.show') }}" class="btn btn-default">Back</a>
 
             @if (count($errors) > 0)
             <div class="alert alert-danger">

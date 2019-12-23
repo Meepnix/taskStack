@@ -46,14 +46,14 @@
                                 <a href="{{ route('admin.label.edit', [$label->id])}}" class="btn btn-primary">
                                     <i class="fa fa-btn fa-edit" 
                                     aria-hidden="true">
-                                    </i>EDIT LABEL
+                                    </i>EDIT
                                 </a>
 
                                 <a href="#" class="btn btn-danger" 
                                 data-toggle="modal" data-target="#deleteLabel{{ $loop->index }}">
                                     <i class="fa fa-btn fa-trash" 
                                     aria-hidden="true">
-                                    </i>DELETE LABEL
+                                    </i>DELETE
                                 </a>
                                 </p>
 

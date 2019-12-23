@@ -41,13 +41,15 @@
             </div>
         </div>
 
+        <a href="{{ route('admin.slot.edit', [$slot->id]) }}" class="btn btn-secondary">
+            <i class="fa fa-btn fa-edit" aria-hidden="true"></i>Edit
+        </a>
+
         <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#deleteUser{{ $loop->index }}">
             <i class="fa fa-btn fa-trash" aria-hidden="true"></i>Delete
         </a>
 
-        <a href="{{ route('admin.slot.edit', [$slot->id]) }}" class="btn btn-secondary">
-            <i class="fa fa-btn fa-pencil" aria-hidden="true"></i>Edit
-        </a>
+        
 
         <!-- Delete User Modal -->
         <div 
@@ -60,7 +62,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Slot</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

@@ -9,6 +9,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <h2>Create Slot</h2>
+            <hr>
 
             <form method="POST" action="{{ route('admin.slot.update', [$slot->id]) }}">
             @csrf
@@ -64,11 +65,16 @@
                 </div>
 
 
-                <button type="submit">Save</button>
+                <hr>
+                <div class="float-right">
+                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
+                        
+                </div>
 
             </form>
 
-            <a href="{{ url()->previous() }}" class="btn btn-default">Back</a>
+            
 
             @if (count($errors) > 0)
                 <div class="alert alert-danger">

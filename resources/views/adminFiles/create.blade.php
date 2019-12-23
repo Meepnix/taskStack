@@ -7,8 +7,8 @@
     
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <h2>Upload PDF</h2>
-
+            <h3>Upload PDF</h3>
+            <hr>
             <form method="POST" 
             action="{{ route('admin.file.store', [$location->id]) }}"
             enctype="multipart/form-data">
@@ -19,14 +19,15 @@
                     <input type="file" id="pdf1" name="pdf">
                 </div>
 
-                <button type="submit">Save</button>
+                <hr>
+                <div class="float-right">
+                    <a href="{{ route('admin.location.show') }}"  class="btn btn-outline-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">UPLOAD</button>
+                        
+                </div>
 
             </form>
             
-            <a href="{{ route('admin.location.show') }}" class="btn btn-default">
-            Back
-            </a>
-
             @if (count($errors) > 0)
             <div class="alert alert-danger">
                 <ul>

@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="col-4">
                                         <a href="{{ route('admin.task.edit', [$task->id]) }}" class="btn btn-secondary">
-                                            <i class="fa fa-btn fa-edit" aria-hidden="true"></i>EDIT TASK
+                                            <i class="fa fa-btn fa-edit" aria-hidden="true"></i>EDIT
                                         </a>
                                         &nbsp;
                                         <a 
@@ -60,7 +60,7 @@
                                         class="btn btn-danger" 
                                         data-toggle="modal" 
                                         data-target="#deleteTask{{ $loop->index }}">
-                                            <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE TASK
+                                            <i class="fa fa-btn fa-trash" aria-hidden="true"></i>DELETE
                                         </a>
                                         <!-- Delete User Modal -->
                                         <div 
