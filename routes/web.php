@@ -47,10 +47,16 @@ Route::patch('admin/tasks/update/{task}', 'AdminTaskController@update')->name('a
 Route::get('/admin/slots/groups/', 'AdminSlotController@showGroups')->name('admin.slot.showGroups');
 Route::get('/admin/slots/group/{group}', 'AdminSlotController@show')->name('admin.slot.show');
 Route::get('/admin/slots/group/{group}/create', 'AdminSlotController@create')->name('admin.slot.create');
-Route::get('admin/slots/edit/{slot}', 'AdminSlotController@edit')->name('admin.slot.edit');
-Route::post('admin/slots/group/{group}/store', 'AdminSlotController@store')->name('admin.slot.store');
-Route::patch('admin/slots/update/{slot}', 'AdminSlotController@update')->name('admin.slot.update');
+Route::get('/admin/slots/edit/{slot}', 'AdminSlotController@edit')->name('admin.slot.edit');
+Route::post('/admin/slots/group/{group}/store', 'AdminSlotController@store')->name('admin.slot.store');
+Route::patch('/admin/slots/update/{slot}', 'AdminSlotController@update')->name('admin.slot.update');
 Route::delete('/admin/slots/{slot}', 'AdminSlotController@destroyPartial')->name('admin.slot.delete');
+
+//Messages
+Route::get('/admin/messages/groups/', 'AdminMessageController@showGroups')->name('admin.message.showGroups');
+Route::get('/admin/messages/group/{group}/edit/', 'AdminMessageController@edit')->name('admin.message.edit');
+Route::patch('/admin/messages/update/{message}', 'AdminMessageControler@update')->name('admin.message.update');
+
 
 //Locations
 Route::get('/admin/locations', 'AdminLocationController@show')->name('admin.location.show');

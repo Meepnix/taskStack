@@ -6,11 +6,15 @@
         <div class="row">
           <div class="col-8">
             <h4><strong>{{ task.title }}</strong><span v-if="createDate(task.created_at)" class="badge badge-new ml-1">NEW*</span><span v-if="updateDate(task.updated_at, task.created_at)" class="badge badge-dark ml-1">UPDATED</span></h4>
-            <p class="mb-0"><strong>Created:</strong> {{ task.created_at | formatDate }} <strong>Updated:</strong> {{ task.updated_at | formatDate }}</p>
+            <p class="mb-0"><i class="far fa-calendar-alt"></i> <strong>Created:</strong> {{ task.created_at | formatDate }} <strong>Updated:</strong> {{ task.updated_at | formatDate }}</p>
             <!-- Label tags -->
-            <label v-for="label in task.labels" :key="label.id" v-html="label.html" class="mr-2 mt-1 mb-1">
+            <p>
+              <i class="fas fa-tags"></i>
+              <label v-for="label in task.labels" :key="label.id" v-html="label.html" class="mr-2 mt-1 mb-1">
         
-            </label>
+              </label>
+
+            </p>
           </div>
 
           <div class="col-4 text-center">
@@ -32,8 +36,8 @@
 
       </div>
 
-      <div class="card-body">
-        <h5>Attached files</h5>
+      <div v-if="task.files.length > 0" class="card-body">
+        <h5><i class="fas fa-paperclip"></i><strong> Attached files</strong> (Click on files below to open)</h5>
         <!-- Attached Files -->
         <button
         v-for="file in task.files"
@@ -110,10 +114,10 @@
               let diff = current.diff(update, 'days');
               console.log('create difference');
               console.log(cdiff);
-              // Check create and update difference
+              // Check create and update difference in days
               if (cdiff > 7)
               {
-                //Check current and update difference
+                //Check current and update difference in days
                 if (diff < 7) {
                   return true;
                 } else {

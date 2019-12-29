@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Slot;
+use App\Message;
 
 class Group extends Model
 {
@@ -27,5 +28,13 @@ class Group extends Model
     public function slots()
     {
         return $this->hasMany('App\Slot');
+    }
+
+    /**
+     * Get the Messages associated with the Group.
+     */
+    public function message()
+    {
+        return $this->hasOne('App\Message');
     }
 }

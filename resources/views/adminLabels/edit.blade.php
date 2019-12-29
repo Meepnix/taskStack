@@ -9,18 +9,18 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
             
-                <h3>Create Label</h3>
+                <h3>Edit Label</h3>
                 <hr>
 
                 <form method="POST" 
-                action="{{ route('admin.label.update', [$label->id]) }}">
+                action="{{ route('admin.message.update', [$message->id]) }}">
                 @csrf
                 @method('PATCH')  
                 
                     <div class="form-group">
-                        <label for="name1">Name</label>
+                        <label for="message1">Message</label>
                         <input type="text" class="form-control" 
-                        id="name1" name="name" 
+                        id="message" name="name" 
                         value="{{ $label->name }}" v-model="name">
                         <br>
                     </div>
@@ -76,49 +76,6 @@
         </div>
     </div>
 </div>
-
-<script>
-
-    var app = new Vue({
-        el: '#app',
-        data: {
-            selected: '{{ $label->theme }}',
-            name: '{{ $label->name }}',
-            labelHtml: '',
-        },
-        created: function () {
-            this.labelHtml = '{!! $label->html !!}'
-        },
-        computed: {
-            previewLabel: function () {
-                switch(this.selected){
-                    case '0':
-                        this.labelHtml = '<h5><span class="badge badge-primary">' + this.name + '</span></h5>'
-                        break
-                    case '1':
-                        this.labelHtml = '<h5><span class="badge badge-secondary">' + this.name + '</span></h5>'
-                        break
-                    case '2':
-                        this.labelHtml = '<h5><span class="badge badge-success">' + this.name + '</span></h5>'
-                        break
-                    case '3':
-                        this.labelHtml = '<h5><span class="badge badge-danger">' + this.name + '</span></h5>'
-                        break
-                    case '4':
-                        this.labelHtml = '<h5><span class="badge badge-warning">' + this.name + '</span></h5>'
-                        break
-                    case '5':
-                        this.labelHtml = '<h5><span class="badge badge-info">' + this.name + '</span></h5>'
-                        break
-                }
-
-            }
-        }
-    })
-
-    Vue.config.devtools = true;
-
-</script>
                         
 @endsection
 
