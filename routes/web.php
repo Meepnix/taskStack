@@ -116,6 +116,14 @@ Route::get('/admin/tasks/task/{task}', 'AdminTaskController@editTasks')->name('a
 
 
 
+
+/* User */
+
+//Tasks
+Route::get('/task/show', 'TaskController@show')->name('task.show');
+
+
+
 //Route::get('/logtest', '\App\Http\Controllers\Auth\LoginController@login');
 
 

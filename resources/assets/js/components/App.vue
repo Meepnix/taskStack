@@ -63,6 +63,7 @@
             return {
                 tasks: [],
                 errors: [],
+                timer:'',
                 options: {
                     height: "600px",
                     width: "100%",
@@ -72,7 +73,7 @@
         },
 
         methods: {
-            read() {
+            read: function () {
                 console.log("read"); 
                 window.axios.get('/task/index').then( response => {
                     this.tasks = response.data;
@@ -97,6 +98,8 @@
         created() {
             
             this.read();
+            //Refresh
+            this.timer = setInterval(this.read, 30000)
 
             //Focus on opened accordion card
             $(document).ready(function() {
@@ -108,7 +111,11 @@
                     }, 500);
                 });
             });
-        }
+        },
+
+        beforeDestroy () {
+            clearInterval(this.timer)
+        },
     }
 </script>
 
