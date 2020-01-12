@@ -12,11 +12,6 @@ class TaskController extends Controller
 {
     public function index()
     {
-        //Which group is user auth?
-        //What time of day is it?
-
-        //HTTP status OK
-
         //current day
         $weekMap = [
             0 => 'sun',
@@ -27,37 +22,66 @@ class TaskController extends Controller
             5 => 'fri',
             6 => 'sat',
         ];
-        $dayOfTheWeek = Carbon::now()->dayOfWeek;
-        $weekDay = $weekMap[$dayOfTheWeek];
 
+        $time = Carbon::now();
+
+        $weekDay = $weekMap[$time->dayOfWeek];
+
+        $timeHm = $time->hour . ($time->minute < 10 ? 0 . $time->minute : $time->minute);
+
+        // Morning 8:00am till 12:00pm
+        if ($timeHm >= 00 && $timeHm < 1200)
+        {
+            $timePeriod = "morning";
+
+        } // Afternoon (Early Afternoon) 12:00pm till 3:00pm
+        elseif ($timeHm >= 1200 && $timeHm < 1500)
+        {
+            $timePeriod = "afternoon";
+
+        } // Evening (Late Afternoon) 3:00pm till 7:00pm
+        elseif ($timeHm >= 1500 && $timeHm < 1900)
+        {
+            $timePeriod = "evening";
+        }
+
+        // Current User login
         $user = Auth::user();
-        $group = $user->groups()->first();
+        $group = $user->groups()->get()->pluck('id');
 
-        //return dd($user);
+        
 
-        return response()->json(Task::whereHas('slots', function ($query) use ($group, $weekDay) {
-            $query->where([
+       
+        return response()->json(Task::whereHas('slots', function ($query) use ($group, $weekDay, $timePeriod) {
+            $query->whereIn('group_id', $group)
+            
+            
+                ->where([
                 
-                //Show tasks with slots of current group
-                ['group_id', '=', $group->id],
+                
                 //Check slot is current day
                 [$weekDay, '=', 1],
+                //Check day period
+                ['time_period', '=', $timePeriod],
                 
                 ])
 
                 ->orWhere([
 
                 //Show tasks with slots of current group
-                ['group_id', '=', $group->id],
+                //['group_id', '=', $group->id],
                 //Check slot is current day
                 ['all', '=', 1],
+                //Check day period
+                ['time_period', '=', $timePeriod],
 
 
                 ]);
 
+        //HTTP status OK
         })->with('labels', 'files')->get(), 200);
 
-        //return response()->json(Task::with('labels', 'files')->get(),200);
+        
     }
 
 

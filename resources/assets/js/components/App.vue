@@ -79,7 +79,7 @@
                     this.tasks = response.data;
                 })
                 .catch(e => {
-                    this.error.push(e);
+                    this.errors.push(e);
                 })
             },
             submitFile: function (path) {
@@ -114,7 +114,7 @@
         },
 
         beforeDestroy () {
-            clearInterval(this.timer)
+            clearInterval(this.timer);
         },
     }
 </script>

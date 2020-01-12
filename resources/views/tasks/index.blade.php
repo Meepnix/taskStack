@@ -29,6 +29,7 @@
   
 </head>
 <body>
+<p> {{ Auth::user()->name }} </p>
 
 <div id="app"></div>
 
