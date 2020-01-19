@@ -55,7 +55,7 @@ Route::delete('/admin/slots/{slot}', 'AdminSlotController@destroyPartial')->name
 //Messages
 Route::get('/admin/messages/groups/', 'AdminMessageController@showGroups')->name('admin.message.showGroups');
 Route::get('/admin/messages/group/{group}/edit/', 'AdminMessageController@edit')->name('admin.message.edit');
-Route::patch('/admin/messages/update/{message}', 'AdminMessageControler@update')->name('admin.message.update');
+Route::patch('/admin/messages/update/{message}', 'AdminMessageController@update')->name('admin.message.update');
 
 
 //Locations
@@ -99,6 +99,9 @@ Route::get('/task', function () {
 
 //json
 
+//Messages
+Route::get('/message/index', 'MessageController@index')->name('message.index');
+
 //Tasks
 Route::get('/task/index', 'TaskController@index')->name('task.index');
 
@@ -124,11 +127,11 @@ Route::get('/task/show', 'TaskController@show')->name('task.show');
 
 
 
-//Route::get('/logtest', '\App\Http\Controllers\Auth\LoginController@login');
+Route::get('/logtest', '\App\Http\Controllers\Auth\LoginController@login');
 
 
 
 
-//http://localhost:8001/logtest?name=batman&password=batman
+//http://localhost/logtest?name=Batman&password=Batman&remember=On
 
 //Route::get('/home', 'HomeController@index')->name('home');

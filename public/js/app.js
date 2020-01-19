@@ -4670,7 +4670,7 @@
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
 
 /***/ }),
 /* 1 */
@@ -4679,7 +4679,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(136);
+var bind = __webpack_require__(137);
 var isBuffer = __webpack_require__(154);
 
 /*global toString:true*/
@@ -5033,10 +5033,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(137);
+    adapter = __webpack_require__(138);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(137);
+    adapter = __webpack_require__(138);
   }
   return adapter;
 }
@@ -5111,10 +5111,119 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16080,7 +16189,7 @@ module.exports = Vue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(146).setImmediate))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -16270,7 +16379,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -16298,7 +16407,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18923,7 +19032,7 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19000,7 +19109,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19139,7 +19248,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19202,7 +19311,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19265,7 +19374,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19391,7 +19500,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19454,7 +19563,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19562,7 +19671,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19625,7 +19734,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19734,7 +19843,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19870,7 +19979,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -19964,7 +20073,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -20026,7 +20135,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -20149,7 +20258,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -20272,7 +20381,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -20384,7 +20493,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -20539,7 +20648,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -20631,7 +20740,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -20807,7 +20916,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -20874,7 +20983,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -20958,7 +21067,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21022,7 +21131,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21102,7 +21211,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21182,7 +21291,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21262,7 +21371,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21365,7 +21474,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21469,7 +21578,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21540,7 +21649,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21611,7 +21720,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21678,7 +21787,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21749,7 +21858,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21820,7 +21929,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21886,7 +21995,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21957,7 +22066,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22032,7 +22141,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22128,7 +22237,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22224,7 +22333,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22320,7 +22429,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22404,7 +22513,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22474,7 +22583,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22584,7 +22693,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22697,7 +22806,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22761,7 +22870,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22848,7 +22957,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22926,7 +23035,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23008,7 +23117,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23087,7 +23196,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23168,7 +23277,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23248,7 +23357,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23329,7 +23438,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23456,7 +23565,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23584,7 +23693,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23685,7 +23794,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23813,7 +23922,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23971,7 +24080,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24085,7 +24194,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24184,7 +24293,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24270,7 +24379,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24406,7 +24515,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24479,7 +24588,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24552,7 +24661,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24648,7 +24757,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24734,7 +24843,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24827,7 +24936,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24918,7 +25027,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25032,7 +25141,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25162,7 +25271,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25247,7 +25356,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25370,7 +25479,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25461,7 +25570,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25601,7 +25710,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25675,7 +25784,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25797,7 +25906,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25898,7 +26007,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26014,7 +26123,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26082,7 +26191,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26176,7 +26285,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26261,7 +26370,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26369,7 +26478,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26533,7 +26642,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26619,7 +26728,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26705,7 +26814,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26769,7 +26878,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26866,7 +26975,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26932,7 +27041,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27059,7 +27168,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27150,7 +27259,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27241,7 +27350,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27305,7 +27414,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27433,7 +27542,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27563,7 +27672,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27632,7 +27741,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27697,7 +27806,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27776,7 +27885,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27962,7 +28071,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28064,7 +28173,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28128,7 +28237,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28203,7 +28312,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28363,7 +28472,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28540,7 +28649,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28612,7 +28721,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28727,7 +28836,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28842,7 +28951,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28934,7 +29043,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29007,7 +29116,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29070,7 +29179,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29203,7 +29312,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29296,7 +29405,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29367,7 +29476,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29487,7 +29596,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29558,7 +29667,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29624,7 +29733,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29750,7 +29859,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -29848,7 +29957,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29943,7 +30052,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30005,7 +30114,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30067,7 +30176,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js language configuration
@@ -30190,7 +30299,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30348,7 +30457,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30450,7 +30559,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30512,7 +30621,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30574,7 +30683,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30657,7 +30766,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30729,7 +30838,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30793,7 +30902,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30907,7 +31016,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31014,7 +31123,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31121,7 +31230,7 @@ Popper.Defaults = Defaults;
 
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -41726,7 +41835,7 @@ return jQuery;
 
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41744,7 +41853,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41755,7 +41864,7 @@ var settle = __webpack_require__(157);
 var buildURL = __webpack_require__(159);
 var parseHeaders = __webpack_require__(160);
 var isURLSameOrigin = __webpack_require__(161);
-var createError = __webpack_require__(138);
+var createError = __webpack_require__(139);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -41913,7 +42022,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41938,7 +42047,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41950,7 +42059,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41976,7 +42085,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports) {
 
 /*
@@ -42058,7 +42167,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -42286,120 +42395,11 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 143 */
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
 /* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(145);
-module.exports = __webpack_require__(181);
+module.exports = __webpack_require__(184);
 
 
 /***/ }),
@@ -42408,7 +42408,7 @@ module.exports = __webpack_require__(181);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_App_vue__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_App_vue__);
@@ -42706,16 +42706,16 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(6)))
 
 /***/ }),
 /* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
-window.Vue = __webpack_require__(4);
+window.Vue = __webpack_require__(5);
 
 window._ = __webpack_require__(149);
-window.Popper = __webpack_require__(7).default;
+window.Popper = __webpack_require__(8).default;
 
 window.moment = __webpack_require__(0);
 
@@ -42726,7 +42726,7 @@ window.moment = __webpack_require__(0);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(135);
+  window.$ = window.jQuery = __webpack_require__(136);
 
   __webpack_require__(151);
 } catch (e) {}
@@ -59890,267 +59890,267 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(6)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(7)(module)))
 
 /***/ }),
 /* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 8,
-	"./af.js": 8,
-	"./ar": 9,
-	"./ar-dz": 10,
-	"./ar-dz.js": 10,
-	"./ar-kw": 11,
-	"./ar-kw.js": 11,
-	"./ar-ly": 12,
-	"./ar-ly.js": 12,
-	"./ar-ma": 13,
-	"./ar-ma.js": 13,
-	"./ar-sa": 14,
-	"./ar-sa.js": 14,
-	"./ar-tn": 15,
-	"./ar-tn.js": 15,
-	"./ar.js": 9,
-	"./az": 16,
-	"./az.js": 16,
-	"./be": 17,
-	"./be.js": 17,
-	"./bg": 18,
-	"./bg.js": 18,
-	"./bm": 19,
-	"./bm.js": 19,
-	"./bn": 20,
-	"./bn.js": 20,
-	"./bo": 21,
-	"./bo.js": 21,
-	"./br": 22,
-	"./br.js": 22,
-	"./bs": 23,
-	"./bs.js": 23,
-	"./ca": 24,
-	"./ca.js": 24,
-	"./cs": 25,
-	"./cs.js": 25,
-	"./cv": 26,
-	"./cv.js": 26,
-	"./cy": 27,
-	"./cy.js": 27,
-	"./da": 28,
-	"./da.js": 28,
-	"./de": 29,
-	"./de-at": 30,
-	"./de-at.js": 30,
-	"./de-ch": 31,
-	"./de-ch.js": 31,
-	"./de.js": 29,
-	"./dv": 32,
-	"./dv.js": 32,
-	"./el": 33,
-	"./el.js": 33,
-	"./en-SG": 34,
-	"./en-SG.js": 34,
-	"./en-au": 35,
-	"./en-au.js": 35,
-	"./en-ca": 36,
-	"./en-ca.js": 36,
-	"./en-gb": 37,
-	"./en-gb.js": 37,
-	"./en-ie": 38,
-	"./en-ie.js": 38,
-	"./en-il": 39,
-	"./en-il.js": 39,
-	"./en-nz": 40,
-	"./en-nz.js": 40,
-	"./eo": 41,
-	"./eo.js": 41,
-	"./es": 42,
-	"./es-do": 43,
-	"./es-do.js": 43,
-	"./es-us": 44,
-	"./es-us.js": 44,
-	"./es.js": 42,
-	"./et": 45,
-	"./et.js": 45,
-	"./eu": 46,
-	"./eu.js": 46,
-	"./fa": 47,
-	"./fa.js": 47,
-	"./fi": 48,
-	"./fi.js": 48,
-	"./fo": 49,
-	"./fo.js": 49,
-	"./fr": 50,
-	"./fr-ca": 51,
-	"./fr-ca.js": 51,
-	"./fr-ch": 52,
-	"./fr-ch.js": 52,
-	"./fr.js": 50,
-	"./fy": 53,
-	"./fy.js": 53,
-	"./ga": 54,
-	"./ga.js": 54,
-	"./gd": 55,
-	"./gd.js": 55,
-	"./gl": 56,
-	"./gl.js": 56,
-	"./gom-latn": 57,
-	"./gom-latn.js": 57,
-	"./gu": 58,
-	"./gu.js": 58,
-	"./he": 59,
-	"./he.js": 59,
-	"./hi": 60,
-	"./hi.js": 60,
-	"./hr": 61,
-	"./hr.js": 61,
-	"./hu": 62,
-	"./hu.js": 62,
-	"./hy-am": 63,
-	"./hy-am.js": 63,
-	"./id": 64,
-	"./id.js": 64,
-	"./is": 65,
-	"./is.js": 65,
-	"./it": 66,
-	"./it-ch": 67,
-	"./it-ch.js": 67,
-	"./it.js": 66,
-	"./ja": 68,
-	"./ja.js": 68,
-	"./jv": 69,
-	"./jv.js": 69,
-	"./ka": 70,
-	"./ka.js": 70,
-	"./kk": 71,
-	"./kk.js": 71,
-	"./km": 72,
-	"./km.js": 72,
-	"./kn": 73,
-	"./kn.js": 73,
-	"./ko": 74,
-	"./ko.js": 74,
-	"./ku": 75,
-	"./ku.js": 75,
-	"./ky": 76,
-	"./ky.js": 76,
-	"./lb": 77,
-	"./lb.js": 77,
-	"./lo": 78,
-	"./lo.js": 78,
-	"./lt": 79,
-	"./lt.js": 79,
-	"./lv": 80,
-	"./lv.js": 80,
-	"./me": 81,
-	"./me.js": 81,
-	"./mi": 82,
-	"./mi.js": 82,
-	"./mk": 83,
-	"./mk.js": 83,
-	"./ml": 84,
-	"./ml.js": 84,
-	"./mn": 85,
-	"./mn.js": 85,
-	"./mr": 86,
-	"./mr.js": 86,
-	"./ms": 87,
-	"./ms-my": 88,
-	"./ms-my.js": 88,
-	"./ms.js": 87,
-	"./mt": 89,
-	"./mt.js": 89,
-	"./my": 90,
-	"./my.js": 90,
-	"./nb": 91,
-	"./nb.js": 91,
-	"./ne": 92,
-	"./ne.js": 92,
-	"./nl": 93,
-	"./nl-be": 94,
-	"./nl-be.js": 94,
-	"./nl.js": 93,
-	"./nn": 95,
-	"./nn.js": 95,
-	"./pa-in": 96,
-	"./pa-in.js": 96,
-	"./pl": 97,
-	"./pl.js": 97,
-	"./pt": 98,
-	"./pt-br": 99,
-	"./pt-br.js": 99,
-	"./pt.js": 98,
-	"./ro": 100,
-	"./ro.js": 100,
-	"./ru": 101,
-	"./ru.js": 101,
-	"./sd": 102,
-	"./sd.js": 102,
-	"./se": 103,
-	"./se.js": 103,
-	"./si": 104,
-	"./si.js": 104,
-	"./sk": 105,
-	"./sk.js": 105,
-	"./sl": 106,
-	"./sl.js": 106,
-	"./sq": 107,
-	"./sq.js": 107,
-	"./sr": 108,
-	"./sr-cyrl": 109,
-	"./sr-cyrl.js": 109,
-	"./sr.js": 108,
-	"./ss": 110,
-	"./ss.js": 110,
-	"./sv": 111,
-	"./sv.js": 111,
-	"./sw": 112,
-	"./sw.js": 112,
-	"./ta": 113,
-	"./ta.js": 113,
-	"./te": 114,
-	"./te.js": 114,
-	"./tet": 115,
-	"./tet.js": 115,
-	"./tg": 116,
-	"./tg.js": 116,
-	"./th": 117,
-	"./th.js": 117,
-	"./tl-ph": 118,
-	"./tl-ph.js": 118,
-	"./tlh": 119,
-	"./tlh.js": 119,
-	"./tr": 120,
-	"./tr.js": 120,
-	"./tzl": 121,
-	"./tzl.js": 121,
-	"./tzm": 122,
-	"./tzm-latn": 123,
-	"./tzm-latn.js": 123,
-	"./tzm.js": 122,
-	"./ug-cn": 124,
-	"./ug-cn.js": 124,
-	"./uk": 125,
-	"./uk.js": 125,
-	"./ur": 126,
-	"./ur.js": 126,
-	"./uz": 127,
-	"./uz-latn": 128,
-	"./uz-latn.js": 128,
-	"./uz.js": 127,
-	"./vi": 129,
-	"./vi.js": 129,
-	"./x-pseudo": 130,
-	"./x-pseudo.js": 130,
-	"./yo": 131,
-	"./yo.js": 131,
-	"./zh-cn": 132,
-	"./zh-cn.js": 132,
-	"./zh-hk": 133,
-	"./zh-hk.js": 133,
-	"./zh-tw": 134,
-	"./zh-tw.js": 134
+	"./af": 9,
+	"./af.js": 9,
+	"./ar": 10,
+	"./ar-dz": 11,
+	"./ar-dz.js": 11,
+	"./ar-kw": 12,
+	"./ar-kw.js": 12,
+	"./ar-ly": 13,
+	"./ar-ly.js": 13,
+	"./ar-ma": 14,
+	"./ar-ma.js": 14,
+	"./ar-sa": 15,
+	"./ar-sa.js": 15,
+	"./ar-tn": 16,
+	"./ar-tn.js": 16,
+	"./ar.js": 10,
+	"./az": 17,
+	"./az.js": 17,
+	"./be": 18,
+	"./be.js": 18,
+	"./bg": 19,
+	"./bg.js": 19,
+	"./bm": 20,
+	"./bm.js": 20,
+	"./bn": 21,
+	"./bn.js": 21,
+	"./bo": 22,
+	"./bo.js": 22,
+	"./br": 23,
+	"./br.js": 23,
+	"./bs": 24,
+	"./bs.js": 24,
+	"./ca": 25,
+	"./ca.js": 25,
+	"./cs": 26,
+	"./cs.js": 26,
+	"./cv": 27,
+	"./cv.js": 27,
+	"./cy": 28,
+	"./cy.js": 28,
+	"./da": 29,
+	"./da.js": 29,
+	"./de": 30,
+	"./de-at": 31,
+	"./de-at.js": 31,
+	"./de-ch": 32,
+	"./de-ch.js": 32,
+	"./de.js": 30,
+	"./dv": 33,
+	"./dv.js": 33,
+	"./el": 34,
+	"./el.js": 34,
+	"./en-SG": 35,
+	"./en-SG.js": 35,
+	"./en-au": 36,
+	"./en-au.js": 36,
+	"./en-ca": 37,
+	"./en-ca.js": 37,
+	"./en-gb": 38,
+	"./en-gb.js": 38,
+	"./en-ie": 39,
+	"./en-ie.js": 39,
+	"./en-il": 40,
+	"./en-il.js": 40,
+	"./en-nz": 41,
+	"./en-nz.js": 41,
+	"./eo": 42,
+	"./eo.js": 42,
+	"./es": 43,
+	"./es-do": 44,
+	"./es-do.js": 44,
+	"./es-us": 45,
+	"./es-us.js": 45,
+	"./es.js": 43,
+	"./et": 46,
+	"./et.js": 46,
+	"./eu": 47,
+	"./eu.js": 47,
+	"./fa": 48,
+	"./fa.js": 48,
+	"./fi": 49,
+	"./fi.js": 49,
+	"./fo": 50,
+	"./fo.js": 50,
+	"./fr": 51,
+	"./fr-ca": 52,
+	"./fr-ca.js": 52,
+	"./fr-ch": 53,
+	"./fr-ch.js": 53,
+	"./fr.js": 51,
+	"./fy": 54,
+	"./fy.js": 54,
+	"./ga": 55,
+	"./ga.js": 55,
+	"./gd": 56,
+	"./gd.js": 56,
+	"./gl": 57,
+	"./gl.js": 57,
+	"./gom-latn": 58,
+	"./gom-latn.js": 58,
+	"./gu": 59,
+	"./gu.js": 59,
+	"./he": 60,
+	"./he.js": 60,
+	"./hi": 61,
+	"./hi.js": 61,
+	"./hr": 62,
+	"./hr.js": 62,
+	"./hu": 63,
+	"./hu.js": 63,
+	"./hy-am": 64,
+	"./hy-am.js": 64,
+	"./id": 65,
+	"./id.js": 65,
+	"./is": 66,
+	"./is.js": 66,
+	"./it": 67,
+	"./it-ch": 68,
+	"./it-ch.js": 68,
+	"./it.js": 67,
+	"./ja": 69,
+	"./ja.js": 69,
+	"./jv": 70,
+	"./jv.js": 70,
+	"./ka": 71,
+	"./ka.js": 71,
+	"./kk": 72,
+	"./kk.js": 72,
+	"./km": 73,
+	"./km.js": 73,
+	"./kn": 74,
+	"./kn.js": 74,
+	"./ko": 75,
+	"./ko.js": 75,
+	"./ku": 76,
+	"./ku.js": 76,
+	"./ky": 77,
+	"./ky.js": 77,
+	"./lb": 78,
+	"./lb.js": 78,
+	"./lo": 79,
+	"./lo.js": 79,
+	"./lt": 80,
+	"./lt.js": 80,
+	"./lv": 81,
+	"./lv.js": 81,
+	"./me": 82,
+	"./me.js": 82,
+	"./mi": 83,
+	"./mi.js": 83,
+	"./mk": 84,
+	"./mk.js": 84,
+	"./ml": 85,
+	"./ml.js": 85,
+	"./mn": 86,
+	"./mn.js": 86,
+	"./mr": 87,
+	"./mr.js": 87,
+	"./ms": 88,
+	"./ms-my": 89,
+	"./ms-my.js": 89,
+	"./ms.js": 88,
+	"./mt": 90,
+	"./mt.js": 90,
+	"./my": 91,
+	"./my.js": 91,
+	"./nb": 92,
+	"./nb.js": 92,
+	"./ne": 93,
+	"./ne.js": 93,
+	"./nl": 94,
+	"./nl-be": 95,
+	"./nl-be.js": 95,
+	"./nl.js": 94,
+	"./nn": 96,
+	"./nn.js": 96,
+	"./pa-in": 97,
+	"./pa-in.js": 97,
+	"./pl": 98,
+	"./pl.js": 98,
+	"./pt": 99,
+	"./pt-br": 100,
+	"./pt-br.js": 100,
+	"./pt.js": 99,
+	"./ro": 101,
+	"./ro.js": 101,
+	"./ru": 102,
+	"./ru.js": 102,
+	"./sd": 103,
+	"./sd.js": 103,
+	"./se": 104,
+	"./se.js": 104,
+	"./si": 105,
+	"./si.js": 105,
+	"./sk": 106,
+	"./sk.js": 106,
+	"./sl": 107,
+	"./sl.js": 107,
+	"./sq": 108,
+	"./sq.js": 108,
+	"./sr": 109,
+	"./sr-cyrl": 110,
+	"./sr-cyrl.js": 110,
+	"./sr.js": 109,
+	"./ss": 111,
+	"./ss.js": 111,
+	"./sv": 112,
+	"./sv.js": 112,
+	"./sw": 113,
+	"./sw.js": 113,
+	"./ta": 114,
+	"./ta.js": 114,
+	"./te": 115,
+	"./te.js": 115,
+	"./tet": 116,
+	"./tet.js": 116,
+	"./tg": 117,
+	"./tg.js": 117,
+	"./th": 118,
+	"./th.js": 118,
+	"./tl-ph": 119,
+	"./tl-ph.js": 119,
+	"./tlh": 120,
+	"./tlh.js": 120,
+	"./tr": 121,
+	"./tr.js": 121,
+	"./tzl": 122,
+	"./tzl.js": 122,
+	"./tzm": 123,
+	"./tzm-latn": 124,
+	"./tzm-latn.js": 124,
+	"./tzm.js": 123,
+	"./ug-cn": 125,
+	"./ug-cn.js": 125,
+	"./uk": 126,
+	"./uk.js": 126,
+	"./ur": 127,
+	"./ur.js": 127,
+	"./uz": 128,
+	"./uz-latn": 129,
+	"./uz-latn.js": 129,
+	"./uz.js": 128,
+	"./vi": 130,
+	"./vi.js": 130,
+	"./x-pseudo": 131,
+	"./x-pseudo.js": 131,
+	"./yo": 132,
+	"./yo.js": 132,
+	"./zh-cn": 133,
+	"./zh-cn.js": 133,
+	"./zh-hk": 134,
+	"./zh-hk.js": 134,
+	"./zh-tw": 135,
+	"./zh-tw.js": 135
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -60178,7 +60178,7 @@ webpackContext.id = 150;
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-   true ? factory(exports, __webpack_require__(135), __webpack_require__(7)) :
+   true ? factory(exports, __webpack_require__(136), __webpack_require__(8)) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
   (global = global || self, factory(global.bootstrap = {}, global.jQuery, global.Popper));
 }(this, function (exports, $, Popper) { 'use strict';
@@ -64623,7 +64623,7 @@ module.exports = __webpack_require__(153);
 
 
 var utils = __webpack_require__(1);
-var bind = __webpack_require__(136);
+var bind = __webpack_require__(137);
 var Axios = __webpack_require__(155);
 var defaults = __webpack_require__(3);
 
@@ -64658,9 +64658,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(140);
+axios.Cancel = __webpack_require__(141);
 axios.CancelToken = __webpack_require__(168);
-axios.isCancel = __webpack_require__(139);
+axios.isCancel = __webpack_require__(140);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -64803,7 +64803,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(138);
+var createError = __webpack_require__(139);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -65193,7 +65193,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(1);
 var transformData = __webpack_require__(165);
-var isCancel = __webpack_require__(139);
+var isCancel = __webpack_require__(140);
 var defaults = __webpack_require__(3);
 var isAbsoluteURL = __webpack_require__(166);
 var combineURLs = __webpack_require__(167);
@@ -65353,7 +65353,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(140);
+var Cancel = __webpack_require__(141);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -65453,11 +65453,11 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(171)
 }
-var normalizeComponent = __webpack_require__(143)
+var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(174)
 /* template */
-var __vue_template__ = __webpack_require__(180)
+var __vue_template__ = __webpack_require__(183)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -65506,7 +65506,7 @@ var content = __webpack_require__(172);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(142)("8efdbcae", content, false, {});
+var update = __webpack_require__(143)("8efdbcae", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -65525,12 +65525,12 @@ if(false) {
 /* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(141)(true);
+exports = module.exports = __webpack_require__(142)(true);
 // imports
 
 
 // module
-exports.push([module.i, "\n.bg-black[data-v-8142f38c] {\r\n  background-color: black;\n}\r\n\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/App.vue"],"names":[],"mappings":";AA2HA;EACA,wBAAA;CACA","file":"App.vue","sourcesContent":["<template>\r\n    <div id=\"app\">\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col-1\">\r\n                </div>\r\n\r\n                <div class=\"col-10\">\r\n\r\n                    <h1><strong>taskSTACK</strong></h1>\r\n                    <div class=\"accordion\" id=\"accordion\">\r\n                        <task-component\r\n                            v-for=\"task in tasks\"\r\n                            v-bind:task=\"task\"\r\n                            :key=\"task.id\"\r\n                        ></task-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-1\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- View PDF -->\r\n        <div \r\n        class=\"modal fade\" \r\n        id=\"pdfview\" \r\n        tabindex=\"-1\" \r\n        role=\"dialog\" \r\n        aria-labelledby=\"view_pdf\" \r\n        aria-hidden=\"true\">\r\n            <div class=\"modal-dialog modal-dialog-centered modal-xl\" role=\"document\">\r\n                <div class=\"modal-content\">\r\n                    <div class=\"modal-header\">\r\n                        <h5 class=\"modal-title\" id=\"view_pdf\">View PDF</h5>\r\n                        <button \r\n                        type=\"button\" \r\n                        class=\"close\" \r\n                        data-dismiss=\"modal\" \r\n                        aria-label=\"Close\">\r\n                            <span aria-hidden=\"true\">&times;</span>\r\n                        </button>\r\n                    </div>\r\n                    <div class=\"modal-body\">\r\n                        <div class=\"container-fluid\">\r\n                            <div id=\"pdf\"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</template>\r\n\r\n<script>\r\n\r\n    import TaskComponent from './Task.vue';\r\n\r\n    export default {\r\n        data() {\r\n            return {\r\n                tasks: [],\r\n                errors: [],\r\n                timer:'',\r\n                options: {\r\n                    height: \"600px\",\r\n                    width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            read: function () {\r\n                console.log(\"read\"); \r\n                window.axios.get('/task/index').then( response => {\r\n                    this.tasks = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n            },\r\n            submitFile: function (path) {\r\n                console.log(\"submit\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            }\r\n            \r\n        },\r\n        \r\n        components: {\r\n            TaskComponent\r\n        },\r\n\r\n        created() {\r\n            \r\n            this.read();\r\n            //Refresh\r\n            this.timer = setInterval(this.read, 30000)\r\n\r\n            //Focus on opened accordion card\r\n            $(document).ready(function() {\r\n                $('#accordion').on('shown.bs.collapse', function(e) {\r\n\r\n                    var $card = $(this).find('.collapse.show').prev();\r\n                    $('html,body').animate({\r\n                    scrollTop: $card.offset().top\r\n                    }, 500);\r\n                });\r\n            });\r\n        },\r\n\r\n        beforeDestroy () {\r\n            clearInterval(this.timer)\r\n        },\r\n    }\r\n</script>\r\n\r\n<style scoped>\r\n\r\n.bg-black {\r\n  background-color: black;\r\n}\r\n\r\n\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.bg-black[data-v-8142f38c] {\r\n  background-color: black;\n}\r\n\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/App.vue"],"names":[],"mappings":";AA8IA;EACA,wBAAA;CACA","file":"App.vue","sourcesContent":["<template>\r\n    <div id=\"app\">\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col-1\">\r\n                </div>\r\n\r\n                <div class=\"col-10\">\r\n                    <message-component\r\n                        v-for=\"message in messages\"\r\n                        v-bind:message=\"message\"\r\n                        :key=\"message.id\"\r\n                    ></message-component>\r\n\r\n\r\n                    <h1>\r\n                        <strong>taskSTACK</strong>\r\n                        <label> {{ tasks.period }}</label>\r\n                    </h1>\r\n                    <div class=\"accordion\" id=\"accordion\">\r\n                        <task-component\r\n                            v-for=\"task in tasks\"\r\n                            v-bind:task=\"task\"\r\n                            :key=\"task.id\"\r\n                        ></task-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-1\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- View PDF -->\r\n        <div \r\n        class=\"modal fade\" \r\n        id=\"pdfview\" \r\n        tabindex=\"-1\" \r\n        role=\"dialog\" \r\n        aria-labelledby=\"view_pdf\" \r\n        aria-hidden=\"true\">\r\n            <div class=\"modal-dialog modal-dialog-centered modal-xl\" role=\"document\">\r\n                <div class=\"modal-content\">\r\n                    <div class=\"modal-header\">\r\n                        <h5 class=\"modal-title\" id=\"view_pdf\">View PDF</h5>\r\n                        <button \r\n                        type=\"button\" \r\n                        class=\"close\" \r\n                        data-dismiss=\"modal\" \r\n                        aria-label=\"Close\">\r\n                            <span aria-hidden=\"true\">&times;</span>\r\n                        </button>\r\n                    </div>\r\n                    <div class=\"modal-body\">\r\n                        <div class=\"container-fluid\">\r\n                            <div id=\"pdf\"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</template>\r\n\r\n<script>\r\n\r\n    import TaskComponent from './Task.vue';\r\n    import MessageComponent from './Message.vue';\r\n\r\n    export default {\r\n        data() {\r\n            return {\r\n                tasks: [],\r\n                errors: [],\r\n                messages: [],\r\n                timer:'',\r\n                options: {\r\n                    height: \"600px\",\r\n                    width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            read: function () {\r\n                window.axios.get('/task/index').then( response => {\r\n                    this.tasks = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n\r\n                window.axios.get('/message/index').then( response => {\r\n                    this.messages = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n\r\n            },\r\n            submitFile: function (path) {\r\n                console.log(\"submit\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            }\r\n            \r\n        },\r\n        \r\n        components: {\r\n            TaskComponent,\r\n            MessageComponent,\r\n        },\r\n\r\n        created() {\r\n            \r\n            this.read();\r\n            //Refresh\r\n            this.timer = setInterval(this.read, 30000)\r\n\r\n            //Focus on opened accordion card\r\n            $(document).ready(function() {\r\n                $('#accordion').on('shown.bs.collapse', function(e) {\r\n\r\n                    var $card = $(this).find('.collapse.show').prev();\r\n                    $('html,body').animate({\r\n                    scrollTop: $card.offset().top\r\n                    }, 500);\r\n                });\r\n            });\r\n        },\r\n\r\n        beforeDestroy () {\r\n            clearInterval(this.timer);\r\n        },\r\n    }\r\n</script>\r\n\r\n<style scoped>\r\n\r\n.bg-black {\r\n  background-color: black;\r\n}\r\n\r\n\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -65576,6 +65576,8 @@ module.exports = function listToStyles (parentId, list) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Task_vue__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Task_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Task_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Message_vue__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Message_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Message_vue__);
 //
 //
 //
@@ -65632,6 +65634,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -65641,6 +65653,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             tasks: [],
             errors: [],
+            messages: [],
             timer: '',
             options: {
                 height: "600px",
@@ -65655,9 +65668,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         read: function read() {
             var _this = this;
 
-            console.log("read");
             window.axios.get('/task/index').then(function (response) {
                 _this.tasks = response.data;
+            }).catch(function (e) {
+                _this.errors.push(e);
+            });
+
+            window.axios.get('/message/index').then(function (response) {
+                _this.messages = response.data;
             }).catch(function (e) {
                 _this.errors.push(e);
             });
@@ -65671,7 +65689,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     components: {
-        TaskComponent: __WEBPACK_IMPORTED_MODULE_0__Task_vue___default.a
+        TaskComponent: __WEBPACK_IMPORTED_MODULE_0__Task_vue___default.a,
+        MessageComponent: __WEBPACK_IMPORTED_MODULE_1__Message_vue___default.a
     },
 
     created: function created() {
@@ -65705,7 +65724,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(176)
 }
-var normalizeComponent = __webpack_require__(143)
+var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(178)
 /* template */
@@ -65758,7 +65777,7 @@ var content = __webpack_require__(177);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(142)("10226886", content, false, {});
+var update = __webpack_require__(143)("10226886", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -65777,12 +65796,12 @@ if(false) {
 /* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(141)(true);
+exports = module.exports = __webpack_require__(142)(true);
 // imports
 
 
 // module
-exports.push([module.i, "\n.btn-link[data-v-5df6e888] {\r\n  color: #8050bf;\r\n  font-weight: bold;\r\n  font-size: large;\n}\nbutton.btn-link.collapsed[data-v-5df6e888]:before {\r\n  content:'+ Click to Read more';\n}\nbutton.btn-link[data-v-5df6e888]:before {\r\n  content:'- Click to Read less';\n}\n.bg-lightblack[data-v-5df6e888] {\r\n  background-color: #1A1A1B;\n}\n.border-task[data-v-5df6e888] {\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-bottom-width: 1px;\r\n  border-color: #8050bf;\n}\r\n\r\n/* Resolve bottom border missing in accordion card child */\n.accordion div.card[data-v-5df6e888]:only-child { \r\n  border-bottom: 1px solid rgb(128, 80, 191);\r\n  border-radius: 0.25rem\n}\n.accordion > .card[data-v-5df6e888]:not(:first-of-type):not(:last-of-type) {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-radius: 0.25rem;\n}\n.accordion > .card[data-v-5df6e888]:first-of-type {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-bottom-right-radius: 0.25rem;\r\n    border-bottom-left-radius: 0.25rem;\n}\n.accordion > .card[data-v-5df6e888]:last-of-type {\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\n}\n.badge-new[data-v-5df6e888] {\r\n  color: #fff;\r\n  background-color: #8050bf;\n}\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/Task.vue"],"names":[],"mappings":";AA6IA;EACA,eAAA;EACA,kBAAA;EACA,iBAAA;CAEA;AAGA;EACA,+BAAA;CAEA;AACA;EACA,+BAAA;CAEA;AAGA;EACA,0BAAA;CACA;AAEA;EACA,oBAAA;EACA,kBAAA;EACA,yBAAA;EACA,sBAAA;CACA;;AAEA,2DAAA;AACA;EACA,2CAAA;EACA,sBAAA;CACA;AAEA;IACA,2CAAA;IACA,uBAAA;CACA;AAEA;IACA,2CAAA;IACA,oCAAA;IACA,mCAAA;CACA;AAEA;IACA,gCAAA;IACA,iCAAA;CACA;AAGA;EACA,YAAA;EACA,0BAAA;CACA","file":"Task.vue","sourcesContent":["<template>\r\n  <div class=\"card bg-transparent border-task border-right-1 mb-3\">\r\n    <div class=\"card-header\" v-bind:id=\"'heading' + task.id\">\r\n      \r\n      <div class=\"container-fluid\">\r\n        <div class=\"row\">\r\n          <div class=\"col-8\">\r\n            <h4><strong>{{ task.title }}</strong><span v-if=\"createDate(task.created_at)\" class=\"badge badge-new ml-1\">NEW*</span><span v-if=\"updateDate(task.updated_at, task.created_at)\" class=\"badge badge-dark ml-1\">UPDATED</span></h4>\r\n            <p class=\"mb-0\"><i class=\"far fa-calendar-alt\"></i> <strong>Created:</strong> {{ task.created_at | formatDate }} <strong>Updated:</strong> {{ task.updated_at | formatDate }}</p>\r\n            <!-- Label tags -->\r\n            <p>\r\n              <i class=\"fas fa-tags\"></i>\r\n              <label v-for=\"label in task.labels\" :key=\"label.id\" v-html=\"label.html\" class=\"mr-2 mt-1 mb-1\">\r\n        \r\n              </label>\r\n\r\n            </p>\r\n          </div>\r\n\r\n          <div class=\"col-4 text-center\">\r\n            <h3>\r\n            <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n              \r\n            </button>\r\n            </h3>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      \r\n    </div>\r\n\r\n    <div v-bind:id=\"'collapse' + task.id\" class=\"collapse\" v-bind:aria-labelledby=\"'heading' + task.id\" data-parent=\"#accordion\">\r\n\r\n      <!-- Content -->\r\n      <div class=\"card-body\" v-html=\"task.message\">\r\n\r\n      </div>\r\n\r\n      <div v-if=\"task.files.length > 0\" class=\"card-body\">\r\n        <h5><i class=\"fas fa-paperclip\"></i><strong> Attached files</strong> (Click on files below to open)</h5>\r\n        <!-- Attached Files -->\r\n        <button\r\n        v-for=\"file in task.files\"\r\n        :key=\"file.id\"\r\n        type=\"button\"\r\n        v-on:click=\"submitFile(SiteRoute + 'storage' + file.public_path)\"\r\n        class=\"btn btn-outline-dark ml-2\">\r\n          <i class=\"fa fa-btn fa-file-pdf\" aria-hidden=\"true\"></i> {{file.name}}\r\n        </button>\r\n      </div>\r\n\r\n      <div class=\"card-footer text-center bg-transparent border-task border-bottom-0 border-right-0 border-left-0 border-top-0\">\r\n        <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n        </button>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n</template>\r\n<script>\r\n    \r\n\r\n    export default {\r\n        props: ['task'],\r\n        data() {\r\n            return {\r\n              SiteRoute: SiteRoute,\r\n                options: {\r\n                  height: \"600px\",\r\n                  width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        filters: {\r\n            formatDate: function (value) {\r\n              if (value) {\r\n                return window.moment(String(value)).format(\"Do MMM YYYY\")\r\n              }\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            submitFile: function (path) {\r\n              console.log(\"submit_cheese\"); \r\n              PDFObject.embed(path, \"#pdf\", this.options);\r\n              $('#pdfview').modal('show');\r\n                \r\n            },\r\n\r\n            createDate: function (created) {\r\n              let current = window.moment();\r\n              let create = window.moment(created)\r\n              let diff = current.diff(create, 'days');\r\n\r\n              //Check current and create difference\r\n              if (diff < 7) {\r\n                return true;\r\n              } else {\r\n                return false;\r\n              }\r\n\r\n            },\r\n\r\n            updateDate: function (updated, created) {\r\n\r\n              let current = window.moment();\r\n              let update = window.moment(updated);\r\n              let create = window.moment(created);\r\n              let cdiff = update.diff(create, 'days');\r\n              let diff = current.diff(update, 'days');\r\n              console.log('create difference');\r\n              console.log(cdiff);\r\n              // Check create and update difference in days\r\n              if (cdiff > 7)\r\n              {\r\n                //Check current and update difference in days\r\n                if (diff < 7) {\r\n                  return true;\r\n                } else {\r\n                  return false;\r\n                }\r\n\r\n              } else {\r\n\r\n                return false;\r\n              }\r\n              \r\n            }\r\n            \r\n        },\r\n    }\r\n</script>\r\n\r\n\r\n<style scoped>\r\n\r\n\r\n.btn-link {\r\n  color: #8050bf;\r\n  font-weight: bold;\r\n  font-size: large;\r\n\r\n}\r\n\r\n\r\nbutton.btn-link.collapsed:before {\r\n  content:'+ Click to Read more';\r\n    \r\n}\r\nbutton.btn-link:before {\r\n  content:'- Click to Read less';\r\n    \r\n}\r\n\r\n\r\n.bg-lightblack {\r\n  background-color: #1A1A1B;\r\n}\r\n\r\n.border-task {\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-bottom-width: 1px;\r\n  border-color: #8050bf;\r\n}\r\n\r\n/* Resolve bottom border missing in accordion card child */\r\n.accordion div.card:only-child { \r\n  border-bottom: 1px solid rgb(128, 80, 191);\r\n  border-radius: 0.25rem\r\n}\r\n\r\n.accordion > .card:not(:first-of-type):not(:last-of-type) {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-radius: 0.25rem;\r\n}\r\n\r\n.accordion > .card:first-of-type {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-bottom-right-radius: 0.25rem;\r\n    border-bottom-left-radius: 0.25rem;\r\n}\r\n\r\n.accordion > .card:last-of-type {\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\r\n}\r\n\r\n\r\n.badge-new {\r\n  color: #fff;\r\n  background-color: #8050bf;\r\n}\r\n\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.btn-link[data-v-5df6e888] {\r\n  color: #8050bf;\r\n  font-weight: bold;\r\n  font-size: large;\n}\nbutton.btn-link.collapsed[data-v-5df6e888]:before {\r\n  content:'+ Click to Read more';\n}\nbutton.btn-link[data-v-5df6e888]:before {\r\n  content:'- Click to Read less';\n}\n.bg-lightblack[data-v-5df6e888] {\r\n  background-color: #1A1A1B;\n}\n.border-task[data-v-5df6e888] {\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-bottom-width: 1px;\r\n  border-color: #8050bf;\n}\r\n\r\n/* Resolve bottom border missing in accordion card child */\n.accordion div.card[data-v-5df6e888]:only-child { \r\n  border-bottom: 1px solid rgb(128, 80, 191);\r\n  border-radius: 0.25rem\n}\n.accordion > .card[data-v-5df6e888]:not(:first-of-type):not(:last-of-type) {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-radius: 0.25rem;\n}\n.accordion > .card[data-v-5df6e888]:first-of-type {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-bottom-right-radius: 0.25rem;\r\n    border-bottom-left-radius: 0.25rem;\n}\n.accordion > .card[data-v-5df6e888]:last-of-type {\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\n}\n.badge-new[data-v-5df6e888] {\r\n  color: #fff;\r\n  background-color: #8050bf;\n}\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/Task.vue"],"names":[],"mappings":";AA0IA;EACA,eAAA;EACA,kBAAA;EACA,iBAAA;CAEA;AAGA;EACA,+BAAA;CAEA;AACA;EACA,+BAAA;CAEA;AAGA;EACA,0BAAA;CACA;AAEA;EACA,oBAAA;EACA,kBAAA;EACA,yBAAA;EACA,sBAAA;CACA;;AAEA,2DAAA;AACA;EACA,2CAAA;EACA,sBAAA;CACA;AAEA;IACA,2CAAA;IACA,uBAAA;CACA;AAEA;IACA,2CAAA;IACA,oCAAA;IACA,mCAAA;CACA;AAEA;IACA,gCAAA;IACA,iCAAA;CACA;AAGA;EACA,YAAA;EACA,0BAAA;CACA","file":"Task.vue","sourcesContent":["<template>\r\n  <div class=\"card bg-transparent border-task border-right-1 mb-3\">\r\n    <div class=\"card-header\" v-bind:id=\"'heading' + task.id\">\r\n      \r\n      <div class=\"container-fluid\">\r\n        <div class=\"row\">\r\n          <div class=\"col-8\">\r\n            <h4><strong>{{ task.title }}</strong><span v-if=\"createDate(task.created_at)\" class=\"badge badge-new ml-1\">NEW*</span><span v-if=\"updateDate(task.updated_at, task.created_at)\" class=\"badge badge-dark ml-1\">UPDATED</span></h4>\r\n            <p class=\"mb-0\"><i class=\"far fa-calendar-alt\"></i> <strong>Created:</strong> {{ task.created_at | formatDate }} <strong>Updated:</strong> {{ task.updated_at | formatDate }}</p>\r\n            <!-- Label tags -->\r\n            <p>\r\n              <i class=\"fas fa-tags\"></i>\r\n              <label v-for=\"label in task.labels\" :key=\"label.id\" v-html=\"label.html\" class=\"mr-2 mt-1 mb-1\">\r\n        \r\n              </label>\r\n\r\n            </p>\r\n          </div>\r\n\r\n          <div class=\"col-4 text-center\">\r\n            <h3>\r\n            <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n              \r\n            </button>\r\n            </h3>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      \r\n    </div>\r\n\r\n    <div v-bind:id=\"'collapse' + task.id\" class=\"collapse\" v-bind:aria-labelledby=\"'heading' + task.id\" data-parent=\"#accordion\">\r\n\r\n      <!-- Content -->\r\n      <div class=\"card-body\" v-html=\"task.message\">\r\n\r\n      </div>\r\n\r\n      <div v-if=\"task.files.length > 0\" class=\"card-body\">\r\n        <h5><i class=\"fas fa-paperclip\"></i><strong> Attached files</strong> (Click on files below to open)</h5>\r\n        <!-- Attached Files -->\r\n        <button\r\n        v-for=\"file in task.files\"\r\n        :key=\"file.id\"\r\n        type=\"button\"\r\n        v-on:click=\"submitFile(SiteRoute + 'storage' + file.public_path)\"\r\n        class=\"btn btn-outline-dark ml-2\">\r\n          <i class=\"fa fa-btn fa-file-pdf\" aria-hidden=\"true\"></i> {{file.name}}\r\n        </button>\r\n      </div>\r\n\r\n      <div class=\"card-footer text-center bg-transparent border-task border-bottom-0 border-right-0 border-left-0 border-top-0\">\r\n        <button class=\"btn btn-link collapsed\" type=\"button\" data-toggle=\"collapse\" v-bind:data-target=\"'#collapse' + task.id\" aria-expanded=\"false\" v-bind:aria-controls=\"'collapse' + task.id\">\r\n                \r\n        </button>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n\r\n</template>\r\n<script>\r\n    \r\n\r\n    export default {\r\n        props: ['task'],\r\n        data: function () {\r\n            return {\r\n              SiteRoute: SiteRoute,\r\n                options: {\r\n                  height: \"600px\",\r\n                  width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        filters: {\r\n            formatDate: function (value) {\r\n              if (value) {\r\n                return window.moment(String(value)).format(\"Do MMM YYYY\")\r\n              }\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            submitFile: function (path) {\r\n              PDFObject.embed(path, \"#pdf\", this.options);\r\n              $('#pdfview').modal('show');\r\n                \r\n            },\r\n\r\n            createDate: function (created) {\r\n              let current = window.moment();\r\n              let create = window.moment(created)\r\n              let diff = current.diff(create, 'days');\r\n\r\n              //Check current and create difference\r\n              if (diff < 7) {\r\n                return true;\r\n              } else {\r\n                return false;\r\n              }\r\n\r\n            },\r\n\r\n            updateDate: function (updated, created) {\r\n\r\n              let current = window.moment();\r\n              let update = window.moment(updated);\r\n              let create = window.moment(created);\r\n              let cdiff = update.diff(create, 'days');\r\n              let diff = current.diff(update, 'days');\r\n              // Check create and update difference in days\r\n              if (cdiff > 7)\r\n              {\r\n                //Check current and update difference in days\r\n                if (diff < 7) {\r\n                  return true;\r\n                } else {\r\n                  return false;\r\n                }\r\n\r\n              } else {\r\n\r\n                return false;\r\n              }\r\n              \r\n            }\r\n            \r\n        },\r\n    }\r\n</script>\r\n\r\n\r\n<style scoped>\r\n\r\n\r\n.btn-link {\r\n  color: #8050bf;\r\n  font-weight: bold;\r\n  font-size: large;\r\n\r\n}\r\n\r\n\r\nbutton.btn-link.collapsed:before {\r\n  content:'+ Click to Read more';\r\n    \r\n}\r\nbutton.btn-link:before {\r\n  content:'- Click to Read less';\r\n    \r\n}\r\n\r\n\r\n.bg-lightblack {\r\n  background-color: #1A1A1B;\r\n}\r\n\r\n.border-task {\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-bottom-width: 1px;\r\n  border-color: #8050bf;\r\n}\r\n\r\n/* Resolve bottom border missing in accordion card child */\r\n.accordion div.card:only-child { \r\n  border-bottom: 1px solid rgb(128, 80, 191);\r\n  border-radius: 0.25rem\r\n}\r\n\r\n.accordion > .card:not(:first-of-type):not(:last-of-type) {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-radius: 0.25rem;\r\n}\r\n\r\n.accordion > .card:first-of-type {\r\n    border-bottom: 1px solid rgb(128, 80, 191);\r\n    border-bottom-right-radius: 0.25rem;\r\n    border-bottom-left-radius: 0.25rem;\r\n}\r\n\r\n.accordion > .card:last-of-type {\r\n    border-top-left-radius: 0.25rem;\r\n    border-top-right-radius: 0.25rem;\r\n}\r\n\r\n\r\n.badge-new {\r\n  color: #fff;\r\n  background-color: #8050bf;\r\n}\r\n\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -65869,7 +65888,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
 
-
   filters: {
     formatDate: function formatDate(value) {
       if (value) {
@@ -65880,7 +65898,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     submitFile: function submitFile(path) {
-      console.log("submit_cheese");
       PDFObject.embed(path, "#pdf", this.options);
       $('#pdfview').modal('show');
     },
@@ -65905,8 +65922,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var create = window.moment(created);
       var cdiff = update.diff(create, 'days');
       var diff = current.diff(update, 'days');
-      console.log('create difference');
-      console.log(cdiff);
       // Check create and update difference in days
       if (cdiff > 7) {
         //Check current and update difference in days
@@ -66109,6 +66124,98 @@ if (false) {
 /* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(181)
+/* template */
+var __vue_template__ = __webpack_require__(182)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Message.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0d3bc0a0", Component.options)
+  } else {
+    hotAPI.reload("data-v-0d3bc0a0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 181 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['message'],
+    mounted: function mounted() {
+        console.log('Component message.');
+    }
+});
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "alert alert-primary", attrs: { role: "alert" } },
+    [_vm._v("\n    " + _vm._s(_vm.message.message) + "\n")]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0d3bc0a0", module.exports)
+  }
+}
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -66118,35 +66225,45 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-1" }),
         _vm._v(" "),
-        _c("div", { staticClass: "col-10" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "accordion", attrs: { id: "accordion" } },
-            _vm._l(_vm.tasks, function(task) {
-              return _c("task-component", {
-                key: task.id,
-                attrs: { task: task }
+        _c(
+          "div",
+          { staticClass: "col-10" },
+          [
+            _vm._l(_vm.messages, function(message) {
+              return _c("message-component", {
+                key: message.id,
+                attrs: { message: message }
               })
-            })
-          )
-        ]),
+            }),
+            _vm._v(" "),
+            _c("h1", [
+              _c("strong", [_vm._v("taskSTACK")]),
+              _vm._v(" "),
+              _c("label", [_vm._v(" " + _vm._s(_vm.tasks.period))])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "accordion", attrs: { id: "accordion" } },
+              _vm._l(_vm.tasks, function(task) {
+                return _c("task-component", {
+                  key: task.id,
+                  attrs: { task: task }
+                })
+              })
+            )
+          ],
+          2
+        ),
         _vm._v(" "),
         _c("div", { staticClass: "col-1" })
       ])
     ]),
     _vm._v(" "),
-    _vm._m(1)
+    _vm._m(0)
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h1", [_c("strong", [_vm._v("taskSTACK")])])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -66219,7 +66336,7 @@ if (false) {
 }
 
 /***/ }),
-/* 181 */
+/* 184 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

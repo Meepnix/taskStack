@@ -35,6 +35,12 @@
                 {!! Form::select('groups[]', 
                 $curGroups, $setGroups, ['class' => 'form-control', 'multiple']) !!}
                 </div>
+
+                <div class="form-group">
+                    {!! Form::label('permission', 'Permission:') !!}
+                    {!! Form::select('permission', 
+                    ['user' => 'User', 'admin' => 'Administrator'], $user->permission) !!}
+                </div>
                 
 
 

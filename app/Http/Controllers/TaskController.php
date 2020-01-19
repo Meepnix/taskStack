@@ -8,6 +8,8 @@ use Carbon\Carbon;
 
 use App\Task;
 
+use Illuminate\Support\Arr;
+
 class TaskController extends Controller
 {
     public function index()
@@ -40,7 +42,7 @@ class TaskController extends Controller
             $timePeriod = "afternoon";
 
         } // Evening (Late Afternoon) 3:00pm till 7:00pm
-        elseif ($timeHm >= 1500 && $timeHm < 1900)
+        elseif ($timeHm >= 1500 && $timeHm < 2350)
         {
             $timePeriod = "evening";
         }
@@ -49,10 +51,8 @@ class TaskController extends Controller
         $user = Auth::user();
         $group = $user->groups()->get()->pluck('id');
 
-        
-
-       
-        return response()->json(Task::whereHas('slots', function ($query) use ($group, $weekDay, $timePeriod) {
+    
+        $tasks = Task::whereHas('slots', function ($query) use ($group, $weekDay, $timePeriod) {
             $query->whereIn('group_id', $group)
             
             
@@ -79,7 +79,16 @@ class TaskController extends Controller
                 ]);
 
         //HTTP status OK
-        })->with('labels', 'files')->get(), 200);
+        })->with('labels', 'files')->get();
+
+
+        $tasks = Arr::add($tasks, 'period', $timePeriod);
+
+        //$tasks->period = $timePeriod;
+
+
+
+        return response()->json($tasks, 200);
 
         
     }

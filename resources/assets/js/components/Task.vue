@@ -64,7 +64,7 @@
 
     export default {
         props: ['task'],
-        data() {
+        data: function () {
             return {
               SiteRoute: SiteRoute,
                 options: {
@@ -85,7 +85,6 @@
 
         methods: {
             submitFile: function (path) {
-              console.log("submit_cheese"); 
               PDFObject.embed(path, "#pdf", this.options);
               $('#pdfview').modal('show');
                 
@@ -112,8 +111,6 @@
               let create = window.moment(created);
               let cdiff = update.diff(create, 'days');
               let diff = current.diff(update, 'days');
-              console.log('create difference');
-              console.log(cdiff);
               // Check create and update difference in days
               if (cdiff > 7)
               {

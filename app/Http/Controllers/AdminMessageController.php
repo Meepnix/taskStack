@@ -24,8 +24,13 @@ class AdminMessageController extends Controller
         return view('adminMessages.edit', compact('message'));
     }
 
-    public function update()
+    public function update(Request $request, Message $message)
     {
 
+        $message->update($request->all());
+
+        return redirect()->route('admin.message.showGroups')->with('flash_message', 'Group Message Updated');
+
+        
     }
 }

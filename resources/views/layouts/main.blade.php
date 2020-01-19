@@ -60,10 +60,13 @@
                     <a href="{{ route('admin.task.show') }}">Tasks</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.slot.showGroups') }}">Slots</a>
+                    <a href="{{ route('admin.slot.showGroups') }}">Task Slots</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.location.show') }}">Location</a>
+                    <a href="{{ route('admin.message.showGroups') }}">Messengers</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.location.show') }}">PDFs and Images</a>
                 </li>
             </ul>
         </div>

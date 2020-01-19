@@ -6,8 +6,17 @@
                 </div>
 
                 <div class="col-10">
+                    <message-component
+                        v-for="message in messages"
+                        v-bind:message="message"
+                        :key="message.id"
+                    ></message-component>
 
-                    <h1><strong>taskSTACK</strong></h1>
+
+                    <h1>
+                        <strong>taskSTACK</strong>
+                        <label> {{ tasks.period }}</label>
+                    </h1>
                     <div class="accordion" id="accordion">
                         <task-component
                             v-for="task in tasks"
@@ -57,12 +66,14 @@
 <script>
 
     import TaskComponent from './Task.vue';
+    import MessageComponent from './Message.vue';
 
     export default {
         data() {
             return {
                 tasks: [],
                 errors: [],
+                messages: [],
                 timer:'',
                 options: {
                     height: "600px",
@@ -74,13 +85,20 @@
 
         methods: {
             read: function () {
-                console.log("read"); 
                 window.axios.get('/task/index').then( response => {
                     this.tasks = response.data;
                 })
                 .catch(e => {
                     this.errors.push(e);
                 })
+
+                window.axios.get('/message/index').then( response => {
+                    this.messages = response.data;
+                })
+                .catch(e => {
+                    this.errors.push(e);
+                })
+
             },
             submitFile: function (path) {
                 console.log("submit"); 
@@ -92,7 +110,8 @@
         },
         
         components: {
-            TaskComponent
+            TaskComponent,
+            MessageComponent,
         },
 
         created() {

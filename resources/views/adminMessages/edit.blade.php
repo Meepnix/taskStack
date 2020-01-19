@@ -35,6 +35,22 @@
                         </textarea>
                     </div>
 
+                    <div class="form-check">
+                        <input 
+                        type="hidden" 
+                        name="enabled" value="0">
+                        <input 
+                        type="checkbox" 
+                        name="enabled" 
+                        id="enabled"
+                        value="1" 
+                        {{ $message->enabled ? 'checked' : '' }}>
+
+                        <label class="form-check-label" for="enabled">
+                            Enabled
+                        </label>
+                    </div>
+
                     
 
                     <hr>

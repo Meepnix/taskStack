@@ -18,10 +18,10 @@
     
     <div class="row">
         <div class="col-md-12 col-md-offset-1">
-            <h2>File locations</h2>
+            <h2>PDFs and Images</h2>
             <p>
                 <a href="{{ route('admin.dashboard.show') }}">Dashboard</a> >
-                <a href="{{ route('admin.location.show') }}"><strong>File locations</strong></a>
+                <a href="{{ route('admin.location.show') }}"><strong>PDFs and Images</strong></a>
             </p>
 
             <a style="margin-bottom: 1.5em;" href="{{ route('admin.location.create') }}" class="btn btn-primary">
