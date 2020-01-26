@@ -8,8 +8,16 @@ use App\Slot;
 
 class AdminGroupController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('isadmin');
+    }
+
     public function show()
     {
+
         $groups = Group::all();
         
         return view('adminGroups.show', compact('groups'));

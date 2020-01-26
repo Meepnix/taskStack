@@ -8,17 +8,27 @@ use Illuminate\Support\Facades\Log;
 
 use App\Location;
 use App\File;
+use Gate;
 
 
 class AdminFileController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('isadmin');
+    }
+
     public function create(Location $location)
     {
+
         return view('adminFiles.create', compact('location'));
     }
 
     public function destroy(File $file)
     {
+
         //Delete file storage
         Storage::delete($file->path);
 
@@ -36,6 +46,7 @@ class AdminFileController extends Controller
 
     public function store(Request $request, Location $location)
     {
+    
         $request->validate([
 
             'pdf' => 'required|mimetypes:application/pdf|mimes:pdf',

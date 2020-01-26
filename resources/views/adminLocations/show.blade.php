@@ -98,7 +98,7 @@
                                                 <td>{{ $file->name }}</td>
                                                 <td>{{ $file->type }}</td>
                                                 <td>{{ $file->size }}</td>
-                                                <td class="text-right">
+                                                <td class="text-right" style="width:15rem">
                                                     <button
                                                     type="button"
                                                     class="btn btn-primary mr-2"
@@ -198,7 +198,7 @@
                                                 <td>{{ $image->name }}</td>
                                                 <td>{{ $image->type }}</td>
                                                 <td>{{ $image->size }}</td>
-                                                <td class="text-right">
+                                                <td class="text-right" style="width:15rem">
                                                     <button 
                                                     type="button"
                                                     class="btn btn-primary ml-2" 

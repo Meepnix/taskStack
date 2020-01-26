@@ -15,7 +15,7 @@
 
                     <h1>
                         <strong>taskSTACK</strong>
-                        <label> {{ tasks.period }}</label>
+                        <label> {{ correctPeriod(tasks.period) }}</label>
                     </h1>
                     <div class="accordion" id="accordion">
                         <task-component
@@ -69,7 +69,7 @@
     import MessageComponent from './Message.vue';
 
     export default {
-        data() {
+        data: function() {
             return {
                 tasks: [],
                 errors: [],
@@ -105,6 +105,16 @@
                 PDFObject.embed(path, "#pdf", this.options);
                 $('#pdfview').modal('show');
                 
+            },
+            correctPeriod: function (period) {
+                if (period === 'afternoon') {
+                    return 'Early Afternoon';
+
+                } else if (period === 'evening') {
+                    return 'Late Afternoon';
+                } else {
+                    return period;
+                }
             }
             
         },

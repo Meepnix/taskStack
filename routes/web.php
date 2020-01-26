@@ -15,9 +15,13 @@ Auth::routes();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::get('/', function () {
-    return view('dashboard');
-})->name('admin.dashboard.show');
+Route::get('/', 'AdminDashboardController@show')->name('admin.dashboard.show');
+
+Route::get('403', function (){
+
+    return view('errors.403');
+
+})->name('errors.403');
 
 
 /* Admin */

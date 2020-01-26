@@ -8,6 +8,13 @@ use App\Label;
 
 class AdminLabelController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('isadmin');
+    }
+
     
     /** 
      * Show task list

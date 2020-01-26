@@ -10,6 +10,13 @@ use App\Task;
 
 class AdminSlotController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('isadmin');
+    }
+    
     public function show(Group $group)
     {
         
