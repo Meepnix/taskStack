@@ -65530,7 +65530,7 @@ exports = module.exports = __webpack_require__(142)(true);
 
 
 // module
-exports.push([module.i, "\n.bg-black[data-v-8142f38c] {\r\n  background-color: black;\n}\r\n\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/App.vue"],"names":[],"mappings":";AAwJA;EACA,wBAAA;CACA","file":"App.vue","sourcesContent":["<template>\r\n    <div id=\"app\">\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col-1\">\r\n                </div>\r\n\r\n                <div class=\"col-10\">\r\n                    <message-component\r\n                        v-for=\"message in messages\"\r\n                        v-bind:message=\"message\"\r\n                        :key=\"message.id\"\r\n                    ></message-component>\r\n\r\n\r\n                    <h1>\r\n                        <strong>taskSTACK</strong>\r\n                        <label> {{ correctPeriod(tasks.period) }}</label>\r\n                    </h1>\r\n                    <div class=\"accordion\" id=\"accordion\">\r\n                        <task-component\r\n                            v-for=\"task in tasks\"\r\n                            v-bind:task=\"task\"\r\n                            :key=\"task.id\"\r\n                        ></task-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-1\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- View PDF -->\r\n        <div \r\n        class=\"modal fade\" \r\n        id=\"pdfview\" \r\n        tabindex=\"-1\" \r\n        role=\"dialog\" \r\n        aria-labelledby=\"view_pdf\" \r\n        aria-hidden=\"true\">\r\n            <div class=\"modal-dialog modal-dialog-centered modal-xl\" role=\"document\">\r\n                <div class=\"modal-content\">\r\n                    <div class=\"modal-header\">\r\n                        <h5 class=\"modal-title\" id=\"view_pdf\">View PDF</h5>\r\n                        <button \r\n                        type=\"button\" \r\n                        class=\"close\" \r\n                        data-dismiss=\"modal\" \r\n                        aria-label=\"Close\">\r\n                            <span aria-hidden=\"true\">&times;</span>\r\n                        </button>\r\n                    </div>\r\n                    <div class=\"modal-body\">\r\n                        <div class=\"container-fluid\">\r\n                            <div id=\"pdf\"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</template>\r\n\r\n<script>\r\n\r\n    import TaskComponent from './Task.vue';\r\n    import MessageComponent from './Message.vue';\r\n\r\n    export default {\r\n        data: function() {\r\n            return {\r\n                tasks: [],\r\n                errors: [],\r\n                messages: [],\r\n                timer:'',\r\n                options: {\r\n                    height: \"600px\",\r\n                    width: \"100%\",\r\n                },\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            read: function () {\r\n                window.axios.get('/task/index').then( response => {\r\n                    this.tasks = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n\r\n                window.axios.get('/message/index').then( response => {\r\n                    this.messages = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n\r\n            },\r\n            submitFile: function (path) {\r\n                console.log(\"submit\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            },\r\n            correctPeriod: function (period) {\r\n                if (period === 'afternoon') {\r\n                    return 'Early Afternoon';\r\n\r\n                } else if (period === 'evening') {\r\n                    return 'Late Afternoon';\r\n                } else {\r\n                    return period;\r\n                }\r\n            }\r\n            \r\n        },\r\n        \r\n        components: {\r\n            TaskComponent,\r\n            MessageComponent,\r\n        },\r\n\r\n        created() {\r\n            \r\n            this.read();\r\n            //Refresh\r\n            this.timer = setInterval(this.read, 30000)\r\n\r\n            //Focus on opened accordion card\r\n            $(document).ready(function() {\r\n                $('#accordion').on('shown.bs.collapse', function(e) {\r\n\r\n                    var $card = $(this).find('.collapse.show').prev();\r\n                    $('html,body').animate({\r\n                    scrollTop: $card.offset().top\r\n                    }, 500);\r\n                });\r\n            });\r\n        },\r\n\r\n        beforeDestroy () {\r\n            clearInterval(this.timer);\r\n        },\r\n    }\r\n</script>\r\n\r\n<style scoped>\r\n\r\n.bg-black {\r\n  background-color: black;\r\n}\r\n\r\n\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.bg-black[data-v-8142f38c] {\r\n  background-color: black;\n}\r\n\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/App.vue"],"names":[],"mappings":";AA4LA;EACA,wBAAA;CACA","file":"App.vue","sourcesContent":["<template>\r\n    <div id=\"app\">\r\n\r\n        <nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\r\n            <a class=\"navbar-brand\" href=\"#\">taskSTACK</a>\r\n            <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarText\" aria-controls=\"navbarText\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n                <span class=\"navbar-toggler-icon\"></span>\r\n            </button>\r\n            <div class=\"collapse navbar-collapse\" id=\"navbarText\">\r\n                <ul class=\"navbar-nav mr-auto\">\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/index')\" href=\"#\">Home</a>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/morning')\" href=\"#\">Morning</a>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/afternoon')\" href=\"#\">Early Afternoon</a>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/evening')\" href=\"#\">Late Afternoon</a>\r\n                    </li>\r\n                </ul>\r\n                <span class=\"navbar-text\">\r\n                    {{ tasks.username }}\r\n                </span>\r\n            </div>\r\n        </nav>\r\n\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col\">\r\n                    <message-component\r\n                        v-for=\"message in messages\"\r\n                        v-bind:message=\"message\"\r\n                        :key=\"message.id\"\r\n                    ></message-component>\r\n                </div>\r\n\r\n                \r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-1\">\r\n                </div>\r\n\r\n                <div class=\"col-10\">\r\n                    <h1>\r\n                        <label> {{ correctPeriod(tasks.period) }} <strong>TASKS</strong></label>\r\n                    </h1>\r\n                    <div class=\"accordion\" id=\"accordion\">\r\n                        <task-component\r\n                            v-for=\"task in tasks\"\r\n                            v-bind:task=\"task\"\r\n                            :key=\"task.id\"\r\n                        ></task-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-1\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- View PDF -->\r\n        <div \r\n        class=\"modal fade\" \r\n        id=\"pdfview\" \r\n        tabindex=\"-1\" \r\n        role=\"dialog\" \r\n        aria-labelledby=\"view_pdf\" \r\n        aria-hidden=\"true\">\r\n            <div class=\"modal-dialog modal-dialog-centered modal-xl\" role=\"document\">\r\n                <div class=\"modal-content\">\r\n                    <div class=\"modal-header\">\r\n                        <h5 class=\"modal-title\" id=\"view_pdf\">View PDF</h5>\r\n                        <button \r\n                        type=\"button\" \r\n                        class=\"close\" \r\n                        data-dismiss=\"modal\" \r\n                        aria-label=\"Close\">\r\n                            <span aria-hidden=\"true\">&times;</span>\r\n                        </button>\r\n                    </div>\r\n                    <div class=\"modal-body\">\r\n                        <div class=\"container-fluid\">\r\n                            <div id=\"pdf\"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</template>\r\n\r\n<script>\r\n\r\n    import TaskComponent from './Task.vue';\r\n    import MessageComponent from './Message.vue';\r\n\r\n    export default {\r\n        data: function() {\r\n            return {\r\n                tasks: [],\r\n                errors: [],\r\n                messages: [],\r\n                timer:'',\r\n                options: {\r\n                    height: \"600px\",\r\n                    width: \"100%\",\r\n                },\r\n                period: \"/task/index\",\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            read: function () {\r\n                window.axios.get(this.period).then( response => {\r\n                    this.tasks = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n\r\n                window.axios.get('/message/index').then( response => {\r\n                    this.messages = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n\r\n            },\r\n            submitFile: function (path) {\r\n                console.log(\"submit\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            },\r\n            correctPeriod: function (period) {\r\n                if (period === 'afternoon') {\r\n                    return 'Early Afternoon';\r\n\r\n                } else if (period === 'evening') {\r\n                    return 'Late Afternoon';\r\n                } else {\r\n                    return period;\r\n                }\r\n            },\r\n            setPeriod: function (period) {\r\n                this.period = period;\r\n                //Refresh\r\n                this.read();\r\n            }\r\n            \r\n        },\r\n        \r\n        components: {\r\n            TaskComponent,\r\n            MessageComponent,\r\n        },\r\n\r\n        created() {\r\n            \r\n            this.read();\r\n            //Refresh\r\n            this.timer = setInterval(this.read, 30000)\r\n\r\n            //Focus on opened accordion card\r\n            $(document).ready(function() {\r\n                $('#accordion').on('shown.bs.collapse', function(e) {\r\n\r\n                    var $card = $(this).find('.collapse.show').prev();\r\n                    $('html,body').animate({\r\n                    scrollTop: $card.offset().top\r\n                    }, 500);\r\n                });\r\n            });\r\n        },\r\n\r\n        beforeDestroy () {\r\n            clearInterval(this.timer);\r\n        },\r\n    }\r\n</script>\r\n\r\n<style scoped>\r\n\r\n.bg-black {\r\n  background-color: black;\r\n}\r\n\r\n\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -65643,6 +65643,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -65659,6 +65689,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 height: "600px",
                 width: "100%"
             },
+            period: "/task/index",
             path: null
         };
     },
@@ -65667,7 +65698,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         read: function read() {
             var _this = this;
 
-            window.axios.get('/task/index').then(function (response) {
+            window.axios.get(this.period).then(function (response) {
                 _this.tasks = response.data;
             }).catch(function (e) {
                 _this.errors.push(e);
@@ -65692,6 +65723,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 return period;
             }
+        },
+        setPeriod: function setPeriod(period) {
+            this.period = period;
+            //Refresh
+            this.read();
         }
 
     },
@@ -66204,11 +66240,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "alert alert-primary", attrs: { role: "alert" } },
-    [_vm._v("\n    " + _vm._s(_vm.message.message) + "\n")]
-  )
+  return _c("div", {
+    staticClass: "alert alert-primary",
+    attrs: { role: "alert" },
+    domProps: { innerHTML: _vm._s(_vm.message.message) }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -66229,51 +66265,166 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "app" } }, [
-    _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-1" }),
+    _c(
+      "nav",
+      { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
+      [
+        _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+          _vm._v("taskSTACK")
+        ]),
+        _vm._v(" "),
+        _vm._m(0),
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "col-10" },
+          {
+            staticClass: "collapse navbar-collapse",
+            attrs: { id: "navbarText" }
+          },
           [
-            _vm._l(_vm.messages, function(message) {
-              return _c("message-component", {
-                key: message.id,
-                attrs: { message: message }
-              })
-            }),
-            _vm._v(" "),
-            _c("h1", [
-              _c("strong", [_vm._v("taskSTACK")]),
+            _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+              _c("li", { staticClass: "nav-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.setPeriod("/task/index")
+                      }
+                    }
+                  },
+                  [_vm._v("Home")]
+                )
+              ]),
               _vm._v(" "),
-              _c("label", [
-                _vm._v(" " + _vm._s(_vm.correctPeriod(_vm.tasks.period)))
+              _c("li", { staticClass: "nav-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.setPeriod("/task/morning")
+                      }
+                    }
+                  },
+                  [_vm._v("Morning")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.setPeriod("/task/afternoon")
+                      }
+                    }
+                  },
+                  [_vm._v("Early Afternoon")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        _vm.setPeriod("/task/evening")
+                      }
+                    }
+                  },
+                  [_vm._v("Late Afternoon")]
+                )
               ])
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "accordion", attrs: { id: "accordion" } },
-              _vm._l(_vm.tasks, function(task) {
-                return _c("task-component", {
-                  key: task.id,
-                  attrs: { task: task }
-                })
+            _c("span", { staticClass: "navbar-text" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.tasks.username) +
+                  "\n            "
+              )
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col" },
+          _vm._l(_vm.messages, function(message) {
+            return _c("message-component", {
+              key: message.id,
+              attrs: { message: message }
+            })
+          })
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-1" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-10" }, [
+          _c("h1", [
+            _c("label", [
+              _vm._v(" " + _vm._s(_vm.correctPeriod(_vm.tasks.period)) + " "),
+              _c("strong", [_vm._v("TASKS")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "accordion", attrs: { id: "accordion" } },
+            _vm._l(_vm.tasks, function(task) {
+              return _c("task-component", {
+                key: task.id,
+                attrs: { task: task }
               })
-            )
-          ],
-          2
-        ),
+            })
+          )
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-1" })
       ])
     ]),
     _vm._v(" "),
-    _vm._m(0)
+    _vm._m(1)
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-toggle": "collapse",
+          "data-target": "#navbarText",
+          "aria-controls": "navbarText",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
+        }
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

@@ -26,7 +26,7 @@
                         style="margin-bottom: 1.5em;" 
                         href="{{ route('admin.message.edit', [$group->id]) }}" 
                         class="btn btn-primary">
-                            <i class="fa fa-btn"></i>Open slots
+                            <i class="fa fa-btn"></i>Open message
                         </a>
                     </div>
                     

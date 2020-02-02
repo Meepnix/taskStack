@@ -12,22 +12,23 @@ use Illuminate\Support\Arr;
 
 class TaskController extends Controller
 {
+    //current day
+    public $weekMap = [
+        0 => 'sun',
+        1 => 'mon',
+        2 => 'tue',
+        3 => 'wed',
+        4 => 'thu',
+        5 => 'fri',
+        6 => 'sat',
+    ];
+
     public function index()
     {
-        //current day
-        $weekMap = [
-            0 => 'sun',
-            1 => 'mon',
-            2 => 'tue',
-            3 => 'wed',
-            4 => 'thu',
-            5 => 'fri',
-            6 => 'sat',
-        ];
-
+    
         $time = Carbon::now();
 
-        $weekDay = $weekMap[$time->dayOfWeek];
+        $weekDay = $this->weekMap[$time->dayOfWeek];
 
         $timeHm = $time->hour . ($time->minute < 10 ? 0 . $time->minute : $time->minute);
 
@@ -52,6 +53,67 @@ class TaskController extends Controller
         $group = $user->groups()->get()->pluck('id');
 
     
+        return $this->taskQuery($group, $weekDay, $timePeriod, $user);
+        
+
+        
+    }
+
+    public function morning()
+    {
+        $time = Carbon::now();
+
+        $weekDay = $this->weekMap[$time->dayOfWeek];
+
+        $timePeriod = "morning";
+
+        // Current User login
+        $user = Auth::user();
+        $group = $user->groups()->get()->pluck('id');
+
+
+        return $this->taskQuery($group, $weekDay, $timePeriod, $user);
+
+    }
+
+
+    public function afternoon()
+    {
+        $time = Carbon::now();
+
+        $weekDay = $this->weekMap[$time->dayOfWeek];
+
+        $timePeriod = "afternoon";
+
+        // Current User login
+        $user = Auth::user();
+        $group = $user->groups()->get()->pluck('id');
+
+
+        return $this->taskQuery($group, $weekDay, $timePeriod, $user);
+
+    }
+
+
+    public function evening()
+    {
+        $time = Carbon::now();
+
+        $weekDay = $this->weekMap[$time->dayOfWeek];
+
+        $timePeriod = "evening";
+
+        // Current User login
+        $user = Auth::user();
+        $group = $user->groups()->get()->pluck('id');
+
+
+        return $this->taskQuery($group, $weekDay, $timePeriod, $user);
+
+    }
+
+    protected function taskQuery($group, $weekDay, $timePeriod, $user)
+    {
         $tasks = Task::whereHas('slots', function ($query) use ($group, $weekDay, $timePeriod) {
             $query->whereIn('group_id', $group)
             
@@ -83,16 +145,11 @@ class TaskController extends Controller
 
 
         $tasks = Arr::add($tasks, 'period', $timePeriod);
-
-        //$tasks->period = $timePeriod;
-
+        $tasks = Arr::add($tasks, 'username', $user->name);
 
 
         return response()->json($tasks, 200);
-
-        
     }
-
 
     public function show()
     {

@@ -35,6 +35,10 @@
     @stack('scripts')
 
     <style>
+        html {
+            overflow-y: scroll;
+        }
+
         body {
             font-family: 'Lato';
         }

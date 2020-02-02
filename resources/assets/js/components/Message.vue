@@ -1,6 +1,6 @@
 <template>
-    <div class="alert alert-primary" role="alert">
-        {{ message.message }}
+    <div class="alert alert-primary" role="alert" v-html="message.message">
+        
     </div>
 
 </template>

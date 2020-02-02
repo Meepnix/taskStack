@@ -1,21 +1,51 @@
 <template>
     <div id="app">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">taskSTACK</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" v-on:click="setPeriod('/task/index')" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" v-on:click="setPeriod('/task/morning')" href="#">Morning</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" v-on:click="setPeriod('/task/afternoon')" href="#">Early Afternoon</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" v-on:click="setPeriod('/task/evening')" href="#">Late Afternoon</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    {{ tasks.username }}
+                </span>
+            </div>
+        </nav>
+
         <div class="container-fluid">
             <div class="row">
-                <div class="col-1">
-                </div>
-
-                <div class="col-10">
+                <div class="col">
                     <message-component
                         v-for="message in messages"
                         v-bind:message="message"
                         :key="message.id"
                     ></message-component>
+                </div>
 
+                
+            </div>
+            <div class="row">
+                <div class="col-1">
+                </div>
 
+                <div class="col-10">
                     <h1>
-                        <strong>taskSTACK</strong>
-                        <label> {{ correctPeriod(tasks.period) }}</label>
+                        <label> {{ correctPeriod(tasks.period) }} <strong>TASKS</strong></label>
                     </h1>
                     <div class="accordion" id="accordion">
                         <task-component
@@ -79,13 +109,14 @@
                     height: "600px",
                     width: "100%",
                 },
+                period: "/task/index",
                 path: null
             }
         },
 
         methods: {
             read: function () {
-                window.axios.get('/task/index').then( response => {
+                window.axios.get(this.period).then( response => {
                     this.tasks = response.data;
                 })
                 .catch(e => {
@@ -115,6 +146,11 @@
                 } else {
                     return period;
                 }
+            },
+            setPeriod: function (period) {
+                this.period = period;
+                //Refresh
+                this.read();
             }
             
         },

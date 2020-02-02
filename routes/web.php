@@ -11,20 +11,22 @@
 |
 */
 
-Auth::routes();
+//Auth::routes();
 
+// Authentication Routes...
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::get('/', 'AdminDashboardController@show')->name('admin.dashboard.show');
-
-Route::get('403', function (){
-
-    return view('errors.403');
-
-})->name('errors.403');
 
 
 /* Admin */
+
+//Dashboard
+Route::get('/', 'AdminDashboardController@show')->name('admin.dashboard.show');
+
+
 
 //Groups
 Route::get('/admin/groups', 'AdminGroupController@show')->name('admin.group.show');
@@ -90,15 +92,10 @@ Route::get('/admin/labels/edit/{label}', 'AdminLabelController@edit')->name('adm
 Route::patch('/admin/labels/update/{label}', 'AdminLabelController@update')->name('admin.label.update');
 
 
-Route::get('/meep', function () {
-    return view('welcome');
-});
-
 Route::get('/task', function () {
     return view('Tasks.index');
 
 });
-
 
 
 //json
@@ -108,6 +105,9 @@ Route::get('/message/index', 'MessageController@index')->name('message.index');
 
 //Tasks
 Route::get('/task/index', 'TaskController@index')->name('task.index');
+Route::get('/task/morning', 'TaskController@morning')->name('task.morning');
+Route::get('/task/afternoon', 'TaskController@afternoon')->name('task.afternoon');
+Route::get('/task/evening', 'TaskController@evening')->name('task.evening');
 
 //Locations images
 Route::get('/admin/location/index/images', 'AdminLocationController@indexImages')->name('admin.location.image.index');
@@ -121,19 +121,19 @@ Route::get('/admin/tasks/links/{task}', 'AdminTaskController@editLinks')->name('
 //Tasks with labels
 Route::get('/admin/tasks/task/{task}', 'AdminTaskController@editTasks')->name('admin.task.tasks');
 
+/* Errors */
+Route::get('403', function (){
 
+    return view('errors.403');
 
+})->name('errors.403');
 
 /* User */
 
 //Tasks
 Route::get('/task/show', 'TaskController@show')->name('task.show');
 
-
-
 Route::get('/logtest', '\App\Http\Controllers\Auth\LoginController@login');
-
-
 
 
 //http://localhost/logtest?name=Batman&password=Batman&remember=On
