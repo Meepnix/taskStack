@@ -43,6 +43,35 @@
                 </div>
                 
 
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                    id="password" 
+                    type="password" 
+                    class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" 
+                    name="password" 
+                    >
+
+                    @if ($errors->has('password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    @endif
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="password-confirm">Confirm Password</label>
+
+                    <input 
+                    id="password-confirm" 
+                    type="password" 
+                    class="form-control" 
+                    name="password_confirmation" 
+                    >
+                
+                </div>
+
 
                 <hr>
                 <div class="float-right">

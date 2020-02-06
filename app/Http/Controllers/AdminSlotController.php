@@ -58,6 +58,17 @@ class AdminSlotController extends Controller
 
     public function store(Request $request, Group $group)
     {
+        $request->validate([
+            'mon' => 'required_without_all:tue,wed,thu,fri,all',
+            'tue' => 'required_without_all:mon,wed,thu,fri,all',
+            'wed' => 'required_without_all:mon,tue,thu,fri,all',
+            'thu' => 'required_without_all:mon,tue,wed,fri,all',
+            'fri' => 'required_without_all:mon,tue,wed,thu,all',
+            'all' => 'required_without_all:mon,tue,wed,thu,fri',
+            'time_period' => 'required',
+            'task_id' => 'required'
+
+        ]);
         $group->slots()->create($request->all());
 
         return redirect()->route('admin.slot.show', [$group->id])->with('flash_message', 'Slot created');
@@ -73,6 +84,18 @@ class AdminSlotController extends Controller
 
     public function update(Request $request, Slot $slot)
     {
+        $request->validate([
+            'mon' => 'required_without_all:tue,wed,thu,fri,all',
+            'tue' => 'required_without_all:mon,wed,thu,fri,all',
+            'wed' => 'required_without_all:mon,tue,thu,fri,all',
+            'thu' => 'required_without_all:mon,tue,wed,fri,all',
+            'fri' => 'required_without_all:mon,tue,wed,thu,all',
+            'all' => 'required_without_all:mon,tue,wed,thu,fri',
+            'time_period' => 'required',
+            'task_id' => 'required'
+
+        ]);
+
         $slot->update($request->all());
 
         return redirect()->route('admin.slot.show', [$slot->group_id])->with('flash_message', 'Slot updated');

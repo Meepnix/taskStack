@@ -55,20 +55,16 @@ class AdminLabelController extends Controller
 
         $request->validate([
 
-            'name' => 'required',
+            'name' => 'required|max:191',
             'label_fmt' => 'required'
 
         ]);
 
 
         $new = new Label;
-
         $new->name = $request->name;
-
         $new->theme = $request->label_fmt;
-
         $new->html = $this->getThemeHTML($request->label_fmt, $request->name);
-
         $new->save();
 
         return redirect()->route('admin.label.show')->with('flash_message', 'Label created');
@@ -82,18 +78,15 @@ class AdminLabelController extends Controller
 
         $request->validate([
 
-            'name' => 'required',
+            'name' => 'required|max:191',
             'label_fmt' => 'required'
 
         ]);
 
 
         $label->name = $request->name;
-
         $label->theme = $request->label_fmt;
-
         $label->html = $this->getThemeHTML($request->label_fmt, $request->name);
-
         $label->save();
 
         return redirect()->route('admin.label.show')->with('flash_message', 'Label created');

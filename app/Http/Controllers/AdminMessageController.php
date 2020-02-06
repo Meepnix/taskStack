@@ -25,6 +25,7 @@ class AdminMessageController extends Controller
 
     public function edit(Group $group)
     {
+
         $message = Message::firstOrCreate(['group_id' => $group->id]);
 
         return view('adminMessages.edit', compact('message'));
@@ -32,6 +33,9 @@ class AdminMessageController extends Controller
 
     public function update(Request $request, Message $message)
     {
+        $request->validate([
+            'message' => 'max:16384'
+        ]);
 
         $message->update($request->all());
 

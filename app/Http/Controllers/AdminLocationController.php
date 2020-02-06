@@ -35,6 +35,11 @@ class AdminLocationController extends Controller
 
     public function update(Request $request, Location $location)
     {
+        $request->validate([
+
+            'name' => 'required:max:191'
+
+        ]);
         $location->update($request->all());
 
         return redirect()->route('admin.location.show')
@@ -43,6 +48,12 @@ class AdminLocationController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+
+            'name' => 'required:max:191'
+
+        ]);
         $new = new Location;
         $new->name = $request->name;
         $new->depth = 1;

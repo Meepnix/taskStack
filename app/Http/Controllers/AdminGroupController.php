@@ -31,6 +31,13 @@ class AdminGroupController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+
+            'name' => 'required|max:191',
+
+        ]);
+
+
         $new = new Group;
 
         $group = $new->create($request->all());

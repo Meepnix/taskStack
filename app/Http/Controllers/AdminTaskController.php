@@ -52,8 +52,8 @@ class AdminTaskController extends Controller
     {
         $request->validate([
 
-            'title' => 'required',
-            'message' => 'required',
+            'title' => 'required|max:191',
+            'message' => 'required|max:16384‬',
 
         ]);
         
@@ -96,8 +96,8 @@ class AdminTaskController extends Controller
 
         $request->validate([
 
-            'title' => 'required',
-            'message' => 'required',
+            'title' => 'required|max:191',
+            'message' => 'required|max:16384‬',
 
         ]);
 

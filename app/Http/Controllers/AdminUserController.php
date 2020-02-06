@@ -53,8 +53,24 @@ class AdminUserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
+        $request->validate([
+            'name' => 'required|max:191',
+            'password' => 'max:191|confirmed',
+            'permission' => 'required',
+            'groups' => 'required',
+        ]);
+
+        if($request->password)
+        {
+            
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->name = $request->name;
+        $user->permission = $request->permission;
+
         $user->groups()->sync($request->input('groups'));
+        $user->save();
 
         return redirect()->route('admin.group.show')->with('flash_message', 'User ' . $user->name . ' Updated');
     }
