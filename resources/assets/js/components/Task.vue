@@ -68,7 +68,7 @@
             return {
               SiteRoute: SiteRoute,
                 options: {
-                  height: "600px",
+                  height: "38vw",
                   width: "100%",
                 },
                 path: null
@@ -145,11 +145,11 @@
 
 
 button.btn-link.collapsed:before {
-  content:'+ Click to Read more';
+  content:'+ Click Here to Read More';
     
 }
 button.btn-link:before {
-  content:'- Click to Read less';
+  content:'- Click Here to Read Less';
     
 }
 

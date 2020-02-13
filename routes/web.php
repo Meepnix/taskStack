@@ -93,7 +93,7 @@ Route::patch('/admin/labels/update/{label}', 'AdminLabelController@update')->nam
 
 
 Route::get('/task', function () {
-    return view('Tasks.index');
+    return view('tasks.index');
 
 });
 

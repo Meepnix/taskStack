@@ -12,7 +12,7 @@
             <h2>{{ $group->name }} Slots</h2>
             <p>
                 <a href="{{ route('admin.dashboard.show') }}">Dashboard</a> >
-                <a href="{{ route('admin.slot.showGroups') }}">Slots</a> > 
+                <a href="{{ route('admin.slot.showGroups') }}">Task Slots</a> > 
                 <a href="{{ url()->current() }}"><strong>{{ $group->name }} Slots<strong></a>
             </p>
             <a 

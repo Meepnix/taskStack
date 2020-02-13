@@ -106,7 +106,7 @@
                 messages: [],
                 timer:'',
                 options: {
-                    height: "600px",
+                    height: "800 rem",
                     width: "100%",
                 },
                 period: "/task/index",
@@ -144,7 +144,7 @@
                 } else if (period === 'evening') {
                     return 'Late Afternoon';
                 } else {
-                    return period;
+                    return 'Morning';
                 }
             },
             setPeriod: function (period) {
@@ -189,6 +189,13 @@
 .bg-black {
   background-color: black;
 }
+
+
+
+.modal-xl {
+      min-width: 100%;
+}
+
 
 
 </style>
