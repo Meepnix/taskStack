@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             
-            <h3>Create Group</h3>
+            <h3>Create User Group</h3>
             <hr>
 
             <form method="POST" 

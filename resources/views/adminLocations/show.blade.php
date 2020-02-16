@@ -25,7 +25,7 @@
             </p>
 
             <a style="margin-bottom: 1.5em;" href="{{ route('admin.location.create') }}" class="btn btn-primary">
-                <i class="fa fa-btn fa-plus-square"></i>CREATE FILE LOCATION
+                <i class="fa fa-btn fa-plus-square"></i>CREATE PDFS AND IMAGES LOCATION
             </a>
                 
             <!-- Location Cards -->

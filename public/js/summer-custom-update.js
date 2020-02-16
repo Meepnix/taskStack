@@ -232,8 +232,18 @@ var app = new Vue({
         validation: {},
     },
     methods: {
-        read: function () {
+        readFiles: function () {
+            
+            //get file json
+            axios.get('/admin/location/index/files').then( response => {
+                this.files = response.data;
+            })
+            .catch(e => {
+                this.errors.push(e);
+            });
+        },
 
+        readImages: function () {
             //get image json
             axios.get('/admin/location/index/images').then( response => {
                 this.images = response.data;
@@ -242,14 +252,10 @@ var app = new Vue({
                 this.errors.push(e);
             });
 
-            //get file json
-            axios.get('/admin/location/index/files').then( response => {
-                this.files = response.data;
-            })
-            .catch(e => {
-                this.errors.push(e);
-            });
 
+        },
+
+        read: function () {
             //Check if editing tasking
             if (this.id) {
 
@@ -343,6 +349,8 @@ var app = new Vue({
     created: function () {
             
             this.read();
+            this.readFiles();
+            this.readImages();
     }
 });
 

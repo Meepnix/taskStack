@@ -7,18 +7,18 @@
     
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <h2>Groups</h2>
+            <h2>User Groups</h2>
             <p>
                 <a href="{{ route('admin.dashboard.show') }}">Dashboard</a> >
                 <a href="{{ route('admin.group.show') }}">
-                    <strong>Groups</strong>
+                    <strong>User Groups</strong>
                 </a>
             </p>
             
                 <a style="margin-bottom: 1.5em;" 
                 href="{{ route('admin.group.create') }}" 
                 class="btn btn-primary">
-                        <i class="fa fa-btn fa-plus-square"></i>CREATE GROUP
+                        <i class="fa fa-btn fa-plus-square"></i>CREATE USER GROUP
                 </a>
                 
                    

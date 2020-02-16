@@ -53,7 +53,7 @@
                     role="tab" 
                     aria-controls="nav-evening" 
                     aria-selected="false">
-                    Late Afternoon
+                    Late Afternoon (3pm+)
                     </a>
 
                 </div>

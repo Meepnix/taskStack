@@ -32,18 +32,18 @@ class TaskController extends Controller
 
         $timeHm = $time->hour . ($time->minute < 10 ? 0 . $time->minute : $time->minute);
 
-        // Morning 8:00am till 12:00pm
+        // Morning 12:00am till 11:59pm
         if ($timeHm >= 00 && $timeHm < 1200)
         {
             $timePeriod = "morning";
 
-        } // Afternoon (Early Afternoon) 12:00pm till 3:00pm
+        } // Afternoon (Early Afternoon) 12:00pm till 2:59pm
         elseif ($timeHm >= 1200 && $timeHm < 1500)
         {
             $timePeriod = "afternoon";
 
-        } // Evening (Late Afternoon) 3:00pm till 7:00pm
-        elseif ($timeHm >= 1500 && $timeHm < 2350)
+        } // Evening (Late Afternoon) 3:00pm till 11:59pm
+        elseif ($timeHm >= 1500 && $timeHm < 2400)
         {
             $timePeriod = "evening";
         }

@@ -44,9 +44,22 @@
                 </div>
 
                 <div class="col-10">
-                    <h1>
-                        <label> {{ correctPeriod(tasks.period) }} <strong>TASKS</strong></label>
-                    </h1>
+                    <div class="row mb-1">
+                        <div class="col-5">
+                        <h1>
+                            <label> {{ correctPeriod(tasks.period) }} <strong>TASKS</strong></label>
+                        </h1>
+                        </diV>
+
+                        <div class="col-7">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><strong>Welcome to taskStack</strong></h5>
+                                    <p class="card-text">Please find below one or more task cards below compromising of regular of one off tasks related to your role </p>
+                                </div>
+                            </div>
+                        </diV>
+                    </div>
                     <div class="accordion" id="accordion">
                         <task-component
                             v-for="task in tasks"

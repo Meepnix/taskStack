@@ -58,7 +58,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"></li>
                 <li>
-                    <a href="{{ route('admin.group.show') }}">Groups</a>
+                    <a href="{{ route('admin.group.show') }}">Users</a>
                 </li>
                 <li>
                     <a href="{{ route('admin.task.show') }}">Tasks</a>
