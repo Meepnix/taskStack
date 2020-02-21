@@ -23,6 +23,11 @@ class TaskController extends Controller
         6 => 'sat',
     ];
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
     

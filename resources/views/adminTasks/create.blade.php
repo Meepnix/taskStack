@@ -119,12 +119,20 @@
                     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="image_Label">Select Image</h5>
-                                <button type="button" v-on:click="readImages" class="btn btn-secondary ml-1 mr-1">Refresh</button>
-                                <a href="{{ route('admin.location.show')}}" target="_blank">Open Locations</a> 
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-11">
+                                            <h5 class="modal-title" id="image_Label">Select Image</h5>
+                                            <button type="button" v-on:click="readImages" class="btn btn-secondary ml-1 mr-1"><i class="fas fa-sync"></i> Refresh</button>
+                                            <a href="{{ route('admin.location.show')}}" target="_blank">Open PDFs and Images (new window)</a>
+                                        </div>
+                                        <div class="col-1">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-body">
                                 <div class="container-fluid">
@@ -158,10 +166,9 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-11">
-
                                             <h5 class="modal-title" id="file_Label">Select PDF</h5>
-                                            <button type="button" v-on:click="readFiles" class="btn btn-secondary ml-1 mr-1">Refresh</button>
-                                            <a href="{{ route('admin.location.show')}}" target="_blank">Open Locations</a> 
+                                            <button type="button" v-on:click="readFiles" class="btn btn-secondary ml-1 mr-1"><i class="fas fa-sync"></i> Refresh</button>
+                                            <a href="{{ route('admin.location.show')}}" target="_blank">Open PDFs and Images (new window)</a> 
                                         </diV>
                                         <div class="col-1">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

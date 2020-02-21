@@ -1,7 +1,7 @@
 <template>
     <div id="app">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark mb-1" style="background-color: #8050bf;">
             <a class="navbar-brand" href="#">taskSTACK</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -45,17 +45,19 @@
 
                 <div class="col-10">
                     <div class="row mb-1">
-                        <div class="col-5">
-                        <h1>
-                            <label> {{ correctPeriod(tasks.period) }} <strong>TASKS</strong></label>
-                        </h1>
-                        </diV>
+                        <div class="col-4 text-center my-auto">
+                            <h1>
+                                <label class="mt-2"> {{ correctPeriod(tasks.period) }} Tasks</label>
+                            </h1>
+                                
+                        </div>
 
-                        <div class="col-7">
+                        <div class="col-8">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title"><strong>Welcome to taskStack</strong></h5>
-                                    <p class="card-text">Please find below one or more task cards below compromising of regular of one off tasks related to your role </p>
+                                    <h4 class="card-title"><strong>Welcome to taskSTACK</strong></h4>
+                                    <p class="card-text" style="font-size:medium">Please find below one or more task cards compromising of tasks related to {{ tasks.username }}. Each task card should contain task information and any required attached documents. Tasks are divided into related time periods, with the current period always showing unless a time period is selected via above menu links. To open a task simply click on the required task card.</p>
+                                    
                                 </div>
                             </div>
                         </diV>

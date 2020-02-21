@@ -1,6 +1,6 @@
 <template>
   <div class="card bg-transparent border-task border-right-1 mb-3">
-    <div class="card-header" v-bind:id="'heading' + task.id">
+    <div class="card-header position-relative" v-bind:id="'heading' + task.id">
       
       <div class="container-fluid">
         <div class="row">
@@ -17,9 +17,9 @@
             </p>
           </div>
 
-          <div class="col-4 text-center">
+          <div class="col-4 text-center position-static my-auto">
             <h3>
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" v-bind:data-target="'#collapse' + task.id" aria-expanded="false" v-bind:aria-controls="'collapse' + task.id">
+            <button class="btn btn-link collapsed stretched-link" type="button" data-toggle="collapse" v-bind:data-target="'#collapse' + task.id" aria-expanded="false" v-bind:aria-controls="'collapse' + task.id">
               
             </button>
             </h3>
