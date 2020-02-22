@@ -65530,7 +65530,7 @@ exports = module.exports = __webpack_require__(142)(true);
 
 
 // module
-exports.push([module.i, "\n.bg-black[data-v-8142f38c] {\r\n  background-color: black;\n}\n.modal-xl[data-v-8142f38c] {\r\n      min-width: 100%;\n}\r\n\r\n\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/App.vue"],"names":[],"mappings":";AA2MA;EACA,wBAAA;CACA;AAIA;MACA,gBAAA;CACA","file":"App.vue","sourcesContent":["<template>\r\n    <div id=\"app\">\r\n\r\n        <nav class=\"navbar navbar-expand-lg navbar-dark mb-1\" style=\"background-color: #8050bf;\">\r\n            <a class=\"navbar-brand\" href=\"#\">taskSTACK</a>\r\n            <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarText\" aria-controls=\"navbarText\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n                <span class=\"navbar-toggler-icon\"></span>\r\n            </button>\r\n            <div class=\"collapse navbar-collapse\" id=\"navbarText\">\r\n                <ul class=\"navbar-nav mr-auto\">\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/index')\" href=\"#\">Home</a>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/morning')\" href=\"#\">Morning</a>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/afternoon')\" href=\"#\">Early Afternoon</a>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/evening')\" href=\"#\">Late Afternoon</a>\r\n                    </li>\r\n                </ul>\r\n                <span class=\"navbar-text\">\r\n                    {{ tasks.username }}\r\n                </span>\r\n            </div>\r\n        </nav>\r\n\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col\">\r\n                    <message-component\r\n                        v-for=\"message in messages\"\r\n                        v-bind:message=\"message\"\r\n                        :key=\"message.id\"\r\n                    ></message-component>\r\n                </div>\r\n\r\n                \r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-1\">\r\n                </div>\r\n\r\n                <div class=\"col-10\">\r\n                    <div class=\"row mb-1\">\r\n                        <div class=\"col-4 text-center my-auto\">\r\n                            <h1>\r\n                                <label class=\"mt-2\"> {{ correctPeriod(tasks.period) }} Tasks</label>\r\n                            </h1>\r\n                                \r\n                        </div>\r\n\r\n                        <div class=\"col-8\">\r\n                            <div class=\"card\">\r\n                                <div class=\"card-body\">\r\n                                    <h4 class=\"card-title\"><strong>Welcome to taskSTACK</strong></h4>\r\n                                    <p class=\"card-text\" style=\"font-size:medium\">Please find below one or more task cards compromising of tasks related to {{ tasks.username }}. Each task card should contain task information and any required attached documents. Tasks are divided into related time periods, with the current period always showing unless a time period is selected via above menu links. To open a task simply click on the required task card.</p>\r\n                                    \r\n                                </div>\r\n                            </div>\r\n                        </diV>\r\n                    </div>\r\n                    <div class=\"accordion\" id=\"accordion\">\r\n                        <task-component\r\n                            v-for=\"task in tasks\"\r\n                            v-bind:task=\"task\"\r\n                            :key=\"task.id\"\r\n                        ></task-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-1\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- View PDF -->\r\n        <div \r\n        class=\"modal fade\" \r\n        id=\"pdfview\" \r\n        tabindex=\"-1\" \r\n        role=\"dialog\" \r\n        aria-labelledby=\"view_pdf\" \r\n        aria-hidden=\"true\">\r\n            <div class=\"modal-dialog modal-dialog-centered modal-xl\" role=\"document\">\r\n                <div class=\"modal-content\">\r\n                    <div class=\"modal-header\">\r\n                        <h5 class=\"modal-title\" id=\"view_pdf\">View PDF</h5>\r\n                        <button \r\n                        type=\"button\" \r\n                        class=\"close\" \r\n                        data-dismiss=\"modal\" \r\n                        aria-label=\"Close\">\r\n                            <span aria-hidden=\"true\">&times;</span>\r\n                        </button>\r\n                    </div>\r\n                    <div class=\"modal-body\">\r\n                        <div class=\"container-fluid\">\r\n                            <div id=\"pdf\"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</template>\r\n\r\n<script>\r\n\r\n    import TaskComponent from './Task.vue';\r\n    import MessageComponent from './Message.vue';\r\n\r\n    export default {\r\n        data: function() {\r\n            return {\r\n                tasks: [],\r\n                errors: [],\r\n                messages: [],\r\n                timer:'',\r\n                options: {\r\n                    height: \"800 rem\",\r\n                    width: \"100%\",\r\n                },\r\n                period: \"/task/index\",\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            read: function () {\r\n                window.axios.get(this.period).then( response => {\r\n                    this.tasks = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n\r\n                window.axios.get('/message/index').then( response => {\r\n                    this.messages = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n\r\n            },\r\n            submitFile: function (path) {\r\n                console.log(\"submit\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            },\r\n            correctPeriod: function (period) {\r\n                if (period === 'afternoon') {\r\n                    return 'Early Afternoon';\r\n\r\n                } else if (period === 'evening') {\r\n                    return 'Late Afternoon';\r\n                } else {\r\n                    return 'Morning';\r\n                }\r\n            },\r\n            setPeriod: function (period) {\r\n                this.period = period;\r\n                //Refresh\r\n                this.read();\r\n            }\r\n            \r\n        },\r\n        \r\n        components: {\r\n            TaskComponent,\r\n            MessageComponent,\r\n        },\r\n\r\n        created() {\r\n            \r\n            this.read();\r\n            //Refresh\r\n            this.timer = setInterval(this.read, 30000)\r\n\r\n            //Focus on opened accordion card\r\n            $(document).ready(function() {\r\n                $('#accordion').on('shown.bs.collapse', function(e) {\r\n\r\n                    var $card = $(this).find('.collapse.show').prev();\r\n                    $('html,body').animate({\r\n                    scrollTop: $card.offset().top\r\n                    }, 500);\r\n                });\r\n            });\r\n        },\r\n\r\n        beforeDestroy () {\r\n            clearInterval(this.timer);\r\n        },\r\n    }\r\n</script>\r\n\r\n<style scoped>\r\n\r\n.bg-black {\r\n  background-color: black;\r\n}\r\n\r\n\r\n\r\n.modal-xl {\r\n      min-width: 100%;\r\n}\r\n\r\n\r\n\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.bg-black[data-v-8142f38c] {\r\n  background-color: black;\n}\n.modal-xl[data-v-8142f38c] {\r\n      min-width: 100%;\n}\n.badge-view[data-v-8142f38c] {\r\n  color: #fff;\r\n  background-color: #8050bf;\n}\r\n\r\n\r\n", "", {"version":3,"sources":["E:/Web/htdocs/taskStack/resources/assets/js/components/resources/assets/js/components/App.vue"],"names":[],"mappings":";AA6MA;EACA,wBAAA;CACA;AAIA;MACA,gBAAA;CACA;AAEA;EACA,YAAA;EACA,0BAAA;CACA","file":"App.vue","sourcesContent":["<template>\r\n    <div id=\"app\">\r\n\r\n        <nav class=\"navbar navbar-expand-lg navbar-dark mb-1\" style=\"background-color: #8050bf;\">\r\n            <img v-bind:src=\"SiteRoute + 'img/taskSTACK.png'\" style=\"width: 8%\">\r\n            <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarText\" aria-controls=\"navbarText\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n                <span class=\"navbar-toggler-icon\"></span>\r\n            </button>\r\n            <div class=\"collapse navbar-collapse\" id=\"navbarText\">\r\n                <ul class=\"navbar-nav mr-auto\">\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/index')\" href=\"#\">Current</a>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/morning')\" href=\"#\">Morning</a>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/afternoon')\" href=\"#\">Early Afternoon</a>\r\n                    </li>\r\n                    <li class=\"nav-item\">\r\n                        <a class=\"nav-link\" v-on:click=\"setPeriod('/task/evening')\" href=\"#\">Late Afternoon</a>\r\n                    </li>\r\n                </ul>\r\n                <span class=\"navbar-text\">\r\n                    {{ tasks.username }}\r\n                </span>\r\n            </div>\r\n        </nav>\r\n\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col\">\r\n                    <message-component\r\n                        v-for=\"message in messages\"\r\n                        v-bind:message=\"message\"\r\n                        :key=\"message.id\"\r\n                    ></message-component>\r\n                </div>\r\n\r\n                \r\n            </div>\r\n            <div class=\"row\">\r\n                <div class=\"col-1\">\r\n                </div>\r\n\r\n                <div class=\"col-10\">\r\n                    <div class=\"row mb-1\">\r\n                        <div class=\"col-4 text-center my-auto\">\r\n                            <h2><strong>Currently viewing:</strong></h2>\r\n                            <h1>\r\n                                <span class=\"mt-2 badge badge-view\"> {{ correctPeriod(tasks.period) }} Tasks</span>\r\n                            </h1>\r\n                                \r\n                        </div>\r\n\r\n                        <div class=\"col-8\">\r\n                            <div class=\"card\">\r\n                                <div class=\"card-body\">\r\n                                    <h4 class=\"card-title\"><strong>Welcome to taskSTACK</strong></h4>\r\n                                    <p class=\"card-text\" style=\"font-size:medium\">Please find below one or more task cards compromising of tasks related to <strong>{{ tasks.username }}</strong>. Each task card should contain task information and any required attached documents. Tasks are divided into related time periods, with the current period always showing unless a time period is selected using the above menu links; use the <a v-on:click=\"setPeriod('/task/index')\" href=\"#\">Current</a> link to show current period. To <strong>open a task</strong> simply click on the required task card.</p>\r\n                                    \r\n                                </div>\r\n                            </div>\r\n                        </diV>\r\n                    </div>\r\n                    <div class=\"accordion\" id=\"accordion\">\r\n                        <task-component\r\n                            v-for=\"task in tasks\"\r\n                            v-bind:task=\"task\"\r\n                            :key=\"task.id\"\r\n                        ></task-component>\r\n                    </div>\r\n                </div>\r\n                <div class=\"col-1\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <!-- View PDF -->\r\n        <div \r\n        class=\"modal fade\" \r\n        id=\"pdfview\" \r\n        tabindex=\"-1\" \r\n        role=\"dialog\" \r\n        aria-labelledby=\"view_pdf\" \r\n        aria-hidden=\"true\">\r\n            <div class=\"modal-dialog modal-dialog-centered modal-xl\" role=\"document\">\r\n                <div class=\"modal-content\">\r\n                    <div class=\"modal-header\">\r\n                        <h5 class=\"modal-title\" id=\"view_pdf\">View PDF</h5>\r\n                        <button \r\n                        type=\"button\" \r\n                        class=\"close\" \r\n                        data-dismiss=\"modal\" \r\n                        aria-label=\"Close\">\r\n                            <span aria-hidden=\"true\">&times;</span>\r\n                        </button>\r\n                    </div>\r\n                    <div class=\"modal-body\">\r\n                        <div class=\"container-fluid\">\r\n                            <div id=\"pdf\"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</template>\r\n\r\n<script>\r\n\r\n    import TaskComponent from './Task.vue';\r\n    import MessageComponent from './Message.vue';\r\n\r\n    export default {\r\n        data: function() {\r\n            return {\r\n                SiteRoute: SiteRoute,\r\n                tasks: [],\r\n                errors: [],\r\n                messages: [],\r\n                timer:'',\r\n                options: {\r\n                    height: \"800 rem\",\r\n                    width: \"100%\",\r\n                },\r\n                period: \"/task/index\",\r\n                path: null\r\n            }\r\n        },\r\n\r\n        methods: {\r\n            read: function () {\r\n                window.axios.get(this.period).then( response => {\r\n                    this.tasks = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n\r\n                window.axios.get('/message/index').then( response => {\r\n                    this.messages = response.data;\r\n                })\r\n                .catch(e => {\r\n                    this.errors.push(e);\r\n                })\r\n\r\n            },\r\n            submitFile: function (path) {\r\n                console.log(\"submit\"); \r\n                PDFObject.embed(path, \"#pdf\", this.options);\r\n                $('#pdfview').modal('show');\r\n                \r\n            },\r\n            correctPeriod: function (period) {\r\n                if (period === 'afternoon') {\r\n                    return 'Early Afternoon';\r\n\r\n                } else if (period === 'evening') {\r\n                    return 'Late Afternoon';\r\n                } else {\r\n                    return 'Morning';\r\n                }\r\n            },\r\n            setPeriod: function (period) {\r\n                this.period = period;\r\n                //Refresh\r\n                this.read();\r\n            }\r\n            \r\n        },\r\n        \r\n        components: {\r\n            TaskComponent,\r\n            MessageComponent,\r\n        },\r\n\r\n        created() {\r\n            \r\n            this.read();\r\n            //Refresh every 2 minutes\r\n            this.timer = setInterval(this.read, 120000)\r\n\r\n            //Focus on opened accordion card\r\n            $(document).ready(function() {\r\n                $('#accordion').on('shown.bs.collapse', function(e) {\r\n\r\n                    var $card = $(this).find('.collapse.show').prev();\r\n                    $('html,body').animate({\r\n                    scrollTop: $card.offset().top\r\n                    }, 500);\r\n                });\r\n            });\r\n        },\r\n\r\n        beforeDestroy () {\r\n            clearInterval(this.timer);\r\n        },\r\n    }\r\n</script>\r\n\r\n<style scoped>\r\n\r\n.bg-black {\r\n  background-color: black;\r\n}\r\n\r\n\r\n\r\n.modal-xl {\r\n      min-width: 100%;\r\n}\r\n\r\n.badge-view {\r\n  color: #fff;\r\n  background-color: #8050bf;\r\n}\r\n\r\n\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -65688,6 +65688,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -65696,6 +65697,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            SiteRoute: SiteRoute,
             tasks: [],
             errors: [],
             messages: [],
@@ -65755,8 +65757,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
 
         this.read();
-        //Refresh
-        this.timer = setInterval(this.read, 30000);
+        //Refresh every 2 minutes
+        this.timer = setInterval(this.read, 120000);
 
         //Focus on opened accordion card
         $(document).ready(function () {
@@ -66322,9 +66324,10 @@ var render = function() {
         staticStyle: { "background-color": "#8050bf" }
       },
       [
-        _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-          _vm._v("taskSTACK")
-        ]),
+        _c("img", {
+          staticStyle: { width: "8%" },
+          attrs: { src: _vm.SiteRoute + "img/taskSTACK.png" }
+        }),
         _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
@@ -66348,7 +66351,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Home")]
+                  [_vm._v("Current")]
                 )
               ]),
               _vm._v(" "),
@@ -66433,8 +66436,10 @@ var render = function() {
         _c("div", { staticClass: "col-10" }, [
           _c("div", { staticClass: "row mb-1" }, [
             _c("div", { staticClass: "col-4 text-center my-auto" }, [
+              _vm._m(1),
+              _vm._v(" "),
               _c("h1", [
-                _c("label", { staticClass: "mt-2" }, [
+                _c("span", { staticClass: "mt-2 badge badge-view" }, [
                   _vm._v(
                     " " + _vm._s(_vm.correctPeriod(_vm.tasks.period)) + " Tasks"
                   )
@@ -66445,7 +66450,7 @@ var render = function() {
             _c("div", { staticClass: "col-8" }, [
               _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-body" }, [
-                  _vm._m(1),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c(
                     "p",
@@ -66455,10 +66460,27 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "Please find below one or more task cards compromising of tasks related to " +
-                          _vm._s(_vm.tasks.username) +
-                          ". Each task card should contain task information and any required attached documents. Tasks are divided into related time periods, with the current period always showing unless a time period is selected via above menu links. To open a task simply click on the required task card."
-                      )
+                        "Please find below one or more task cards compromising of tasks related to "
+                      ),
+                      _c("strong", [_vm._v(_vm._s(_vm.tasks.username))]),
+                      _vm._v(
+                        ". Each task card should contain task information and any required attached documents. Tasks are divided into related time periods, with the current period always showing unless a time period is selected using the above menu links; use the "
+                      ),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.setPeriod("/task/index")
+                            }
+                          }
+                        },
+                        [_vm._v("Current")]
+                      ),
+                      _vm._v(" link to show current period. To "),
+                      _c("strong", [_vm._v("open a task")]),
+                      _vm._v(" simply click on the required task card.")
                     ]
                   )
                 ])
@@ -66482,7 +66504,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(2)
+    _vm._m(3)
   ])
 }
 var staticRenderFns = [
@@ -66505,6 +66527,12 @@ var staticRenderFns = [
       },
       [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h2", [_c("strong", [_vm._v("Currently viewing:")])])
   },
   function() {
     var _vm = this

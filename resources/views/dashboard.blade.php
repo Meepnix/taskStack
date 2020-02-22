@@ -14,7 +14,7 @@
 
                 <!--Groups-->
                 <div class="card border-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header"><h5>Groups</h5></div>
+                    <div class="card-header"><h5>Users</h5></div>
                     <div class="card-body">
                         <a 
                         style="margin-bottom: 1.5em;" 

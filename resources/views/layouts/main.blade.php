@@ -64,6 +64,9 @@
                     <a href="{{ route('admin.task.show') }}">Tasks</a>
                 </li>
                 <li>
+                    <a href="{{ route('admin.label.show') }} ">Task Labels</a>
+                </li>
+                <li>
                     <a href="{{ route('admin.slot.showGroups') }}">Task Slots</a>
                 </li>
                 <li>
@@ -87,6 +90,7 @@
                         </a>
                         
                     @endif
+                        <img src="{{ asset('img/taskSTACK_pur.png') }}" style="width: 20%" class="ml-1">
 
                     </div>
                     <div class="col">
@@ -139,6 +143,7 @@
                         </span>
                     </div>
                 </div>
+                
 
                 @yield('content')
 

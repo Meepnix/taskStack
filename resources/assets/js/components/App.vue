@@ -2,14 +2,14 @@
     <div id="app">
 
         <nav class="navbar navbar-expand-lg navbar-dark mb-1" style="background-color: #8050bf;">
-            <a class="navbar-brand" href="#">taskSTACK</a>
+            <img v-bind:src="SiteRoute + 'img/taskSTACK.png'" style="width: 8%">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" v-on:click="setPeriod('/task/index')" href="#">Home</a>
+                        <a class="nav-link" v-on:click="setPeriod('/task/index')" href="#">Current</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" v-on:click="setPeriod('/task/morning')" href="#">Morning</a>
@@ -46,8 +46,9 @@
                 <div class="col-10">
                     <div class="row mb-1">
                         <div class="col-4 text-center my-auto">
+                            <h2><strong>Currently viewing:</strong></h2>
                             <h1>
-                                <label class="mt-2"> {{ correctPeriod(tasks.period) }} Tasks</label>
+                                <span class="mt-2 badge badge-view"> {{ correctPeriod(tasks.period) }} Tasks</span>
                             </h1>
                                 
                         </div>
@@ -56,7 +57,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title"><strong>Welcome to taskSTACK</strong></h4>
-                                    <p class="card-text" style="font-size:medium">Please find below one or more task cards compromising of tasks related to {{ tasks.username }}. Each task card should contain task information and any required attached documents. Tasks are divided into related time periods, with the current period always showing unless a time period is selected via above menu links. To open a task simply click on the required task card.</p>
+                                    <p class="card-text" style="font-size:medium">Please find below one or more task cards compromising of tasks related to <strong>{{ tasks.username }}</strong>. Each task card should contain task information and any required attached documents. Tasks are divided into related time periods, with the current period always showing unless a time period is selected using the above menu links; use the <a v-on:click="setPeriod('/task/index')" href="#">Current</a> link to show current period. To <strong>open a task</strong> simply click on the required task card.</p>
                                     
                                 </div>
                             </div>
@@ -116,6 +117,7 @@
     export default {
         data: function() {
             return {
+                SiteRoute: SiteRoute,
                 tasks: [],
                 errors: [],
                 messages: [],
@@ -178,8 +180,8 @@
         created() {
             
             this.read();
-            //Refresh
-            this.timer = setInterval(this.read, 30000)
+            //Refresh every 2 minutes
+            this.timer = setInterval(this.read, 120000)
 
             //Focus on opened accordion card
             $(document).ready(function() {
@@ -211,6 +213,10 @@
       min-width: 100%;
 }
 
+.badge-view {
+  color: #fff;
+  background-color: #8050bf;
+}
 
 
 </style>
